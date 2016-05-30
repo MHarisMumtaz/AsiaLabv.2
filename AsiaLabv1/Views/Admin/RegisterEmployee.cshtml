@@ -1,0 +1,359 @@
+﻿@{
+    ViewBag.Title = "RegisterEmployee";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@model AsiaLabv1.Models.UserModel
+@section Banner
+{
+    <div class="banner">
+
+        <h2>
+            <a href="index.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+            <span>Admin Dashboard</span>
+        </h2>
+    </div>
+}
+
+@*---------Start Side Navigation Menu-----------*@
+
+@section NavMenu
+{
+    <li>
+        <a href="@Url.Action("AdminDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
+
+    <li>
+        <a href="@Url.Action("TestsManagement", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Tests Management</span></a>
+
+    </li>
+    <li>
+        <a href="@Url.Action("DoctorReferrals", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i> <span class="nav-label">Doctor Referrals</span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("Register","Admin")" class=" hvr-bounce-to-right"> <i class="fa fa-indent nav_icon"></i>Employee Management</a>
+    </li>
+
+<li>
+    <a href="@Url.Action("Templates","Admin")" class="hvr-bounce-to-right"> <i class="fa fa-indent nav_icon"></i>Templates</a>
+</li>
+    <li>
+        <a href="@Url.Action("Accounting", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-th nav_icon"></i> <span class="nav-label">Accounting</span> </a>
+    </li>
+
+    <li>
+    <li>
+        <a href="@Url.Action("BranchReport", "Admin")" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Branch Report</a>
+    </li>
+
+}
+<div class="typo-grid">
+
+    <div class="typo-1">
+
+
+        <div class="grid_3 grid_5">
+            <h3 class="head-top">Employee Management Options</h3>
+            <div class="but_list">
+                <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Manage Employees</a></li>
+                        <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Register Employee</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                            <div class="grid-form1">
+                                <h4>Registered Employees List</h4>
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="horizontal-form">
+                                        @*Grid Code*@
+                                        <div id="grid"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                            <div class="grid-form1">
+                                @*----------------------------------------------------------------------------------------------------------------------------------*@
+                                @*<h3>Add New Tests</h3>*@
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="horizontal-form">
+                                        <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
+
+width:60%; height:20%; margin:auto; padding:10px'>
+                                            <img src='~/images/rsz_success.png'
+                                                 style='margin-bottom:2px; margin-right:5px' /> Employee Added Successfully!
+
+                                        </div>
+                                       
+                                        @using (Html.BeginForm("RegisterUser", "Admin", FormMethod.Post, new { id = "EmpRegistrationForm", @class = "form-horizontal" }))
+                                        {
+                                            <br />
+                                             
+                                            <div class="form-group">
+                                                <label for="pname" class="col-sm-2 control-label">Branch</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.BranchId, Model.Branches,"Select Branch", new { @class = "form-control1", id = "branchdropdown" })
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="checkbox" class="col-sm-2 control-label">User Type</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.UserTypeId, Model.UserTypes, "Select User Type", new { @class = "form-control1", id = "usertypedropdown" })
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pname" class="col-sm-2 control-label">Name</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.Name, new { name = "fname", @class = "form-control1", id = "name" })
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="checkbox" class="col-sm-2 control-label">Gender</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.GenderId, Model.Genders, "Select Gender", new { @class = "form-control1", id = "genderdropdown" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="pname" class="col-sm-2 control-label">Username</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control1", @maxlength="15",@type="text", id = "username" })
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pname" class="col-sm-2 control-label">Password</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control1", @maxlength = "15", id = "password", type = "password" })
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pname" class="col-sm-2 control-label">Email</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control1", id = "email", @type = "email" })
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pname" class="col-sm-2 control-label">Contact no.</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control1", id = "contact", @minlength = "11", @maxlength = "11", onkeypress = "return isNumberKey(event)" })
+                                                    <label class="label" id="com" style="color:red"></label>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pname" class="col-sm-2 control-label">CNIC</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.CNIC, new { @class = "form-control1", id = "cnic", @maxlength = "13", onkeypress = "return isNumberKey2(event)" })
+                                                    <label class="label" id="number" style="color:red"></label>
+                                                </div>
+                                                
+                                            </div>
+                                             <div class="form-group">
+                                                <label for="pname" class="col-sm-2 control-label"></label>
+                                                <div class="col-sm-8">
+                                                    <label style="color:grey; font-style:italic" for="pname" class="label">(Enter CNIC without hyphen "-")</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="pname" class="col-sm-2 control-label">Address Details</label>
+                                                <div class="col-sm-8">
+
+                                                    @Html.TextBoxFor(model => model.AddressDetails, new { @class = "form-control1", id = "address", @type = "text" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label for="pname" id="q1" class="col-sm-2 control-label">Qualification</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.Qualification, new { @class = "form-control1", id = "qualification", @type = "text" })
+                                                </div>
+
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-2 control-label"></label>
+                                                <div class="col-sm-8">
+
+                                                    <label id="Error" style="color:red">Please Fill All The Required Fields Above</label>
+
+                                                </div>
+
+                                            </div>
+                                             <div id="loadspinner">
+                                            <i style="margin-left:26%" class="fa fa-fw fa-spin fa-spinner"></i>
+                                        </div>
+                                            <div class="form-group">
+
+                                                <div class="col-sm-8" style="margin-left:26%">
+                                                    <button id="formsubmitbtn" type="submit" class="btn btn-danger">Submit</button>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="clearfix"> </div>
+
+                                        }
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#myDiv').hide();
+    $('#Error').hide();
+
+    $('#loadspinner').hide();
+
+    $(document).ready(function () {
+
+
+        $("#formsubmitbtn").click(function () {
+            $('#loadspinner').show();
+            branch = $('#branchdropdown').val();
+            usertype = $('#usertypedropdown').val();
+            name = $('#name').val();
+            gender = $('#genderdropdown').val();
+            username = $('#username').val();
+            password = $('#password').val();
+            email = $('#email').val();
+            contact = $('#contact').val();
+            cnic = $('#cnic').val();
+            address = $('#address').val();
+            qualification = $('#qualification').val();
+
+            if (branch == "" || usertype == "" || name == "" || gender == "" || username == "" || password == "" || email == "" || contact == "" || cnic == "" || address == "" || qualification == "") {
+                $('#Error').show();
+                $('#Error').fadeOut(3000);
+                $('#loadspinner').hide();
+
+            }
+
+            else {
+                $("#EmpRegistrationForm").submit();                
+                $('#loadspinner').hide();
+            }
+
+        });
+    });
+
+    //Kendo Grid For Viewing Referred Doctors
+
+    window.onload = function () {
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/Admin/FillKendoForEmployees/',
+            data: { isFill: 'none' },
+            dataType: "json",
+
+        });
+
+
+
+
+        var crudServiceBaseUrl = "/Admin",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "/FillKendoForEmployees",
+                            dataType: "json",
+
+                        },
+                        update: {
+                            url: crudServiceBaseUrl + "/UpdateKendoGridEmp",
+                            dataType: "json",
+
+
+                        },
+                        destroy: {
+                            url: crudServiceBaseUrl + "/DeleteDoc",
+                            dataType: "json",
+                        },
+
+                        parameterMap: function (options, operation) {
+
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        },
+
+                    },
+                    batch: true,
+                    pageSize: 20,
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                Name: { type: "string" },
+                                Gender: { type: "string" },
+                                UserName: { type: "string" },
+                                Email: { type: "string" },
+                                UserRole: { type: "string" },
+                                BranchName: { type: "string" },
+                            }
+                        }
+                    },
+                    completed: function () { //alert('COmpleted');
+                    },
+                    requestEnd: function (e) {
+                        //$('#grid').data('kendoGrid').dataSource.read();
+                        $('#grid').data('kendoGrid').refresh();
+                    },
+
+                });
+
+        $("#grid").kendoGrid({
+            dataSource: dataSource,
+            pageable: true,
+            height: 550,
+
+            //change: onChange,
+            //toolbar: ["create"],
+            columns: [
+                  { field: "Id", title: "ID", width: "50px" },
+                  { field: "Name", title: "Name", width: "130px" },
+                  { field: "Gender", title: "Gender", width: "90px" },
+                  { field: "UserName", title: "Username", width: "130px" },
+                    { field: "Email", title: "Email", width: "130px" },
+                    { field: "UserRole", title: "Role", width: "130px" },
+                    { field: "BranchName", title: "Branch", width: "200px" },
+                  { command: ["edit"], title: "&nbsp;", width: "100px" },
+            ],
+            editable: "inline"
+        });
+
+    };
+
+</script>
+
+<br /><br /><br />

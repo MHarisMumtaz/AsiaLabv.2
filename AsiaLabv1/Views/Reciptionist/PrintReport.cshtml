@@ -1,0 +1,167 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@section Banner
+{
+    <div class="banner">
+
+        <h2>
+            <a href="index.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+            <span>Print Report</span>
+        </h2>
+    </div>
+}
+
+@*---------Start Side Navigation Menu-----------*@
+
+@section NavMenu
+{
+    <li>
+        <a href="@Url.Action("ReceptionistDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
+
+
+
+    <li><a href="@Url.Action("RegisterPatient", "Reciptionist" )" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i>Accept Test</a></li>
+    <li><a href="@Url.Action("PrintReport", "Reciptionist")" class=" hvr-bounce-to-right"><i class="fa fa-file-text-o nav_icon"></i>Print Report</a></li>
+
+
+
+
+}
+@*------------ End Side Navigation Menu----------*@
+
+
+@*------------- Start Main Content Code-------------*@
+
+<div class="typo-grid">
+
+    <div class="typo-1">
+
+
+        <div class="grid_3 grid_5">
+
+            <div class="but_list">
+                <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Show All</a></li>
+                        <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Search Reports</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+
+                            <h3>Show all Reports</h3>
+                            <div class="tab-content">
+
+                                <div class="tab-pane active" id="horizontal-form">
+                                    <div class="horz-grid">
+                                        <div class="grid-hor">
+                                            <h4 id="grid-example-mixed-complete">Patients List</h4>
+
+                                        </div>
+                                        <!---->
+
+                                        <div class="row show-grid">
+                                            <div class="col-xs-6 col-sm-3">Patient no.</div>
+                                            <div class="col-xs-6 col-sm-3">Patient Name</div>
+                                            <div class="col-xs-6 col-sm-3">Print Options</div>
+                                        </div>
+                                        <div class="row show-grid">
+                                            <div class="col-xs-6 col-sm-3">1008</div>
+                                            <div class="col-xs-6 col-sm-3">Shahzad</div>
+                                            &nbsp;
+                                            <div class="col-xs-6 col-sm-3">
+                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location='';">Print Report</button>
+                                                &nbsp;
+                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location='';">Show as PDF</button>
+
+
+
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row show-grid">
+                                            <div class="col-xs-6 col-sm-3">1009</div>
+                                            <div class="col-xs-6 col-sm-3">Akhtar</div>
+                                            &nbsp;
+                                            <div class="col-xs-6 col-sm-3">
+                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location='';">Print Report</button>
+                                                &nbsp;
+                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location='';">Show as PDF</button>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+
+                            <h3>Search Reports By Date</h3>
+                            <div class="tab-content">
+
+                                <div class="tab-pane active" id="horizontal-form">
+
+                                    <form class="form-horizontal">
+                                        <br />
+                                        <div class="form-group">
+                                            <label for="pname" class="col-sm-2 control-label">From Date</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" class="form-control1" id="focusedinput">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pname" class="col-sm-2 control-label">To Date</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" class="form-control1" id="focusedinput">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-2 login-do" style="margin-left:40%">
+                                            <label class="hvr-shutter-in-horizontal login-sub">
+                                                <input type="submit" value="See Results" onclick="window.location='signup.html';" />
+                                            </label>
+                                        </div>
+                                        <br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+                                        <br />
+
+
+                                        <div class="clearfix"> </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+            </div>
+
+
+<!--//grid-->
+@*------------- End Main Content Code-------------*@
+

@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "LoginPage";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asia Lab Diagnostic Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Minimal Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <!-- Custom Theme files -->
+    <link href="~/css/style.css" rel='stylesheet' type='text/css' />
+    <link href="~/css/font-awesome.css" rel="stylesheet">
+    <script src="~/js/jquery.min.js"> </script>
+    <script src="~/js/bootstrap.min.js"> </script>
+</head>
+<body>
+    <div class="copy-right">
+        <img src="~/images/logo.jpg" width="450" height="120" />
+    </div>
+    <div class="login copy-right">
+        <h2 style="color:#d95459">Welcome to the Asia Lab Diagnostic Center</h2>
+        <div class="login-bottom">
+            <h2>Login</h2>
+
+            <form action="/Main/Login" id="myForm" method="post">
+                <div class="col-md-6">
+                    <div class="login-mail">
+                        <input id="loginusername" name="Email" type="text" placeholder="Username" required="">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <div style="margin-top:0">
+
+                    </div>
+
+
+                    <div class="login-mail">
+                        <input id="loginpassword" name="Password" type="password" placeholder="Password" required="">
+                        <i class="fa fa-lock"></i>
+                    </div>
+
+                    @*<a class="news-letter " href="#">
+                            <label class="checkbox1"><input type="checkbox" name="checkbox"><i> </i>Forget Password</label>
+                        </a>*@
+
+
+
+                </div>
+                <div class="col-md-6 login-do">
+                    <div class="clearfix" style="margin-top:28%">
+
+                        <label class="hvr-shutter-in-horizontal login-sub">
+
+                            <input id="loginsubmit" type="submit" value="Login" />
+
+
+                        </label>
+                    </div>
+                    <!--<p>Do not have an account?</p>
+                    <a href="signup.html" class="hvr-shutter-in-horizontal">Signup</a>-->
+                </div>
+
+                <div class="clearfix"> </div>
+                <div id="myDiv" class='alert alert-danger fade in' style='text-align:center; width:100%; height:20%; margin:auto; padding:10px'>
+                    <img src='~/images/rem_btn.png' width="20" height="20" style='margin-bottom:2px; float:left; margin-right:5px' />
+                    <label class="label" id="labeluser" style="color:indianred; text-align:center;font-size:15px">Please Enter Username</label>
+                    <label class="label" id="labelpass" style="color: indianred; text-align: center; font-size: 15px">Please Enter Password</label>
+                    <label class="label" id="labelboth" style="color: indianred; text-align: center; font-size: 15px">Please Enter Username & Password</label>
+
+                </div>
+                <i id="spinnn" class="fa fa-fw fa-spin fa-spinner"></i>
+                @*<div class="alert alert-danger" role="alert">
+                        <label class="label" id="labeluser" style="color: red; text-align:center;font-size:15px">Please Enter Username</label>
+                        <label class="label" id="labelpass" style="color: red; text-align: center; font-size: 15px">Please Enter Password</label>
+                        <label class="label" id="labelboth" style="color: red; text-align: center; font-size: 15px">Please Enter Username & Password</label>
+                    </div>*@
+                @if (ViewBag.LoginFailed == true)
+                {
+                    <div id="wrong" class='alert alert-danger fade in' style='text-align:center; width:100%; height:20%; margin:auto; padding:10px'>
+                        <label class="label" id="labelboth" style="color: indianred; text-align: center; font-size: 15px">Wrong Credentialss</label>
+                    </div>
+                }
+
+            </form>
+        </div>
+    </div>
+    <!---->
+    <div class="copy-right">
+        <p> &copy; All Rights Reserved | Designed by <a href="" target="">Xperium Technologies</a> </p>
+    </div>
+    <!---->
+    <!--scrolling js-->
+    <script src="~/js/jquery.nicescroll.js"></script>
+    <script src="~/js/scripts.js"></script>
+    <!--//scrolling js-->
+
+    <script>
+
+        $('#labeluser').hide();
+        $('#labelpass').hide();
+        $('#labelboth').hide();
+        $('#myDiv').hide();
+        $('#spinnn').hide();
+
+        $(document).ready(function () {
+            $('#loginsubmit').click(function () {
+
+                $('#spinnn').show();
+                var username = $('#loginusername').val();
+                var password = $('#loginpassword').val();
+
+
+                if (username == "" && password == "") {
+                    $('#labelpass').hide();
+                    $('#labeluser').hide();
+
+                    $('#labelboth').show();
+                    $('#myDiv').show();
+                    $('#spinnn').hide();
+
+                }
+                else if (username == "") {
+                    $('#labeluser').show();
+                    $('#myDiv').show();
+
+                    $('#labelpass').hide();
+                    $('#labelboth').hide();
+                    $('#spinnn').hide();
+                }
+
+                else if (password == "") {
+                    $('#labelpass').show();
+                    $('#myDiv').show();
+
+                    $('#labeluser').hide();
+                    $('#labelboth').hide();
+                    $('#spinnn').hide();
+                }
+
+                else {
+                    $('#labelpass').hide();
+                    $('#myDiv').hide();
+                    $('#labeluser').hide();
+                    $('#labelboth').hide();
+
+                    $('#myForm').submit();
+                    $('#spinnn').show();
+                }
+            });
+
+        });
+
+    </script>
+</body>
+</html>

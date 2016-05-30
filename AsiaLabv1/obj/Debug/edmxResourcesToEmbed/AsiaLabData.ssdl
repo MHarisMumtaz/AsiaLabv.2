@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AsiaLabDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserEmployeeId" Type="int" Nullable="false" />
+    <Property Name="UserTypeId" Type="int" Nullable="false" />
+    <Property Name="ContactNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="GenderId" Type="int" Nullable="false" />
+    <Property Name="Qualification" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AddressDetail" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CNIC" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Branches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BranchName" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="BranchAddress" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="BranchCode" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+    <Property Name="BranchContactNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DoctorComments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="DoctorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GenderDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PatientNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="GenderId" Type="int" Nullable="false" />
+    <Property Name="Age" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Months" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Days" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PatientRefer">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="ReferId" />
+      <PropertyRef Name="PatientId" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReferId" Type="int" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PatientTestResults">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientTestId" Type="int" Nullable="false" />
+    <Property Name="Result" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ApprovalStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PatientTests">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="TestSubcategoryId" />
+      <PropertyRef Name="PatientId" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestSubcategoryId" Type="int" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="PatientName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PaidAmount" Type="float" Nullable="false" />
+    <Property Name="NetAmount" Type="float" Nullable="false" />
+    <Property Name="Balance" Type="float" Nullable="false" />
+    <Property Name="PayTypeId" Type="int" Nullable="false" />
+    <Property Name="Discount" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PayType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Refers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReferredDoctorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReferredDocAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReferredDocNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Template">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Header" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Footer" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Body" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestCategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestCategoryCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TestName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TestDepartmentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestDepartment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestSubcategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestSubcategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LowerBound" Type="float" Nullable="false" />
+    <Property Name="UpperBound" Type="float" Nullable="false" />
+    <Property Name="Rate" Type="float" Nullable="false" />
+    <Property Name="Unit" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TestCategoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserEmployee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Address_Gender">
+    <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="GenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Address_UserEmployee">
+    <End Role="UserEmployee" Type="Self.UserEmployee" Multiplicity="1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserEmployee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="UserEmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Address_UserType">
+    <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="UserTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contact_Branches">
+    <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+    <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branches">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patient_Branches">
+    <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+    <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branches">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patient_Gender">
+    <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+    <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="GenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientRefer_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="PatientRefer" Type="Self.PatientRefer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientRefer">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientRefer_Refers">
+    <End Role="Refers" Type="Self.Refers" Multiplicity="1" />
+    <End Role="PatientRefer" Type="Self.PatientRefer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Refers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientRefer">
+        <PropertyRef Name="ReferId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientTests_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="PatientTests" Type="Self.PatientTests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientTests">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientTests_TestSubcategories">
+    <End Role="TestSubcategories" Type="Self.TestSubcategories" Multiplicity="1" />
+    <End Role="PatientTests" Type="Self.PatientTests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestSubcategories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientTests">
+        <PropertyRef Name="TestSubcategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payment_PayType">
+    <End Role="PayType" Type="Self.PayType" Multiplicity="1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PayType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="PayTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TestCategories_TestDepartment">
+    <End Role="TestDepartment" Type="Self.TestDepartment" Multiplicity="1" />
+    <End Role="TestCategories" Type="Self.TestCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestDepartment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TestCategories">
+        <PropertyRef Name="TestDepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TestSubcategories_TestCategories">
+    <End Role="TestCategories" Type="Self.TestCategories" Multiplicity="1" />
+    <End Role="TestSubcategories" Type="Self.TestSubcategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestCategories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TestSubcategories">
+        <PropertyRef Name="TestCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserEmployee_Branches">
+    <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+    <End Role="UserEmployee" Type="Self.UserEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branches">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserEmployee">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AsiaLabDbModelStoreContainer">
+    <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DoctorComments" EntityType="Self.DoctorComments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientRefer" EntityType="Self.PatientRefer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientTestResults" EntityType="Self.PatientTestResults" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientTests" EntityType="Self.PatientTests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PayType" EntityType="Self.PayType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Refers" EntityType="Self.Refers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Template" EntityType="Self.Template" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCategories" EntityType="Self.TestCategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestDepartment" EntityType="Self.TestDepartment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestSubcategories" EntityType="Self.TestSubcategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserEmployee" EntityType="Self.UserEmployee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Address_Gender" Association="Self.FK_Address_Gender">
+      <End Role="Gender" EntitySet="Gender" />
+      <End Role="Address" EntitySet="Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Address_UserEmployee" Association="Self.FK_Address_UserEmployee">
+      <End Role="UserEmployee" EntitySet="UserEmployee" />
+      <End Role="Address" EntitySet="Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Address_UserType" Association="Self.FK_Address_UserType">
+      <End Role="UserType" EntitySet="UserType" />
+      <End Role="Address" EntitySet="Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contact_Branches" Association="Self.FK_Contact_Branches">
+      <End Role="Branches" EntitySet="Branches" />
+      <End Role="Contact" EntitySet="Contact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patient_Branches" Association="Self.FK_Patient_Branches">
+      <End Role="Branches" EntitySet="Branches" />
+      <End Role="Patient" EntitySet="Patient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patient_Gender" Association="Self.FK_Patient_Gender">
+      <End Role="Gender" EntitySet="Gender" />
+      <End Role="Patient" EntitySet="Patient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientRefer_Patient" Association="Self.FK_PatientRefer_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="PatientRefer" EntitySet="PatientRefer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientRefer_Refers" Association="Self.FK_PatientRefer_Refers">
+      <End Role="Refers" EntitySet="Refers" />
+      <End Role="PatientRefer" EntitySet="PatientRefer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientTests_Patient" Association="Self.FK_PatientTests_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="PatientTests" EntitySet="PatientTests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientTests_TestSubcategories" Association="Self.FK_PatientTests_TestSubcategories">
+      <End Role="TestSubcategories" EntitySet="TestSubcategories" />
+      <End Role="PatientTests" EntitySet="PatientTests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_Patient" Association="Self.FK_Payment_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payment_PayType" Association="Self.FK_Payment_PayType">
+      <End Role="PayType" EntitySet="PayType" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TestCategories_TestDepartment" Association="Self.FK_TestCategories_TestDepartment">
+      <End Role="TestDepartment" EntitySet="TestDepartment" />
+      <End Role="TestCategories" EntitySet="TestCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TestSubcategories_TestCategories" Association="Self.FK_TestSubcategories_TestCategories">
+      <End Role="TestCategories" EntitySet="TestCategories" />
+      <End Role="TestSubcategories" EntitySet="TestSubcategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserEmployee_Branches" Association="Self.FK_UserEmployee_Branches">
+      <End Role="Branches" EntitySet="Branches" />
+      <End Role="UserEmployee" EntitySet="UserEmployee" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

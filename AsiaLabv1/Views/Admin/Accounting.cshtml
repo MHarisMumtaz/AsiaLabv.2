@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Accounting";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@section Banner
+{
+    <div class="banner">
+
+        <h2>
+            <a href="index.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+            <span>Accounting</span>
+        </h2>
+    </div>
+}
+
+@*---------Start Side Navigation Menu-----------*@
+
+@section NavMenu
+{
+    <li>
+        <a href="@Url.Action("AdminDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
+
+    <li>
+        <a href="@Url.Action("TestsManagement","Admin")" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Tests Management</span></a>
+
+    </li>
+    <li>
+        <a href="@Url.Action("DoctorReferrals", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i> <span class="nav-label">Doctor Referrals</span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("Register","Admin")" class=" hvr-bounce-to-right"> <i class="fa fa-indent nav_icon"></i>Employee Management</a>
+    </li>
+    <li>
+        <a href="@Url.Action("Templates","Admin")" class="hvr-bounce-to-right"> <i class="fa fa-indent nav_icon"></i>Templates</a>
+    </li>
+
+    <li>
+        <a href="@Url.Action("Accounting", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-th nav_icon"></i> <span class="nav-label">Accounting</span> </a>
+    </li>
+
+    <li>
+    <li>
+        <a href="@Url.Action("BranchReport", "Admin")" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Branch Report</a>
+    </li>
+
+}
+@*------------ End Side Navigation Menu----------*@
+
+
+@*------------- Start Main Content Code-------------*@
+
+<!--grid-->
+<div class="grid-form">
+
+    <!----->
+    <!---->
+    <div class="grid-form1">
+        <h3>Total Revenue Reports</h3>
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="horizontal-form">
+
+                <form class="form-horizontal">
+
+
+                    <br />
+                    <div class="form-group">
+                        <label for="selector1" class="col-sm-2 control-label">Select Branch Name</label>
+                        <div class="col-sm-8">
+                            <select name="selector1" id="selector1" class="form-control1">
+                                <option>Garden Branch</option>
+                                <option>North Karachi Branch</option>
+                                <option>Liaquatabad Branch</option>
+                                <option>Johar Branch</option>
+                                <option>Surjani Branch</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="pname" class="col-sm-2 control-label">From Date</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control1" id="focusedinput">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="pname" class="col-sm-2 control-label">To Date</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control1" id="focusedinput">
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-2 login-do" style="margin-left:40%">
+                        <label class="hvr-shutter-in-horizontal login-sub">
+                            <input type="submit" value="See Results" onclick="window.location='signup.html';" />
+                        </label>
+                    </div>
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+                    <br />
+
+
+                    <div class="clearfix"> </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br /><br /><br />
+
+
+
+
+
+<!--//grid-->
+<!---->
+<!--//content-->
+<!---->
+@*------------- End Main Content Code-------------*@
+
+

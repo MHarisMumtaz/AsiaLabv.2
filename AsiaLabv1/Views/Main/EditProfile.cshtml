@@ -1,0 +1,94 @@
+﻿@model AsiaLabv1.UserEmployee
+
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+
+}
+
+
+@*---------Start Side Navigation Menu-----------*@
+
+@section NavMenu
+{
+    @if (Session["role"].ToString() == "Admin")
+    {
+        <li>
+        <a href="@Url.Action("AdminDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+        </li>
+
+    }
+    @if (Session["role"].ToString() == "Receptionist")
+{
+    <li>
+        <a href="@Url.Action("ReceptionistDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
+
+}
+@if (Session["role"].ToString() == "Technician")
+{
+    <li>
+        <a href="@Url.Action("TechnicianDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
+
+}
+@if (Session["role"].ToString() == "Doctor")
+{
+    <li>
+        <a href="@Url.Action("DoctorDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
+
+}
+
+
+
+
+}
+@*------------ End Side Navigation Menu----------*@
+
+
+@*------------- Start Main Content Code-------------*@
+
+
+<div class=" profile">
+
+    <div class="profile-bottom">
+        <h3><i class="fa fa-user"></i>Profile</h3>
+        <div class="profile-bottom-top">
+            <div class="col-md-4 profile-bottom-img">
+                <img width="208" src="~/images/loguserprof.png" height="208" alt="">
+            </div>
+            <div class="col-md-8 profile-text">
+                <h6>@Session["name"].ToString()</h6>
+                <table>
+                    <tr>
+                        <td>Position</td>
+                        <td>:</td>
+                        <td>@Session["role"].ToString()</td>
+                    </tr>
+
+                    <tr>
+                        <td>Branch</td>
+                        <td> :</td>
+                        <td>@Session["branch"].ToString()</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="profile-bottom-bottom">
+
+        </div>
+        <div class="profile-btn">
+
+            <button type="button" style="float:right" href="" class="btn btn-danger">Back to Dashboard</button>
+
+            <button style="float:right; margin-right:10px" type="button" href="#" class="btn btn-danger">Edit</button>
+                <div class="clearfix"></div>
+
+        </div>
+
+
+    </div>
+</div>
+@*------------- End Main Content Code-------------*@

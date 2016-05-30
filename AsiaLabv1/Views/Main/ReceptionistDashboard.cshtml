@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "ReceptionistDashboard";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model AsiaLabv1.Models.UserModel
+@section Banner
+{
+    <div class="banner">
+
+        <h2>
+            <a href="index.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+            <span>Dashboard</span>
+        </h2>
+    </div>
+}
+
+@*---------Start Side Navigation Menu-----------*@
+
+@section NavMenu
+{
+  <li>
+    <a href="@Url.Action("ReceptionistDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+</li>
+
+
+
+<li><a href="@Url.Action("RegisterPatient", "Reciptionist" )" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i>Accept Test</a></li>
+<li><a href="@Url.Action("PrintReport", "Reciptionist")" class=" hvr-bounce-to-right"><i class="fa fa-file-text-o nav_icon"></i>Print Report</a></li>
+
+
+
+
+}
+@*------------ End Side Navigation Menu----------*@
+
+
+@*------------- Start Main Content Code-------------*@
+
+<div class="blank">
+
+
+</div>
+
+@*------------- End Main Content Code-------------*@
+
+
+
+

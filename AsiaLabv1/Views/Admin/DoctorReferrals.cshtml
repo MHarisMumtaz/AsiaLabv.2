@@ -1,0 +1,332 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@model AsiaLabv1.Models.ReferredModel
+@section Header
+ {
+
+
+
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2013.3.1324/styles/kendo.rtl.min.css">
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2013.3.1324/styles/kendo.dataviz.min.css">
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2013.3.1324/styles/kendo.dataviz.default.min.css">
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2013.3.1324/styles/kendo.mobile.all.min.css">
+
+    <link rel="stylesheet" href="~/css/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/css/kendo/kendo.default.min.css" />
+
+    <script src="~/js/kendo/jquery.min.js"></script>
+    <script src="~/js/kendo/kendo.all.min.js"></script>
+
+}
+@section Banner
+{
+    <div class="banner">
+
+        <h2>
+            <a href="index.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+            <span>Tests Management</span>
+        </h2>
+    </div>
+}
+
+@*---------Start Side Navigation Menu-----------*@
+
+@section NavMenu
+{
+    <li>
+        <a href="@Url.Action("AdminDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
+
+    <li>
+        <a href="@Url.Action("TestsManagement", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Tests Management</span></a>
+
+    </li>
+    <li>
+        <a href="@Url.Action("DoctorReferrals", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i> <span class="nav-label">Doctor Referrals</span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("Register","Admin")" class=" hvr-bounce-to-right"> <i class="fa fa-indent nav_icon"></i>Employee Management</a>
+    </li>
+    <li>
+        <a href="@Url.Action("Templates","Admin")" class="hvr-bounce-to-right"> <i class="fa fa-indent nav_icon"></i>Templates</a>
+    </li>
+
+    <li>
+        <a href="@Url.Action("Accounting", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-th nav_icon"></i> <span class="nav-label">Accounting</span> </a>
+    </li>
+
+    <li>
+    <li>
+        <a href="@Url.Action("BranchReport", "Admin")" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Branch Report</a>
+    </li>
+
+
+}
+@*------------ End Side Navigation Menu----------*@
+
+
+@*------------- Start Main Content Code-------------*@
+
+<!--grid-->
+<div class="typo-grid">
+
+    <div class="typo-1">
+
+
+        <div class="grid_3 grid_5">
+            <h3 class="head-top">Doctor Referrals</h3>
+
+            <div class="but_list">
+                <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Referred Doctors</a></li>
+                        <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Add Referrals</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                            <div class="grid-form1">
+                                <h4>Referred Doctors List</h4>
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="horizontal-form">
+
+                                        <form class="form-horizontal">
+
+                                            <br />
+                                            @*Grid Code*@
+                                            <div id="grid"></div>
+
+                                            <div class="clearfix"> </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                            <div class="grid-form1">
+                                @*----------------------------------------------------------------------------------------------------------------------------------*@
+
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="horizontal-form">
+
+                                        @using (Html.BeginForm("AddReferDoctor", "Admin", FormMethod.Post, new { id = "DoctorSubmitForm", @class = "form-horizontal" }))
+                                        {
+                                            <br />
+                                            <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
+
+width:60%; height:20%; margin:auto; padding:10px'>
+                                                <img src='~/images/rsz_success.png'
+                                                     style='margin-bottom:2px; margin-right:5px' /> Doctor Referral Added Successfully!
+
+                                            </div>
+                                            <div id="loadspinner">
+                                                <i style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                @*@Html.LabelFor(model => model.ReferredDoctorName, new {  @for="focusedinput", @class="col-sm-2 control-label"})*@
+                                                <label for="selector1" class="col-sm-2 control-label">Doctor Name</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.ReferredDoctorName, new { @class = "form-control1", id = "docname",@type="text" })
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.ReferredDocAddress, new { @for = "focusedinput", @class = "col-sm-2 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.ReferredDocAddress, new { @class = "form-control1", id = "docaddress" })
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Contact Number</label>
+                                                @*@Html.LabelFor(model => model.ReferredDocNumber, new { @for = "focusedinput", @class = "col-sm-2 control-label" })*@
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.ReferredDocNumber,new { @class = "form-control1",  id = "docnumb", required = "required", @maxlength = "11", onkeypress = "return isNumberKey2(event)" })
+                                                    <label class="label" id="number" style="color:red"></label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Remarks, new { @for = "focusedinput", @class = "col-sm-2 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.Remarks, new { @class = "form-control1", id = "docremarks" })
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.commission, new { @for = "focusedinput", @class = "col-sm-2 control-label" })
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.commission, new { @class = "form-control1", id = "doccommision", required = "required", @maxlength = "2", onkeypress = "return isNumberKey(event)" })
+                                                    <label class="label" id="com" style="color:red"></label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label"></label>
+                                                <div class="col-sm-8" style="margin-left:5%">
+                                                    <label id="ErrorShow" style="color:red">Please Fill All the Required Fields</label>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="col-sm-8" style="margin-left:26%">
+                                                    <button id="addTestbtn" type="button" class="btn btn-danger">
+                                                        Add
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="clearfix"> </div>
+                                        }
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#ErrorShow').hide();
+    $('#myDiv').hide();
+
+    $('#loadspinner').hide();
+
+    $(document).ready(function () {
+
+        $('#addTestbtn').click(function () {
+            $('#loadspinner').show();
+
+            docname = $('#docname').val();
+            docaddress = $('#docaddress').val();
+            docnumb = $('#docnumb').val();
+            docremarks = $('#docremarks').val();
+            doccommission = $('#doccommision').val();
+
+            if (docname == "" || docaddress == "" || docnumb == "" || docremarks == "" || doccommission == "") {
+                $('#ErrorShow').show();
+                $('#ErrorShow').fadeOut(4000);
+                $('#loadspinner').hide();
+            }
+            else {
+                $('#DoctorSubmitForm').submit();
+                $('#loadspinner').show();
+                //$('#myDiv').show();
+                //$('#myDiv').fadeOut(4000);
+
+            }
+        });
+
+
+    });
+
+
+    //Kendo Grid For Viewing Referred Doctors
+
+    window.onload = function () {
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/Admin/FillKendoForDoctors/',
+            data: { isFill: 'none' },
+            dataType: "json",
+
+        });
+
+
+
+
+        var crudServiceBaseUrl = "/Admin",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "/FillKendoForDoctors",
+                            dataType: "json",
+
+                        },
+                        update: {
+                            url: crudServiceBaseUrl + "/UpdateKendoGridDoc",
+                            dataType: "json",
+
+
+                        },
+                        destroy: {
+                            url: crudServiceBaseUrl + "/DeleteDoc",
+                            dataType: "json",
+                        },
+
+                        parameterMap: function (options, operation) {
+
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        },
+
+                    },
+                    batch: true,
+                    pageSize: 20,
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                ReferredDoctorName: { type: "string" },
+                                ReferredDocAddress: { type: "string" },
+                                ReferredDocNumber: { type: "string" },
+                                Remarks: { type: "string" },
+                                commission: { type: "double" },
+
+                            }
+                        }
+                    },
+                    completed: function () { //alert('COmpleted');
+                    },
+                    requestEnd: function (e) {
+                        //$('#grid').data('kendoGrid').dataSource.read();
+                        $('#grid').data('kendoGrid').refresh();
+                    },
+
+                });
+
+        $("#grid").kendoGrid({
+            dataSource: dataSource,
+            pageable: true,
+            height: 550,
+
+            //change: onChange,
+            //toolbar: ["create"],
+            columns: [
+
+                  { field: "ReferredDoctorName", title: "Doctor Name", width: "130px" },
+                  { field: "ReferredDocAddress", title: "Doctor Address", width: "130px" },
+                  { field: "ReferredDocNumber", title: "Doctor Number", width: "130px" },
+                  { field: "Remarks", title: "Remarks", width: "130px" },
+                  { field: "commission", title: "Commission", width: "130px" },
+                  { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" },
+            ],
+            editable: "inline"
+        });
+
+    };
+</script>
+
+<!--//grid-->
+@*------------- End Main Content Code-------------*@
+
+

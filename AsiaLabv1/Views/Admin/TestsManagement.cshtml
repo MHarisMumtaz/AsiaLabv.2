@@ -1,0 +1,777 @@
+﻿@{
+    ViewBag.Title = "TestsManagement";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model  AsiaLabv1.Models.TestManagementModel
+
+@section Banner
+{
+    <div class="banner">
+
+        <h2>
+            <a href="index.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+            <span>Tests Management</span>
+        </h2>
+    </div>
+}
+
+@*---------Start Side Navigation Menu-----------*@
+
+@section NavMenu
+{
+    <li>
+        <a href="@Url.Action("AdminDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
+
+    <li>
+        <a href="@Url.Action("TestsManagement", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Tests Management</span></a>
+
+    </li>
+    <li>
+        <a href="@Url.Action("DoctorReferrals", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i> <span class="nav-label">Doctor Referrals</span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("Register","Admin")" class=" hvr-bounce-to-right"> <i class="fa fa-indent nav_icon"></i>Employee Management</a>
+    </li>
+<li>
+    <a href="@Url.Action("Templates","Admin")" class="hvr-bounce-to-right"> <i class="fa fa-indent nav_icon"></i>Templates</a>
+</li>
+    <li>
+        <a href="@Url.Action("Accounting", "Admin")" class=" hvr-bounce-to-right"><i class="fa fa-th nav_icon"></i> <span class="nav-label">Accounting</span> </a>
+    </li>
+
+    <li>
+    <li>
+        <a href="@Url.Action("BranchReport", "Admin")" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Branch Report</a>
+    </li>
+
+
+}
+@*------------ End Side Navigation Menu----------*@
+
+
+@*------------- Start Main Content Code-------------*@
+
+<!--grid-->
+<div class="typo-grid">
+
+    <div class="typo-1">
+
+        <div class="grid_3 grid_5">
+            <h3 class="head-top">Tests Management Options</h3>
+            <div class="but_list">
+                <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Add Departments</a></li>
+                        <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Add Tests</a></li>
+                        @*<li role="presentation"><a href="#delete" role="tab" id="profile-tab" data-toggle="tab" aria-controls="delete">Delete Tests</a></li>*@
+                        <li role="presentation"><a href="#see" role="tab" id="profile-tab" data-toggle="tab" aria-controls="see">Tests List</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                            <div class="grid-form1">
+                                @*<h4>Add Department</h4>*@
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="horizontal-form">
+                                        <div id="myDiv" class='alert alert-success fade in' style='text-align:center; width:60%; height:20%; margin:auto; padding:10px'>
+                                            <img src='~/images/rsz_success.png' style='margin-bottom:2px; margin-right:5px' /> Record Added Successfully!
+
+                                        </div>
+                                        <div id="loadspinner">
+                                            <i  style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
+                                        </div>
+                                        
+                                        <form class="form-horizontal" id="AddDeptForm">
+
+                                            <br />
+                                            <div class="form-group">
+                                                <label for="selector1" id="checkbx" class="col-sm-2 control-label">Select</label>
+                                                <div class="col-sm-8">
+
+                                                    @Html.CheckBoxFor(model => model.IsNewDepartment, new { @class = "checkbox1" })
+                                                    <label>Add new Department</label>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="selector1" id="lbl" class="col-sm-2 control-label">Select Department</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.deptId, Model.departments, "Select Department", new { @class = "form-control1" })
+
+                                                    @*<label id="chk_selDept" style="color:red">Please Select Department Name</label>*@
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" id="labeldeptname">
+                                                <label for="focusedinput" id="deptlbl" class="col-sm-2 control-label">Department Name</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.deptName, new { @class = "form-control1", name = "dname" })
+
+                                                    @*<label id="chk_deptName" style="color:red">Please Enter Department Name</label>*@
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="focusedinput" id="subdep" class="col-sm-2 control-label">Sub-Department Name</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.testCategoryName, new { @class = "form-control1" })
+                                                    
+                                                    @*<label id="chk_SubDeptName" style="color:red">Please Enter Sub-Department Name</label>*@
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-2 control-label"></label>
+                                                <div class="col-sm-8">
+
+                                                    <label id="Error2" style="color:red">Please Fill The Required Field</label>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+
+                                                <div class="col-sm-8" style="margin-left:26%">
+                                                    <button id="addDepbtn" type="button" class="btn btn-danger">Add</button>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                            <div class="grid-form1">
+                                @*----------------------------------------------------------------------------------------------------------------------------------*@
+                                @*<h3>Add New Tests</h3>*@
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="horizontal-form">
+                                        <div id="myDiv2" class='alert alert-success fade in' style='text-align:center; width:60%; height:20%; margin:auto; padding:10px'>
+                                            <img src='~/images/rsz_success.png' style='margin-bottom:2px; margin-right:5px' /> Test Added Successfully!
+
+                                        </div>
+                                        <div id="loadspinner2">
+                                            <i style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
+                                        </div>
+                                        <form id="testform" class="form-horizontal">
+                                            <br />
+                                            <div class="form-group">
+                                                <label for="selector1" class="col-sm-2 control-label">Select Department</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.deptId, Model.departments, "Select Department", new { @class = "form-control1", id = "testdeptdropdown" })
+                                                    &nbsp;
+                                                    @*<label id="seldept" style="color:red">Please Select a Department</label>*@
+                                                   
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="selector1" class="col-sm-2 control-label">Select Sub-Department</label>
+                                                <div class="col-sm-8">
+
+                                                    <select name="selector1" id="testcategdeptdropdown" class="form-control1">  </select>
+                                                    &nbsp;
+                                                    @*<label id="selsubdept" style="color:red">Please Select a Sub-Department</label>*@
+                                                   
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-2 control-label">Add New Test Name</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.testName, new { @class = "form-control1", id = "testname" })
+                                                    &nbsp;
+                                                    @*<label id="testname" style="color:red">Test Name is Required</label>*@
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-2 control-label">Upper Bound</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.upperBound, new { @class = "form-control1",id="upbound" })
+                                                    &nbsp;
+                                                    @*<label id="upbound" style="color:red">Upper Bound is Required</label>*@
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-2 control-label">Lower Bound</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.lowerBound, new { @class = "form-control1", id = "lbound" })
+                                                    &nbsp;
+                                                    @*<label id="lbound" style="color:red">Lower Bound is Required</label>*@
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="selector1" class="col-sm-2 control-label">Select Unit</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.unit, new { @class = "form-control1", id = "un" })
+                                                    &nbsp;
+                                                    @*<label id="un" style="color:red">Lower Bound is Required</label>*@
+                                                </div>
+
+
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-2 control-label">Rate</label>
+                                                <div class="col-sm-8">
+                                                    @Html.TextBoxFor(model => model.rate, new { @class = "form-control1",id="rat" })
+                                                    &nbsp;
+                                                    @*<label id="rat" style="color:red">Rate is Required</label>*@
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-2 control-label"></label>
+                                                <div class="col-sm-8">
+
+                                                    <label id="Error" style="color:red">Please Fill All The Required Fields Above</label>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group">
+
+                                                <div class="col-sm-8" style="margin-left:26%">
+
+                                                    <button id="addTestbtn" type="button" class="btn btn-danger">Add</button>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="clearfix"> </div>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane fade in" id="see" aria-labelledby="delete">
+                            <div class="grid-form1">
+                                @*<h3>See Tests</h3>*@
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="horizontal-form">
+
+                                        <form class="form-horizontal">
+
+
+                                            <br />
+                                            <div class="form-group">
+                                                <label for="selector1" class="col-sm-2 control-label">Select Department</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.deptId, Model.departments, "Select Department", new { @class = "form-control1", id = "testdeptdropdown3" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="selector1" class="col-sm-2 control-label">Select SubCategory</label>
+                                                <div class="col-sm-8">
+                                                    <select name="selector1" id="subcategSee" class="form-control1">
+                                                        <option selected="selected"></option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            @*<div class="form-group">
+                                                    <label for="selector1" class="col-sm-2 control-label">Tests</label>
+                                                    <div class="col-sm-8">
+                                                        <select name="selector1" id="Tests" class="form-control1"></select>
+                                                    </div>
+                                                </div>*@
+                                            <div class="clearfix"> </div>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+
+                                @*Grid Code*@
+                                <div id="grid"></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#myDiv').hide();
+    $('#myDiv2').hide();
+    $("#labeldeptname").hide();
+
+    $('#seldept').hide();
+    $('#selsubdept').hide();
+   
+
+    $('#Error').hide();
+    $('#Error2').hide();
+    $('#loadspinner').hide();
+    $('#loadspinner2').hide();
+    $('#loadspinner3').hide();
+
+    var tc = $('#testcategdeptdropdown').val();
+    
+    
+    
+    $('#testdeptdropdown').change(function () {
+       
+        var vo = $("#testdeptdropdown").val() == '' ? -1 : $("#testdeptdropdown").val();
+        if (vo == -1) { $("#testcategdeptdropdown").enabled = false; }
+        else { $("#testcategdeptdropdown").enabled = true; }
+
+        //alert(vo);
+        $.ajax({
+            type: 'GET',
+            url: '/Admin/AddCategories/',
+            data: { id: vo },
+            dataType: "json",
+            success: function (data) {
+               
+                $('#testcategdeptdropdown').html('');
+                $("#testcategdeptdropdown").prepend("<option value='-1' selected='selected'>Select Sub Department</option>");
+
+                for (var i = 0; i < 10; i++) {
+
+                    $('#testcategdeptdropdown').append($("<option></option>").attr("value", data[i].Id).text(data[i].testName));
+                }
+
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+    });
+
+
+
+
+    //For Checkbox
+
+
+    $('#IsNewDepartment').click(function () {
+
+        if ($(this).prop("checked") == true) {
+
+            $("#labeldeptname").fadeIn("fast");
+            $("#deptId").fadeOut("fast");
+            $("#lbl").fadeOut("fast");
+            $("#subdep").fadeOut("fast");
+            $("#testCategoryName").fadeOut("fast");
+
+            $("#deptlbl").fadeIn("fast");
+
+            $('#chk_selDept').hide();
+            $('#chk_deptName').hide();
+            $('#chk_SubDeptName').hide();
+
+        }
+        else if ($(this).prop("checked") == false) {
+
+            $("#labeldeptname").fadeOut("fast");
+            $("#deptId").fadeIn("fast");
+            $("#lbl").fadeIn("fast");
+            $("#subdep").fadeIn("fast");
+            $("#testCategoryName").fadeIn("fast");
+            $("#deptlbl").fadeOut("fast");
+
+            $('#chk_selDept').hide();
+            $('#chk_deptName').hide();
+            $('#chk_SubDeptName').hide();
+
+        }
+    });
+
+
+    window.onload = function () {
+        $("#testCategoryName").attr("disabled", "disabled");
+        $("#testcategdeptdropdown").attr("disabled", "disabled");
+        $("#subcategSee").attr("disabled", "disabled");
+        $('#testCategoryName').css('border-color', 'red');
+        $('#testcategdeptdropdown').css('border-color', 'red');
+        $('#subcategSee').css('border-color', 'red');
+        
+    };
+
+    $('#deptId').change(function () {
+        
+        deptid = $('#deptId').val();
+        if (deptid == '') {
+
+            $("#testCategoryName").attr("disabled", "disabled");
+            $('#testCategoryName').css('border-color', 'red');
+        }
+        else {
+            $("#testCategoryName").removeAttr("disabled");
+            $('#testCategoryName').css('border-color', '');
+        }
+    });
+
+    $('#testdeptdropdown').change(function () {
+
+        deptid = $('#testdeptdropdown').val();
+        
+        if (deptid == '') {
+
+            $("#testcategdeptdropdown").attr("disabled", "disabled");
+            $('#testcategdeptdropdown').css('border-color', 'red');
+        }
+        else {
+            $("#testcategdeptdropdown").removeAttr("disabled");
+            $('#testcategdeptdropdown').css('border-color', '');
+           
+        }
+    });
+    $('#testdeptdropdown3').change(function () {
+
+        deptid = $('#testdeptdropdown3').val();
+        if (deptid == '') {
+
+            $("#subcategSee").attr("disabled", "disabled");
+            $('#subcategSee').css('border-color', 'red');
+        }
+        else {
+            $('#loadspinner3').hide();
+            $("#subcategSee").removeAttr("disabled");
+            $('#subcategSee').css('border-color', '');
+        }
+    });
+
+
+    //Adding Department
+
+    $('#addDepbtn').click(function () {
+
+        $('#loadspinner').show();
+
+        deptid = $('#deptId').val();
+        deptname = $('#deptName').val();
+        testcategoryName = $('#testCategoryName').val();
+        IsNewDepartment = $('#IsNewDepartment').is(':checked');
+       
+       
+            //Catgorycode =""
+            var obj = {
+                deptId: deptid,
+                deptName: deptname,
+                testCategoryName: testcategoryName,
+                IsNewDepartment: IsNewDepartment,
+                testCategoryId: -1,
+                //CatgoryCode: Catgorycode
+            };
+            //alert(obj);
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/AddTestDepartmentsAndCategories/',
+                //contentType: "application/json; charset-utf-8",
+                data: obj,
+                dataType: "json",
+                success: function () {
+                    $('#myDiv').fadeIn("fast");
+                    $('#myDiv').fadeOut(5000);
+                    $('#loadspinner').hide();
+                },
+
+            });
+        
+    });
+
+    //Adding Tests
+
+    $('#addTestbtn').click(function () {
+        $('#loadspinner2').show();
+
+        deptid = $('#testdeptdropdown').val();
+        TestCategoryId = $('#testcategdeptdropdown').val();
+        TestSubcategoryName = $('#testname').val();
+        UpperBound = $('#upbound').val();
+        LowerBound = $('#lbound').val();
+        Unit = $('#un').val();
+        Rate = $('#rat').val();
+
+        if (deptid == "" || TestCategoryId == "" || TestSubcategoryName == "" || UpperBound == "" || LowerBound == "" || Unit == "" || Rate == "") {
+            $('#loadspinner2').hide();
+            $('#Error').show();
+            $('#Error').fadeOut(5000);
+        }
+        else {
+            var obj = {
+                deptId: deptid,
+                TestCategoryId: TestCategoryId,
+                TestSubcategoryName: TestSubcategoryName,
+                upperBound: UpperBound,
+                lowerBound: LowerBound,
+                Unit: Unit,
+                Rate: Rate
+            };
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Admin/AddTests/',
+                data: obj,
+                dataType: "json",
+
+                success: function () {
+                    $('#myDiv2').fadeIn("fast");
+                    $('#myDiv2').fadeOut(5000);
+                    $('#loadspinner2').hide();
+                },
+
+            });
+        }
+
+
+    });
+
+    //For Deleting Tests
+
+    $('#testdeptdropdown2').change(function () {
+        
+        var vo = $("#testdeptdropdown2").val() == '' ? -1 : $("#testdeptdropdown2").val();
+
+        //alert(vo);
+        $.ajax({
+            type: 'GET',
+            url: '/Admin/FillDropdown/',
+            data: { categId: vo, subCategId: null },
+            dataType: "json",
+            success: function (data) {
+
+                $('#testHeadDropDown').html('');
+                $("#testHeadDropDown").prepend("<option value='-1' selected='selected'>Select Category</option>");
+                for (var i = 0; i < 10; i++) {
+                    $('#testHeadDropDown').append($("<option></option>").attr("value", data[i].Id).text(data[i].testName));
+                }
+                
+
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    });
+
+
+
+    $('#testHeadDropDown').change(function () {
+       
+        var vo = $("#testHeadDropDown").val() == '' ? -1 : $("#testHeadDropDown").val();
+
+        //alert(vo);
+        $.ajax({
+            type: 'GET',
+            url: '/Admin/FillDropdown/',
+            data: { categId: null, subCategId: vo },
+            dataType: "json",
+            success: function (data) {
+                -
+                $('#testDropDown').html('');
+                $("#testDropDown").prepend("<option value='-1' selected='selected'>Select Category</option>");
+                for (var i = 0; i < 10; i++) {
+                    $('#testDropDown').append($("<option></option>").attr("value", data[i].Id).text(data[i].testName));
+                }
+                
+                
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    });
+
+    $('#deleteTestbtn').click(function () {
+
+        testcategoryName = $('#testDropDown').val();
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Admin/Delete/',
+            data: { testcategoryid: testcategoryName },
+            dataType: "json",
+
+        });
+    });
+
+    //See Tests
+
+    $('#testdeptdropdown3').change(function () {
+        
+        var vo = $("#testdeptdropdown3").val();
+        //alert(vo);
+
+        $.ajax({
+            type: 'GET',
+            url: '/Admin/FillDropdown/',
+            data: { categId: vo, subCategId: null },
+            dataType: "json",
+            success: function (data) {
+                
+                $('#subcategSee').html('');
+                $("#subcategSee").prepend("<option value='-1' selected='selected'>Select Test Category</option>");
+                for (var i = 0; i < data.length; i++) {
+                    $('#subcategSee').append($("<option></option>").attr("value", data[i].Id).text(data[i].testName));
+                }
+                
+            },
+            error: function (data) { alert(data); }
+        });
+    });
+
+
+
+    //$('#subcategSee').change(function () {
+
+
+    //    var vo = $("#subcategSee").val();
+    //    //alert(vo);
+    //    $.ajax({
+    //        type: 'GET',
+    //        url: '/Admin/FillDropdown/',
+    //        data: { categId: null, subCategId: vo },
+    //        dataType: "json",
+    //        success: function (data) {
+
+    //            $('#Tests').html('');
+
+    //            for (var i = 0; i < 10; i++) {
+    //                $('#Tests').append($("<option></option>").attr("value", data[i].Id).text(data[i].testName));
+    //            }
+    //        },
+    //        error: function (data) {
+    //            alert(data);
+    //        }
+    //    });
+    //});
+
+    //Kendo Grid For Test Viewing
+
+    $('#subcategSee').change(function () {
+        
+
+        var vo = $("#subcategSee").val();
+        //alert(vo);
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/Admin/FillDropdownKendo/',
+            data: { isFill: 'none', subCategId: vo },
+            dataType: "json",
+
+        });
+
+
+
+
+        var crudServiceBaseUrl = "/Admin",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "/FillDropdownKendo",
+                            dataType: "json",
+
+                        },
+                        update: {
+                            url: crudServiceBaseUrl + "/UpdateKendoGrid",
+                            dataType: "json",
+
+
+                        },
+                        destroy: {
+                            url: crudServiceBaseUrl + "/Delete",
+                            dataType: "json",
+                        },
+
+                        parameterMap: function (options, operation) {
+
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        },
+
+                    },
+                    batch: true,
+                    pageSize: 20,
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                testName: { type: "string" },
+                                upperBound: { type: "double" },
+                                lowerBound: { type: "double" },
+                                unit: { type: "string" },
+                                rate: { type: "double" },
+
+                            }
+                        }
+                    },
+                    completed: function () { //alert('COmpleted');
+                    },
+                    requestEnd: function (e) {
+                        //$('#grid').data('kendoGrid').dataSource.read();
+                        $('#grid').data('kendoGrid').refresh();
+                    },
+
+                });
+
+        $("#grid").kendoGrid({
+            dataSource: dataSource,
+            pageable: true,
+            height: 550,
+
+            //change: onChange,
+            //toolbar: ["create"],
+            columns: [
+
+                  { field: "testName", title: "Test Name", width: "130px" },
+                  { field: "upperBound", title: "Upper Bound", width: "130px" },
+                  { field: "lowerBound", title: "Lower Bound", width: "130px" },
+                  { field: "unit", title: "Unit", width: "130px" },
+                  { field: "rate", title: "Rate", width: "130px" },
+                  { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" },
+            ],
+            editable: "inline"
+        });
+
+    });
+
+
+</script>
+
+<!--//grid-->
+@*------------- End Main Content Code-------------*@
+

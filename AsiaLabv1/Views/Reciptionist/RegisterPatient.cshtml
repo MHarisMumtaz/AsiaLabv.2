@@ -90,7 +90,7 @@
                         @Html.LabelFor(model => model.PhoneNumber, new { @class = "col-sm-2 control-label" })
 
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control1",type="tel" })
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control1",@type="tel",@maxlength="11",@placeholder="0xxxxxxxxxx" })
                         </div>
                         <!--<div class="col-sm-2">
                             <p class="help-block">Your help text!</p>
@@ -99,7 +99,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Email, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control1",type="email" })
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control1", type = "email" })
                         </div>
                       
                     </div>
@@ -162,7 +162,18 @@
                         </div>
                     </div>
 
+                    <i id="spin" style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
+                    <br />
 
+                    <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
+
+width:60%; height:15%; margin:auto; padding:10px'>
+
+                        <img src='~/images/rsz_success.png'
+                             style='margin-bottom:2px; margin-right:5px' /> Patient Added Successfully!
+
+                    </div>
+                    <br />
                     <div class="form-group">
 
                         <div class="col-sm-8" style="margin-left:26%">
@@ -218,7 +229,8 @@
                             </label>
                         </div>*@
                     <script type="text/javascript">
-
+                        $('#spin').hide();
+                        $('#myDiv').hide();
                         var netAmount = 0;
 
                         var PatientTests = [];
@@ -238,6 +250,8 @@
 
 
                         function RegisterPatient() {
+                            $('#spin').show();
+                            
                             var Name = $('#Name').val();
                             var GenderId = $('#GenderId').val();
                             var DateOfBirth = $('#DateOfBirth').val();
@@ -278,7 +292,10 @@
                                         contentType: "application/json",
                                         dataType: 'json',
                                         success: function (data) {
-                                            alert(data);
+                                            //alert(data);
+                                            $('#spin').hide();
+                                            $('#myDiv').show();
+                                            $('#myDiv').fadeOut(4000);
                                         }
                                     });
                                 } else {

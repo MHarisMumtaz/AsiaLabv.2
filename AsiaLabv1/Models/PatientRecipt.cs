@@ -167,7 +167,7 @@ namespace AsiaLabv1.Models
 
             //// Create footer
             Paragraph paragraph = section.Footers.Primary.AddParagraph();
-            paragraph.AddText("Powerd By: UpperBound Technologies");
+            paragraph.AddText("Powerd By: Xperium Technologies");
             paragraph.Format.Font.Size = 9;
             paragraph.Format.Alignment = ParagraphAlignment.Center;
 
@@ -377,7 +377,7 @@ namespace AsiaLabv1.Models
             // Add the total price row
             row = this.table.AddRow();
             row.Cells[0].Borders.Visible = false;
-            row.Cells[0].AddParagraph("Net Amount");
+            row.Cells[0].AddParagraph("Total Amount");
             row.Cells[0].Format.Font.Bold = true;
             row.Cells[0].Format.Alignment = ParagraphAlignment.Right;
             row.Cells[0].MergeRight = 4;
@@ -403,7 +403,7 @@ namespace AsiaLabv1.Models
 
             // Add the total due row
             row = this.table.AddRow();
-            row.Cells[0].AddParagraph("Total Amount");
+            row.Cells[0].AddParagraph("Net Amount");
             row.Cells[0].Borders.Visible = false;
             row.Cells[0].Format.Font.Bold = true;
             row.Cells[0].Format.Alignment = ParagraphAlignment.Right;

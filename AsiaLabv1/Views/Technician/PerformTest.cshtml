@@ -2,11 +2,9 @@
     ViewBag.Title = "PerformTest";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-
 @section Banner
 {
     <div class="banner">
-
         <h2>
             <a href="index.html">Home</a>
             <i class="fa fa-angle-right"></i>
@@ -14,98 +12,125 @@
         </h2>
     </div>
 }
-
 @*---------Start Side Navigation Menu-----------*@
-
 @section NavMenu
 {
     <li>
         <a href="@Url.Action("TechnicianDashboard", "Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
     </li>
 
-   
-
-
-
 
 
 }
 @*------------ End Side Navigation Menu----------*@
 
-
 @*------------- Start Main Content Code-------------*@
-
 <div class="grid-form">
-
     <!----->
     <!---->
     <div class="grid-form1">
-
         <div class="tab-content">
-
             <div class="tab-pane active" id="horizontal-form">
-
                 <div class="horz-grid">
                     <div class="grid-hor" id="patientinfo">
                         <h4 id="grid-example-mixed-complete">Perform Test</h4><br />
-                       
 
                     </div>
                     <!---->
-
                     <div class="row show-grid">
                         <div class="col-xs-6 col-sm-3">Test Name</div>
-                        <div class="col-md-1" >Result</div>
-
+                        <div class="col-md-1">Result</div>
                         <div class="col-xs-6 col-sm-3">Lower Bound</div>
                         <div class="col-xs-6 col-sm-3">Upper Bound</div>
                         <div class="col-md-1">Unit</div>
 
-
                     </div>
                     <div style="border: 2px; border-style: solid;  color: #d95459; ">
-
                     </div>
-
-
 
                     <div class="row show-grid" id="tests">
-
                     </div>
-
-                    
 
 
                 </div>
+                <div id="loadspinner">
+                    <i style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
+                </div>
+                <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
 
+width:60%; height:10%; margin:auto; padding:10px'>
+                    <img src='~/images/rsz_success.png'
+                         style='margin-bottom:2px; margin-right:5px' /> Test Performed Successfully!
 
-                <div class="col-sm-2 login-do" style="margin-left:40%">
+                </div>
+                <br />
+                <div class="col-sm-2 login-do" style="margin-left:50%">
                     <label class="hvr-shutter-in-horizontal login-sub">
                         <input type="button" id="btninsert" class="btn btn-danger" value="Submit Test" />
                     </label>
                 </div>
 
-                
                 <div class="clearfix"> </div>
-                
+
             </div>
         </div>
     </div>
 </div>
 <br /><br /><br />
 
-
 <script type="text/javascript">
 
+    $('#loadspinner').hide();
+    $('#myDiv').hide();
+
     window.onload = getTests;
+
+    //$(document).ready(function ()
+    //{
+    //    $('#focusedinput').on('input',function () {
+
+    //    });
+    //});
     
-    //$('#testresult').focusout(function () {
 
-    //    var ar = $('#focusedinput').val();
 
-    //    var lb = $('#testlowerbound').val();
-    //    var ub = $('#testupperbound').val();
+    function getTests() {
 
+        $.ajax({
+            type: 'GET',
+            url: '/Technician/GetTests/',
+            dataType: "json",
+            success: function (data) {
+
+                $('#patientinfo').append('<h5 id="grid-example-mixed-complete">Patient No. ' + data[0].Id + '</h5>');
+                $('#patientinfo').append('<h5 id="grid-example-mixed-complete">Patient Name: ' + data[0].PatientName + '</h5>');
+
+                for (var i = 0; i < data[0].PatientTests.length; i++) {
+
+
+                    //$('#tests').append('<div class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
+
+                    //$('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
+
+                    //$('#tests').append('<div class="col-md-1"  id="testresult' + i + '"><input type="text" class="form-control" id="focusedinput' + i + '"/"></div>');
+
+
+
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '</div>');
+
+                    //var check = data[0].PatientTests[i].testName.subString(0, 5).toLower();
+                    //alert(check);
+                    //if (data[0].PatientTests[i].testName.subString(0,5).toLower()==='x-ray') {
+
+                    //}
+                    //$('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testresult' + i + '"><input type="text" maxlength="5" style="height:22px" class="form-control" id="focusedinput"' + i + '"/"></div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testresult"' + i + '"><input type="text" maxlength="5" style="height:22px" class="form-control" id="focusedinput' + i + '"/"></div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3"  id="testlowerbound"' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3"  id="testupperbound"' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit"' + i + '">' + data[0].PatientTests[i].unit + '</div>');
+
+
+<<<<<<< HEAD
     //    if (ar>ub) {
     //        alert('Warning');
     //    }
@@ -153,28 +178,40 @@
                 },
                 error: function (data) {
                     alert('Error');
+=======
+>>>>>>> ff245bc17c5db891f607f2d96cb29ed073bb5cd0
                 }
-            });
+                //Xray and Ultrasound
+
+            },
+            error: function (data) {
+                alert('Error');
+            }
+        });
 
     }
 
-    
+
 
     $('#btninsert').click(function () {
 
-      
-       
+        $('#loadspinner').show();
         var inputCount = document.getElementById('tests').getElementsByTagName('input').length;
         var results = [];
-      
+
         for (var i = 0; i < inputCount; i++) {
+<<<<<<< HEAD
 
          
             testresult = $('#focusedinput' + i).val();
 
 
-            results.push(testresult);
+=======
 
+            testresult = $('#focusedinput' + i).val();
+>>>>>>> ff245bc17c5db891f607f2d96cb29ed073bb5cd0
+            results.push(testresult);
+            
         }
 
 
@@ -188,8 +225,11 @@
             dataType: "json",
 
             success: function (data) {
-                alert('Performed');
+                //alert('Performed');
                 //Yaha achi chezay krdena :p
+                $('#loadspinner').hide();
+                $('#myDiv').show();
+                $('#myDiv').fadeOut(3000);
                 window.location.href = "/Main/TechnicianDashboard"
 
             },
@@ -205,7 +245,5 @@
 
     });
 </script>
-
 <!--//grid-->
 @*------------- End Main Content Code-------------*@
-

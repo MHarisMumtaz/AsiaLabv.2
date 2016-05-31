@@ -100,21 +100,23 @@ namespace AsiaLabv1.Controllers
         {
             pts.UpdateTest(Convert.ToInt16(patientId.Substring(12)));
 
-            //pts.InsertDoctorsPatientsTests(new DoctorPatientsTest {
+            pts.InsertDoctorsPatientsTests(new DoctorPatientsTest
+            {
 
-            //    DoctorId = Convert.ToInt16(Session["loginuser"]),
-            //    PatientId=_patientId,
-            //    ApproveDate=DateTime.Now
-            
-            //});
+                DoctorId = Convert.ToInt16(Session["loginuser"]),
+                PatientId = _patientId,
+                Dated = DateTime.Now
 
-            //pts.InsertDoctorComments(new DoctorComment { 
-            
-            //PatientId=_patientId,
-            //Comments=comments,
-            //DoctorId = Convert.ToInt16(Session["loginuser"])
-            
-            //});
+            });
+
+            pts.InsertDoctorComments(new DoctorComment
+            {
+
+                PatientId = _patientId,
+                Comments = comments,
+                DoctorId = Convert.ToInt16(Session["loginuser"])
+
+            });
 
             return Json("Successful");
         }

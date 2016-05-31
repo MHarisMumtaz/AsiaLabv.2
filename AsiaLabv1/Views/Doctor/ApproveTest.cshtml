@@ -22,7 +22,7 @@
         <a href="@Url.Action("DoctorDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
     </li>
 
-    <li><a href="@Url.Action("ApproveTest","Doctor")" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i>Approve Test</a></li>
+    
 
 
 }
@@ -63,7 +63,7 @@
 
 
                         </div>
-                        <div style="border: 2px; border-style: solid;  color: #d95459; ">
+                        <div style="border: 2px; border-style: solid; width:92%; color: #d95459; ">
 
                         </div>
 
@@ -113,9 +113,21 @@
 
 
                     <br /><br />
-                    <div class="col-sm-2 login-do" style="margin-left:50%">
+                    <div id="loadspinner">
+                        <i style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
+                    </div>
+                    <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
+
+width:60%; height:10%; margin:auto; padding:10px'>
+                        <img src='~/images/rsz_success.png'
+                             style='margin-bottom:2px; margin-right:5px' /> Test Approved Successfully!
+
+                    </div>
+                    <div class="col-sm-2 login-do" style="float:left">
+                        
                         <label class="hvr-shutter-in-horizontal login-sub">
-                            <input type="button" id="btnapprove" value="Approved" />
+                            
+                            <input type="button" id="btnapprove" class="btn btn-danger" value="Approved" />
                         </label>
                     </div>
                     <div class="clearfix"> </div>
@@ -129,16 +141,10 @@
 </div>
 <br /><br /><br />
 
-
-
-
-            </div>
-        </div>
-
-
 <script type="text/javascript">
 
-
+    $('#loadspinner').hide();
+    $('#myDiv').hide();
     window.onload = getTests;
 
     function getTests() {
@@ -154,11 +160,11 @@
 
                 for (var i = 0; i < data[0].PatientTests.length; i++) {
 
-                    $('#tests').append('<div class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
-                    $('#tests').append('<div class="col-xs-6 col-sm-3" id="result' + i + '">' + data[0].PatientTests[i].result + '</div>');
-                    $('#tests').append('<div class="col-xs-6 col-sm-3" id="testlowerbound' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
-                    $('#tests').append('<div class="col-xs-6 col-sm-3"  id="testupperbound' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
-                    $('#tests').append('<div class="col-md-1"  id="testunit' + i + '">' + data[0].PatientTests[i].unit + '<br /></div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1" id="result' + i + '">' + data[0].PatientTests[i].result + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3" id="testlowerbound' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3"  id="testupperbound' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit' + i + '">' + data[0].PatientTests[i].unit + '<br /></div>');
 
                 }
             },
@@ -172,6 +178,8 @@
 
     $('#btnapprove').click(function () {
 
+        $('#loadspinner').show();
+       
         var pid = $('#pno').text();
         var comment = $('#txtarea1').text;
         //alert(pid);
@@ -188,6 +196,9 @@
             success: function (data) {
                 //alert('Approved');
                 //Yaha achi chezay krdena :p
+                $('#loadspinner').hide();
+                $('#myDiv').show();
+                $('#myDiv').fadeOut(3000);
                 window.location.href = "/Main/DoctorDashboard"
 
             },

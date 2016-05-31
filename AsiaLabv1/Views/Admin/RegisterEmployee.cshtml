@@ -147,7 +147,7 @@ width:60%; height:20%; margin:auto; padding:10px'>
                                             <div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label">Contact no.</label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control1", id = "contact", @minlength = "11", @maxlength = "11", onkeypress = "return isNumberKey(event)" })
+                                                    @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control1", id = "contact", @minlength = "11", @maxlength = "11", onkeypress = "return isNumberKey(event)",@placeholder="0xxxxxxxxxx" })
                                                     <label class="label" id="com" style="color:red"></label>
                                                 </div>
 

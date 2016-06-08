@@ -160,13 +160,24 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
                 for (var i = 0; i < data[0].PatientTests.length; i++) {
 
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-md-1" id="result' + i + '">' + data[0].PatientTests[i].result + '</div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3" id="testlowerbound' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3"  id="testupperbound' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit' + i + '">' + data[0].PatientTests[i].unit + '<br /></div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname"' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1" id="result"' + i + '">' + data[0].PatientTests[i].result + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3" id="testlowerbound"' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3"  id="testupperbound"' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit"' + i + '">' + data[0].PatientTests[i].unit + '<br /></div>');
+
+                   
 
                 }
+                //for (var i = 0; i < data[0].PatientTests.length; i++) {
+                //    var lb = $('#testlowerbound').text();
+                //    var ub = $('#testupperbound').text();
+                //    var res = $('#result').text();
+
+                //    if (res < lb || res > ub) {
+                //        $('#result').css('color', 'red');
+                //    }
+                //}
             },
             error: function (data) {
                 alert('Error');

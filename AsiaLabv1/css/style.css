@@ -1266,8 +1266,23 @@ input#disabledTextInput,select#disabledSelect {
    box-shadow:none !important;
 
    
+}
+.drp
+{
+     border: 1px solid #000;
 
+    border: 1px solid #C0C0C0;
 
+    padding: 5px 8px;
+    color: #616161;
+    width: 50%;
+    font-size: 0.85em;
+    font-weight: 300;
+    height: 40px;
+  
+	font-family: 'Muli-Regular';
+	background: none;
+   box-shadow:none !important;
 }
 .dropdownkyliye {
 
@@ -1291,6 +1306,8 @@ input#disabledTextInput,select#disabledSelect {
 
 
 }
+
+
 .input-lg {
     border-radius: 0px;
 }

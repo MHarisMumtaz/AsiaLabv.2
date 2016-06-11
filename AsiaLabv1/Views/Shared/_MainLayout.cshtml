@@ -55,7 +55,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            if (charCode > 31 && (charCode < 46 || charCode > 57) || charCode == 47) {
                 document.getElementById("com").innerHTML = "Please Enter Numeric Value";
                 return false;
             }
@@ -69,11 +69,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         function isNumberKey2(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                document.getElementById("number").innerHTML = "Please Enter Numeric Value";
+                document.getElementById("number").innerHTML = "Please Enter Numeric Value";                
                 return false;
             }
             else if (charCode != '') {
-                document.getElementById("number").innerHTML = "";
+                document.getElementById("number").innerHTML = "";                
                 return true;
             }
             

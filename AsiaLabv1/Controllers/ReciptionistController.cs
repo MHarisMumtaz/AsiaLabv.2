@@ -29,6 +29,7 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult RegisterPatient()
         {
+            //:hello
             var model = new PatientModel();
             var Genders = GenderServices.GetAll();
             foreach (var item in Genders)

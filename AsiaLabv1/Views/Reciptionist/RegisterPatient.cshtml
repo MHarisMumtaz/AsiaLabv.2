@@ -89,8 +89,10 @@
                         @Html.LabelFor(model => model.PhoneNumber, new { @class = "col-sm-2 control-label" })
 
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control1", @type = "tel", @maxlength = "11", @placeholder = "0xxxxxxxxxx", required = "required" })
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control1", @type = "tel", @maxlength = "11", @placeholder = "0xxxxxxxxxx", required = "required", onkeypress = "return isNumberKey(event)" })
+                            <label class="label" id="com" style="color:red"></label>
                         </div>
+                        
                         <!--<div class="col-sm-2">
                             <p class="help-block">Your help text!</p>
                         </div>-->
@@ -163,8 +165,8 @@
                     </div>
 
                     <i id="spin" style="margin-left:50%" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
-                    <br />
-
+                  
+                    <label id="error" style="color:red; margin-left:22%">Please Fill All the Required Fields</label><br />
                     <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
 
 width:60%; height:15%; margin:auto; padding:10px'>
@@ -231,6 +233,7 @@ width:60%; height:15%; margin:auto; padding:10px'>
                     <script type="text/javascript">
                         $('#spin').hide();
                         $('#myDiv').hide();
+                        $('#error').hide();
                         var netAmount = 0;
 
                         var PatientTests = [];
@@ -299,7 +302,10 @@ width:60%; height:15%; margin:auto; padding:10px'>
                                         }
                                     });
                                 } else {
-                                    alert("Please select all required fields");
+                                    $('#spin').hide();
+                                    $('#error').show();
+                                    $('#error').fadeOut(4000);
+                                    //alert("Please select all required fields");
                                 }
                             }
 

@@ -45,7 +45,7 @@
                         <div class="col-md-1">Unit</div>
 
                     </div>
-                    <div style="border: 2px; border-style: solid;  color: #d95459; ">
+                    <div style="border: 2px; border-style: solid; width:90%;  color: #d95459; ">
                     </div>
 
                     <div class="row show-grid" id="tests">
@@ -64,11 +64,14 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
                 </div>
                 <br />
-                <div class="col-sm-2 login-do" style="margin-left:50%">
-                    <label class="hvr-shutter-in-horizontal login-sub">
-                        <input type="button" id="btninsert" class="btn btn-danger" value="Submit Test" />
-                    </label>
+                <div class="col-sm-8" style="margin-left:40%">
+                    <input type="button" id="btninsert" class="btn btn-danger" value="Submit Test" />
                 </div>
+                @*<div class="col-sm-2 login-do" style="margin-left:40%">
+                        <label class="hvr-shutter-in-horizontal login-sub">
+
+                        </label>
+                    </div>*@
 
                 <div class="clearfix"> </div>
 
@@ -83,17 +86,8 @@ width:60%; height:10%; margin:auto; padding:10px'>
     $('#loadspinner').hide();
     $('#myDiv').hide();
 
-    window.onload = getTests;
-
-    //$(document).ready(function ()
-    //{
-    //    $('#focusedinput').on('input',function () {
-
-    //    });
-    //});
+    window.onload = getTests;     
     
-
-
     function getTests() {
 
         $.ajax({
@@ -106,33 +100,29 @@ width:60%; height:10%; margin:auto; padding:10px'>
                 $('#patientinfo').append('<h5 id="grid-example-mixed-complete">Patient Name: ' + data[0].PatientName + '</h5>');
 
                 for (var i = 0; i < data[0].PatientTests.length; i++) {
-
-
-                    //$('#tests').append('<div class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
-
-                    //$('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
-
-                    //$('#tests').append('<div class="col-md-1"  id="testresult' + i + '"><input type="text" class="form-control" id="focusedinput' + i + '"/"></div>');
-
-
+                  
 
                     $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '</div>');
 
-                    //var check = data[0].PatientTests[i].testName.subString(0, 5).toLower();
-                    //alert(check);
-                    //if (data[0].PatientTests[i].testName.subString(0,5).toLower()==='x-ray') {
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testresult' + i + '"><input type="text" maxlength="5" style="height:22px" class="form-control" id="focusedinput' + i + '"/"></div>');
+                    
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3"  id="testlowerbound' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3"  id="testupperbound' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit' + i + '">' + data[0].PatientTests[i].unit + '</div>');
 
-                    //}
-                    //$('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testresult' + i + '"><input type="text" maxlength="5" style="height:22px" class="form-control" id="focusedinput"' + i + '"/"></div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testresult"' + i + '"><input type="text" maxlength="5" style="height:22px" class="form-control" id="focusedinput' + i + '"/"></div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3"  id="testlowerbound"' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3"  id="testupperbound"' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit"' + i + '">' + data[0].PatientTests[i].unit + '</div>');
-
+                   
+                    var lb = $('#testlowerbound' + i).text();
+                    lb = parseInt(lb);
+                    var ub = $('#testupperbound' + i).text();
+                    ub = parseInt(ub);
+                    var res = $('#focusedinput' + i).val();                                 
+                   
+                   
+                  
 
 
                 }
-                //Xray and Ultrasound
+                
 
             },
             error: function (data) {
@@ -146,6 +136,10 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
     $('#btninsert').click(function () {
 
+
+        //if (res) {
+
+        //}
         $('#loadspinner').show();
         var inputCount = document.getElementById('tests').getElementsByTagName('input').length;
         var results = [];
@@ -156,7 +150,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
             testresult = $('#focusedinput' + i).val();
 
             results.push(testresult);
-            
+
         }
 
 

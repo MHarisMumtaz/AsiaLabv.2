@@ -39,5 +39,21 @@ namespace AsiaLabv1.Services
                 });
             }
         }
+
+        public List<Patient> GetPatientsByBranchId(int BranchId)
+        {
+            var Query = (from P in _PatientRepository.Table
+                         where P.BranchId == BranchId
+                         select P).ToList();
+            return Query;
+        }
+
+        public List<Patient> SearchPatient(int BranchId,string name)
+        {
+            var Query = (from P in _PatientRepository.Table
+                         where P.BranchId == BranchId && P.PatientName==name
+                         select P).ToList();
+            return Query;
+        }
     }
 }

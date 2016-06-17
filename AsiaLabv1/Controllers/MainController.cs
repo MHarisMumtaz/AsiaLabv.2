@@ -94,6 +94,7 @@ namespace AsiaLabv1.Controllers
 
             if (model != null)
             {
+                Session["BranchId"] = model.BranchId;
                 Session["loginuser"] = model.Id;
                 Session["loginusername"] = model.Name;
                 Session["name"] = model.Name;

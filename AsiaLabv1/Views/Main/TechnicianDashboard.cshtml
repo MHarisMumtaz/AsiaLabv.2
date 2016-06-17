@@ -38,7 +38,7 @@
 <div class="content-top">
 
 
-    <div class="col-md-4 ">
+    @*<div class="col-md-4 ">
         <div class="content-top-1">
             <div class="col-md-6 top-content">
                 <h5>Tests Pending</h5>
@@ -47,6 +47,23 @@
             <div class="col-md-6 top-content1">
                 <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
             </div>
+            <div class="clearfix"> </div>
+        </div>
+
+    </div>*@
+    <div class="col-md-4 ">
+        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+            <div class="top-content">
+                <h4 style="text-align:center; color:black">Tests Pending to Perform</h4><br />
+                <div style="text-align:center" class="top-content">
+                    <label id="testscount"></label>
+                    <i style="color:black" id="waiting" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                </div>
+
+            </div>
+            @*<div class="col-md-6 top-content1">
+                    <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
+                </div>*@
             <div class="clearfix"> </div>
         </div>
 
@@ -263,6 +280,7 @@
 
             var totalRecords = dataSource.total();
             $("#testscount").text(totalRecords);
+            $('#waiting').hide();
         }
 
 </script>

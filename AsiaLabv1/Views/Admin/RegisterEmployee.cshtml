@@ -97,35 +97,35 @@ width:60%; height:20%; margin:auto; padding:10px'>
                                             <div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label">Branch</label>
                                                 <div class="col-sm-8">
-                                                    @Html.DropDownListFor(model => model.BranchId, Model.Branches,"Select Branch", new { @class = "form-control1", id = "branchdropdown" })
+                                                    @Html.DropDownListFor(model => model.BranchId, Model.Branches,"--Select--", new { @class = "drp", id = "branchdropdown" })
                                                 </div>
 
                                             </div>
                                             <div class="form-group">
                                                 <label for="checkbox" class="col-sm-2 control-label">User Type</label>
                                                 <div class="col-sm-8">
-                                                    @Html.DropDownListFor(model => model.UserTypeId, Model.UserTypes, "Select User Type", new { @class = "form-control1", id = "usertypedropdown" })
+                                                    @Html.DropDownListFor(model => model.UserTypeId, Model.UserTypes, "--Select--", new { @class = "drp", id = "usertypedropdown" })
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label">Name</label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.Name, new { name = "fname", @class = "form-control1", id = "name" })
+                                                    @Html.TextBoxFor(model => model.Name, new { name = "fname",@placeholder="Enter Employee Name", @class = "form-control1", id = "name" })
                                                 </div>
 
                                             </div>
                                             <div class="form-group">
                                                 <label for="checkbox" class="col-sm-2 control-label">Gender</label>
                                                 <div class="col-sm-8">
-                                                    @Html.DropDownListFor(model => model.GenderId, Model.Genders, "Select Gender", new { @class = "form-control1", id = "genderdropdown" })
+                                                    @Html.DropDownListFor(model => model.GenderId, Model.Genders, "--Select--", new { @class = "drp", id = "genderdropdown" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label">Username</label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control1", @maxlength="15",@type="text", id = "username" })
+                                                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control1", @placeholder = "Enter Employee Username", @maxlength = "15", @type = "text", id = "username" })
 
                                                 </div>
 
@@ -133,21 +133,24 @@ width:60%; height:20%; margin:auto; padding:10px'>
                                             <div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label">Password</label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control1", @maxlength = "15", id = "password", type = "password" })
+                                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control1", @placeholder = "Enter Password", @maxlength = "20", id = "password", type = "password" })
+                                                   
+                                                    
                                                 </div>
+                                                
 
                                             </div>
                                             <div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label">Email</label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control1", id = "email", @type = "email" })
+                                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control1", @placeholder = "Enter Email", id = "email", @type = "email" })
                                                 </div>
 
                                             </div>
                                             <div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label">Contact no.</label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control1", id = "contact", @minlength = "11", @maxlength = "11", onkeypress = "return isNumberKey(event)",@placeholder="0xxxxxxxxxx" })
+                                                    @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control1", id = "contact", @minlength = "11", @maxlength = "11", onkeypress = "return isNumberKey(event)", @placeholder = "0xxxxxxxxxx" })
                                                     <label class="label" id="com" style="color:red"></label>
                                                 </div>
 
@@ -155,50 +158,48 @@ width:60%; height:20%; margin:auto; padding:10px'>
                                             <div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label">CNIC</label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.CNIC, new { @class = "form-control1", id = "cnic", @maxlength = "13", onkeypress = "return isNumberKey2(event)" })
-                                                    <label class="label" id="number" style="color:red"></label>
+                                                    @Html.TextBoxFor(model => model.CNIC, new { @class = "form-control1", @placeholder = "Enter CNIC without '-' ", id = "cnic", @maxlength = "13", onkeypress = "return isNumberKey2(event)" })
+                                                    <label class="label" id="number" style="color:red"></label>                                                    
                                                 </div>
                                                 
                                             </div>
-                                             <div class="form-group">
+                                             @*<div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label"></label>
                                                 <div class="col-sm-8">
                                                     <label style="color:grey; font-style:italic" for="pname" class="label">(Enter CNIC without hyphen "-")</label>
                                                 </div>
-                                            </div>
+                                            </div>*@
 
                                             <div class="form-group">
                                                 <label for="pname" class="col-sm-2 control-label">Address Details</label>
                                                 <div class="col-sm-8">
 
-                                                    @Html.TextBoxFor(model => model.AddressDetails, new { @class = "form-control1", id = "address", @type = "text" })
+                                                    @Html.TextBoxFor(model => model.AddressDetails, new { @class = "form-control1", @placeholder = "Enter Address", id = "address", @type = "text" })
                                                 </div>
                                             </div>
                                             <div class="form-group">
 
                                                 <label for="pname" id="q1" class="col-sm-2 control-label">Qualification</label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.Qualification, new { @class = "form-control1", id = "qualification", @type = "text" })
+                                                    @Html.TextBoxFor(model => model.Qualification, new { @class = "form-control1", @placeholder = "Enter Qualification", id = "qualification", @type = "text" })
                                                 </div>
 
                                             </div>
-                                            <br />
+                                           
                                             <div class="form-group">
                                                 <label for="focusedinput" class="col-sm-2 control-label"></label>
                                                 <div class="col-sm-8">
-
-                                                    <label id="Error" style="color:red">Please Fill All The Required Fields Above</label>
-
+                                                    <label id="Error" style="color:red; margin-left:4%">Please Fill All The Required Fields Above</label>
                                                 </div>
-
-                                            </div>
-                                             <div id="loadspinner">
-                                            <i style="margin-left:26%" class="fa fa-fw fa-spin fa-spinner"></i>
-                                        </div>
+                                            </div>                                    
+                                            
+                                            <i id="loadspinner" style="margin-left:50%" class="fa fa-spinner fa-spin fa-2x fa-fw">
+                                            </i>
+                                        
                                             <div class="form-group">
 
                                                 <div class="col-sm-8" style="margin-left:26%">
-                                                    <button id="formsubmitbtn" type="submit" class="btn btn-danger">Submit</button>
+                                                    <button id="formsubmitbtn" type="button" class="btn btn-danger">Submit</button>
 
                                                 </div>
 
@@ -217,8 +218,6 @@ width:60%; height:20%; margin:auto; padding:10px'>
                             </div>
                         </div>
 
-
-
                     </div>
                 </div>
             </div>
@@ -236,7 +235,7 @@ width:60%; height:20%; margin:auto; padding:10px'>
     $(document).ready(function () {
 
 
-        $("#formsubmitbtn").click(function () {
+        $('#formsubmitbtn').click(function () {
             $('#loadspinner').show();
             branch = $('#branchdropdown').val();
             usertype = $('#usertypedropdown').val();
@@ -258,8 +257,8 @@ width:60%; height:20%; margin:auto; padding:10px'>
             }
 
             else {
-                $("#EmpRegistrationForm").submit();                
-                $('#loadspinner').hide();
+                $('#EmpRegistrationForm').submit();                
+                
             }
 
         });

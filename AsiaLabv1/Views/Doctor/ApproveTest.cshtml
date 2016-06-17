@@ -22,7 +22,7 @@
         <a href="@Url.Action("DoctorDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
     </li>
 
-    
+
 
 
 }
@@ -72,26 +72,26 @@
                         </div>
 
                         @*<div class="row show-grid">
-                            <div class="col-xs-6 col-sm-3">
-                                Urine
-                                <br />
+                                <div class="col-xs-6 col-sm-3">
+                                    Urine
+                                    <br />
+                                </div>
+                                <div style="color:red" class="col-md-1">7.0</div>
+                                <div class="col-xs-6 col-sm-3">2.5</div>
+                                <div class="col-xs-6 col-sm-3">6.0</div>
+                                <div class="col-md-1">mg%</div>
+
+
                             </div>
-                            <div style="color:red" class="col-md-1">7.0</div>
-                            <div class="col-xs-6 col-sm-3">2.5</div>
-                            <div class="col-xs-6 col-sm-3">6.0</div>
-                            <div class="col-md-1">mg%</div>
+                            <div class="row show-grid">
+                                <div class="col-xs-6 col-sm-3">Blood Sugar</div>
+                                <div class="col-md-1" s>150</div>
+                                <div class="col-xs-6 col-sm-3">120</div>
+                                <div class="col-xs-6 col-sm-3">250</div>
+                                <div class="col-md-1">mg%</div>
 
 
-                        </div>
-                        <div class="row show-grid">
-                            <div class="col-xs-6 col-sm-3">Blood Sugar</div>
-                            <div class="col-md-1" s>150</div>
-                            <div class="col-xs-6 col-sm-3">120</div>
-                            <div class="col-xs-6 col-sm-3">250</div>
-                            <div class="col-md-1">mg%</div>
-
-
-                        </div>*@
+                            </div>*@
 
 
                     </div>
@@ -114,7 +114,7 @@
 
                     <br /><br />
                     <div id="loadspinner">
-                        <i style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
+                        <i style="margin-left:50%" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
                     </div>
                     <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
 
@@ -124,9 +124,9 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
                     </div>
                     <div class="col-sm-2 login-do" style="float:left">
-                        
+
                         <label class="hvr-shutter-in-horizontal login-sub">
-                            
+
                             <input type="button" id="btnapprove" class="btn btn-danger" value="Approved" />
                         </label>
                     </div>
@@ -160,24 +160,30 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
                 for (var i = 0; i < data[0].PatientTests.length; i++) {
 
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname"' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-md-1" id="result"' + i + '">' + data[0].PatientTests[i].result + '</div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3" id="testlowerbound"' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3"  id="testupperbound"' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit"' + i + '">' + data[0].PatientTests[i].unit + '<br /></div>');
-
-                   
-
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '<br /></div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1" id="result' + i + '">' + data[0].PatientTests[i].result + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3" id="testlowerbound' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-1 col-sm-3"  id="testupperbound' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit' + i + '">' + data[0].PatientTests[i].unit + '<br /></div>');
                 }
-                //for (var i = 0; i < data[0].PatientTests.length; i++) {
-                //    var lb = $('#testlowerbound').text();
-                //    var ub = $('#testupperbound').text();
-                //    var res = $('#result').text();
 
-                //    if (res < lb || res > ub) {
-                //        $('#result').css('color', 'red');
-                //    }
-                //}
+                //For Validating Results
+
+                for (var i = 0; i < data[0].PatientTests.length; i++) {
+                    var lb = $('#testlowerbound' + i).text();
+                    lb = parseInt(lb);
+                    var ub = $('#testupperbound' + i).text();
+                    ub = parseInt(ub);
+                    var res = $('#result' + i).text();
+                    res = parseInt(res);
+
+                    if (res < lb || res > ub) {
+                        $('#result' + i).css('color', 'red');
+                    }
+                    else {
+                        $('#result' + i).css('color', 'black');
+                    }
+                }
             },
             error: function (data) {
                 alert('Error');
@@ -190,11 +196,11 @@ width:60%; height:10%; margin:auto; padding:10px'>
     $('#btnapprove').click(function () {
 
         $('#loadspinner').show();
-       
+
         var pid = $('#pno').text();
         var comment = $('#txtarea1').text;
         //alert(pid);
-       
+
 
 
         $.ajax({
@@ -202,7 +208,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
             type: 'POST',
             url: '/Doctor/ApprovePatientTest/',
             traditional: true,
-            data: { patientId: pid, comments:comment },
+            data: { patientId: pid, comments: comment },
             dataType: "json",
             success: function (data) {
                 //alert('Approved');

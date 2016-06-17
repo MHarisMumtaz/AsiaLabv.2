@@ -58,7 +58,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Name, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control1" })
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control1", @placeholder = "Enter Patient Name", required = "required" })
                         </div>
                         <!--<div class="col-sm-2">
                             <p class="help-block">Your help text!</p>
@@ -69,8 +69,7 @@
                         @Html.LabelFor(model => model.GenderId, new { @class = "col-sm-2 control-label" })
 
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(model => model.GenderId, Model.Genders, new { @class = "form-control1 dropdown-toggle" })
-
+                            @Html.DropDownListFor(model => model.GenderId, Model.Genders, "--Select--", new { @class = "drp", required = "required" })                          
 
                         </div>
                     </div>
@@ -78,7 +77,7 @@
                         @Html.LabelFor(model => model.DateofBirth, new { @class = "col-sm-2 control-label" })
 
                         <div class="col-sm-8">
-                            <input type="date" id="DateOfBirth" class="form-control1" />
+                            <input type="date" id="DateOfBirth" class="form-control1" required />
                         </div>
                         <!--<div class="col-sm-2">
                             <p class="help-block">Your help text!</p>
@@ -88,8 +87,10 @@
                         @Html.LabelFor(model => model.PhoneNumber, new { @class = "col-sm-2 control-label" })
 
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control1",@type="tel",@maxlength="11",@placeholder="0xxxxxxxxxx" })
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control1", @type = "tel", @maxlength = "11", @placeholder = "0xxxxxxxxxx", required = "required", onkeypress = "return isNumberKey(event)" })
+                            <label class="label" id="com" style="color:red"></label>
                         </div>
+                        
                         <!--<div class="col-sm-2">
                             <p class="help-block">Your help text!</p>
                         </div>-->
@@ -97,7 +98,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Email, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control1", type = "email" })
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control1", type = "email", @placeholder = "Enter Email", required="required" })
                         </div>
                       
                     </div>
@@ -106,7 +107,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.ReferredId, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(model => model.ReferredId, Model.ReferredDoctors, new { @class = "form-control1" })
+                            @Html.DropDownListFor(model => model.ReferredId, Model.ReferredDoctors, "--Select--", new { @class = "drp", required = "required" })
                         </div>
 
                     </div>
@@ -129,8 +130,9 @@
                         <div style='width:1400px' class='row show-grid'> 
                         <div class='col-md-1'></div>
                          <div class='col-xs-6 col-sm-4'></div>
-                        <div class='col-md-2'>TotalAmount:</div>
-                        <div class='col-md-1' id="totalAmount">0</div></div>
+                            <div class='col-md-2' style="text-align:right">Total Amount</div>
+                        <div class='col-md-1' id="totalAmount" style="text-align:center">0</div>
+                        </div>
                     </div>
 
 
@@ -156,13 +158,13 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.PayId, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(model => model.PayId, Model.PayTypes, new { @class = "form-control1" })
+                            @Html.DropDownListFor(model => model.PayId, Model.PayTypes,"--Select--", new { @class = "drp" })
                         </div>
                     </div>
 
-                    <i id="spin" style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
-                    <br />
-
+                    <i id="spin" style="margin-left:50%" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                  
+                    <label id="error" style="color:red; margin-left:22%">Please Fill All the Required Fields</label><br />
                     <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
 
 width:60%; height:15%; margin:auto; padding:10px'>
@@ -190,14 +192,14 @@ width:60%; height:15%; margin:auto; padding:10px'>
                     <div class="form-group">
                         @Html.LabelFor(model => model.DeptId, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(model => model.DeptId, Model.Departments,"Select Department", new { @class = "form-control1" })
+                            @Html.DropDownListFor(model => model.DeptId, Model.Departments,"Select Department", new { @class = "drp" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="selector1" class="col-sm-2 control-label">Select SubCategory</label>
                         <div class="col-sm-8">
-                            <select name="selector1" id="subcategories" class="form-control1"></select>
+                            <select name="selector1" id="subcategories" class="drp"></select>
                         </div>
                     </div>
 
@@ -229,6 +231,7 @@ width:60%; height:15%; margin:auto; padding:10px'>
                     <script type="text/javascript">
                         $('#spin').hide();
                         $('#myDiv').hide();
+                        $('#error').hide();
                         var netAmount = 0;
 
                         var PatientTests = [];
@@ -297,7 +300,10 @@ width:60%; height:15%; margin:auto; padding:10px'>
                                         }
                                     });
                                 } else {
-                                    alert("Please select all required fields");
+                                    $('#spin').hide();
+                                    $('#error').show();
+                                    $('#error').fadeOut(4000);
+                                    //alert("Please select all required fields");
                                 }
                             }
 

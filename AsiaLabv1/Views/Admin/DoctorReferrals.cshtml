@@ -125,21 +125,21 @@ width:60%; height:20%; margin:auto; padding:10px'>
 
                                             </div>
                                             <div id="loadspinner">
-                                                <i style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
+                                                <i style="margin-left:50%" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
                                             </div>
                                             <br />
                                             <div class="form-group">
                                                 @*@Html.LabelFor(model => model.ReferredDoctorName, new {  @for="focusedinput", @class="col-sm-2 control-label"})*@
                                                 <label for="selector1" class="col-sm-2 control-label">Doctor Name</label>
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.ReferredDoctorName, new { @class = "form-control1", id = "docname",@type="text" })
+                                                    @Html.TextBoxFor(model => model.ReferredDoctorName, new { @class = "form-control1", id = "docname", @type = "text", @placeholder = "Enter Doctor Name" })
                                                 </div>
 
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.ReferredDocAddress, new { @for = "focusedinput", @class = "col-sm-2 control-label" })
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.ReferredDocAddress, new { @class = "form-control1", id = "docaddress" })
+                                                    @Html.TextBoxFor(model => model.ReferredDocAddress, new { @class = "form-control1", id = "docaddress", @placeholder = "Enter Doctor Address" })
                                                 </div>
 
                                             </div>
@@ -148,7 +148,7 @@ width:60%; height:20%; margin:auto; padding:10px'>
                                                 <label class="col-sm-2 control-label">Contact Number</label>
                                                 @*@Html.LabelFor(model => model.ReferredDocNumber, new { @for = "focusedinput", @class = "col-sm-2 control-label" })*@
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.ReferredDocNumber,new { @class = "form-control1",  id = "docnumb", required = "required", @maxlength = "11", onkeypress = "return isNumberKey2(event)" })
+                                                    @Html.TextBoxFor(model => model.ReferredDocNumber,new { @class = "form-control1",  id = "docnumb",@placeholder="0xxxxxxxxxx", required = "required", @maxlength = "11", onkeypress = "return isNumberKey2(event)" })
                                                     <label class="label" id="number" style="color:red"></label>
                                                 </div>
 
@@ -157,14 +157,14 @@ width:60%; height:20%; margin:auto; padding:10px'>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Remarks, new { @for = "focusedinput", @class = "col-sm-2 control-label" })
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.Remarks, new { @class = "form-control1", id = "docremarks" })
+                                                    @Html.TextBoxFor(model => model.Remarks, new { @class = "form-control1", id = "docremarks", @placeholder = "Enter Remarks" })
                                                 </div>
 
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.commission, new { @for = "focusedinput", @class = "col-sm-2 control-label" })
                                                 <div class="col-sm-8">
-                                                    @Html.TextBoxFor(model => model.commission, new { @class = "form-control1", id = "doccommision", required = "required", @maxlength = "2", onkeypress = "return isNumberKey(event)" })
+                                                    @Html.TextBoxFor(model => model.commission, new { @class = "form-control1", id = "doccommision", @placeholder = "Enter Commission in %", required = "required", @maxlength = "5", onkeypress = "return isNumberKey(event)" })
                                                     <label class="label" id="com" style="color:red"></label>
                                                 </div>
 

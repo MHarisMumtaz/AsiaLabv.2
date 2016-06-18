@@ -8,6 +8,7 @@ namespace AsiaLabv1.Services
 {
     public class PatientTestService
     {
+        
 
         Repository<PatientTest> _PatientTestRepository = new Repository<PatientTest>();
         Repository<TestSubcategory> _TestSubCategoryRepository = new Repository<TestSubcategory>();
@@ -16,6 +17,7 @@ namespace AsiaLabv1.Services
         Repository<TechnicianPatientsTest> _TechnicianPatientTestRepository = new Repository<TechnicianPatientsTest>();
         Repository<DoctorPatientsTest> _DoctorsPatientsTestsRepository = new Repository<DoctorPatientsTest>();
         Repository<DoctorComment> _DoctorCommentsRepository = new Repository<DoctorComment>();
+        Repository<Branch> _BranchRepository = new Repository<Branch>();
 
         public void Add(PatientTest Patienttest)
         {
@@ -24,6 +26,7 @@ namespace AsiaLabv1.Services
 
         public List<Patient> GetPatientTests()
         {
+            
             //var query = (from pt in _PatientTestService.Table
             //             join p in _PatientRepository.Table
             //             on pt.PatientId equals p.Id
@@ -48,6 +51,13 @@ namespace AsiaLabv1.Services
             
                
 
+            return query;
+        }
+        public int GetBranchId(string Name)
+        {
+            int query = (from b in _BranchRepository.Table
+                         where b.BranchName == Name
+                         select b.Id).FirstOrDefault();
             return query;
         }
 

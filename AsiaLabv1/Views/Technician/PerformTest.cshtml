@@ -80,7 +80,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
     </div>
 </div>
 <br /><br /><br />
-
+ 
 <script type="text/javascript">
 
     $('#loadspinner').hide();
@@ -96,7 +96,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
             dataType: "json",
             success: function (data) {
 
-                $('#patientinfo').append('<h5 id="grid-example-mixed-complete">Patient No. ' + data[0].Id + '</h5>');
+                $('#patientinfo').append('<h5 id="grid-example-mixed-complete">Patient No. ' + data[0].PatientNumber + '</h5>');
                 $('#patientinfo').append('<h5 id="grid-example-mixed-complete">Patient Name: ' + data[0].PatientName + '</h5>');
 
                 for (var i = 0; i < data[0].PatientTests.length; i++) {

@@ -27,6 +27,11 @@ namespace AsiaLabv1.Controllers
         PatientPaymentService PatientPaymentServices = new PatientPaymentService();
         BranchService BranchServices = new BranchService();
 
+        public ActionResult PrintReport()
+        {
+            return View();
+        }
+
         public ActionResult RegisterPatient()
         {
             //:hello

@@ -27,18 +27,22 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult GetPatientInfo()
         {
+            int SessionBrId = pts.GetBranchId(Session["branch"].ToString());
 
             var patientInfo = pts.GetPatientTestsDoctor();
             List<RequiredPatient> rp = new List<RequiredPatient>();
             foreach (var item in patientInfo)
             {
-                rp.Add(new RequiredPatient
+                if (item.BranchId==SessionBrId)
                 {
-                    Id = item.Id,
-                    PatientName = item.PatientName,
-                    PatientNumber = item.Id.ToString(),
+                    rp.Add(new RequiredPatient
+                    {
+                        Id = item.Id,
+                        PatientName = item.PatientName,
+                        PatientNumber = item.Id.ToString(),
 
-                });
+                    });
+                }                
             }
             return Json(rp, JsonRequestBehavior.AllowGet);
 

@@ -15,17 +15,67 @@ namespace AsiaLabv1.Controllers
         //any query related to employee has been written in this class
         UserService UsersService = new UserService();
         BranchService BranchesService = new BranchService();
-
-        public ActionResult LoginPage()
-        {
-            ViewBag.LoginFailed = false;
-            return View("LoginPage");
-        }
-
-        public ActionResult Khaali()
+        public ActionResult MainPage()
         {
             return View();
         }
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult Laboratory()
+        {
+            return View();
+        }
+        public ActionResult Ultrasound()
+        {
+            return View();
+        }
+        public ActionResult Xrays()
+        {
+            return View();
+        }
+        public ActionResult opg()
+        {
+            return View();
+        }
+        public ActionResult ecg()
+        {
+            return View();
+        }
+        public ActionResult health()
+        {
+            return View();
+        }
+        public ActionResult wecare()
+        {
+            return View();
+        }
+        public ActionResult faqs()
+        {
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        public ActionResult SearchReport()
+        {
+            return View();
+        }
+        public ActionResult Report()
+        {
+            return View();
+        }
+
+        public ActionResult LoginPage()
+        {                        
+            return View("LoginPage");
+        }
+
+        
 
         public ActionResult EditProfile()
         {
@@ -34,18 +84,35 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult AdminDashboard()
         {
+            if (Session["loginusername"] == null)
+            {
+                return RedirectToAction("LoginPage","Main");
+            }
             return View();
         }
+       
         public ActionResult DoctorDashboard()
         {
+            if (Session["loginusername"] == null)
+            {
+                return RedirectToAction("LoginPage", "Main");
+            }
             return View();
         }
         public ActionResult ReceptionistDashboard()
         {
+            if (Session["loginusername"] == null)
+            {
+                return RedirectToAction("LoginPage", "Main");
+            }
             return View();
         }
         public ActionResult TechnicianDashboard()
         {
+            if (Session["loginusername"] == null)
+            {
+                return RedirectToAction("LoginPage", "Main");
+            }
             return View();
         }
         [HttpPost]
@@ -82,19 +149,19 @@ namespace AsiaLabv1.Controllers
             string username = LoginForm["Email"].ToString();
             string password = LoginForm["Password"].ToString();
 
-            var model = UsersService.ValidateLogin(username, password);
+            var model = UsersService.ValidateLogin(username, password);            
 
             if (model==null)
             {
-                ViewBag.LoginFailed = true;
+                TempData["Error"] = "Username or Password is Incorrect";
                 return RedirectToAction("LoginPage", "Main");
-
             }
             
 
             if (model != null)
             {
                 Session["loginuser"] = model.Id;
+               
                 Session["loginusername"] = model.Name;
                 Session["name"] = model.Name;
                 Session["role"] = model.UserRole;

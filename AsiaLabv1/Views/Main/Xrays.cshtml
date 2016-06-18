@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Xrays";
+    Layout = "~/Views/Shared/_SecondMainLayout.cshtml";
+}
+
+@section Title
+{
+    Services | X-Rays
+}
+@section Banner
+{
+    <br><br><div class="page-head">
+        <div class="container">
+            <h3>Services</h3>
+        </div>
+    </div>
+
+}
+
+<div class="men-wear">
+    <div class="container">
+        <div class="col-md-4 products-left">
+            <div class="css-treeview">
+                <h4>Our Services</h4>
+                <ul class="tree-list-pad">
+                    <li><span></span><a href="@Url.Action("Laboratory","Main")">Laboratory</a></li>
+                    <li><span></span><a href="@Url.Action("Ultrasound","Main")"> Ultrasound</a></li>
+
+                    <li><span></span><a href="@Url.Action("Xrays","Main")">X-rays</a></li>
+
+                    <li><span></span><a href="@Url.Action("opg","Main")">OPG</a></li>
+
+                    <li><span></span><a href="@Url.Action("ecg","Main")"> ECG</a></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-8 products-right">
+            <h2><strong>X-rays</strong></h2>
+
+            <br><p>
+                X-ray, a type of high-energy electromagnetic radiation, is often used for cancer diagnosis, staging and treatment.
+                An X-ray uses electromagnetic radiation to make images. The image is recorded on a film, called a radiograph.
+                The images produced appear light or dark, depending on the absorption rates of the different tissues. For example,
+                dense materials, such as bone, show up as white on a film, while fat and muscle appear as varying shades of gray.
+            </p>
+            <br><p>
+                An X-ray exam is fast and painless. In low doses, X-rays can be used to construct images of structures inside the body
+                to detect and stage a tumor.
+                In higher doses X-rays can be used in radiation therapy to help destroy cancerous cells in the body.
+            </p>
+            <br><p>
+                The advantages of capturing and storing X-Ray Images digitally rather than on film are overwhelming.
+                Digital x-ray imaging has many advantages:
+            </p>
+            <br><p>
+                1. The images can be stored in a very compact manner without risk of loss or deterioration in quality.
+            </p>
+            <br><p>
+                2. The images can be easily enlarged and "suspicious" areas of an image can be more easily studied.
+                The images can be easily retrieved, and can be transmitted electronically to an expert
+                or to another medical practitioner in the same hospital or to an insurance company for reimbursement purposes.
+            </p>
+        </div>
+    </div>
+</div>
+<!-- //mens -->
+<!-- //product-nav -->
+<br><br><div class="coupons">
+    <div class="container">
+        <div class="coupons-grids text-center">
+            <div class="col-md-3 coupons-gd">
+                <h3>Customer  <br>  Care </h3>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("health","Main")"> Health</a></h4>
+                <p>Boost your Health with some daily routine Health Tips</p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("wecare","Main")">We Care</a></h4>
+                <p>Our Customer Service Office is available to answer any questions or  any issues  </p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("faqs","Main")"> FAQs</a></h4>
+                <p>You can view anwers of your required qquestions from the list </p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

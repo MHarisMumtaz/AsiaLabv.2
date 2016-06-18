@@ -57,7 +57,7 @@ namespace AsiaLabv1.Services
                              UserName = user.Name,
                              BranchName = branch.BranchName,
                              BranchAddress = branch.BranchAddress,
-                             UserRole = usertype.TypeDescription
+                             UserRole = usertype.TypeDescription,                          
                              
                              
                          }).FirstOrDefault();

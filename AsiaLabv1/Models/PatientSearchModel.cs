@@ -7,6 +7,7 @@ namespace AsiaLabv1.Models
 {
     public class PatientSearchModel
     {
+        public int PatientId { get; set; }
         public string Name { get; set; }
         public bool ShowGeneratedReportPatients { get; set; }
     }

@@ -254,24 +254,19 @@ namespace AsiaLabv1.Controllers
         {
             List<Patient> Patientlist = null;
             Patientlist = PatientServices.GetPatientsByBranchId(Convert.ToInt32(Session["BranchId"]));
-            //if ((model.Name==null || model.Name=="") && !model.ShowGeneratedReportPatients)
-            //{
-            //
-            //}
-            //else 
-            if ((model.Name!=null || model.Name!="") && model.ShowGeneratedReportPatients)
+            
+            if (model.ShowGeneratedReportPatients)
             {
-
+               Patientlist = PatientServices.SearchByStatus(Convert.ToInt32(Session["BranchId"]));
             }
-            else if ((model.Name==null || model.Name==""))
+            if (model.Name!=null)
             {
                 Patientlist = Patientlist.Where(p => p.PatientName.Contains(model.Name)).ToList();
             }
-            else
+            if (model.PatientId>0)
             {
-
+                Patientlist = Patientlist.Where(P => P.Id == model.PatientId).ToList();
             }
-             
              var list = new List<PatientModel>();
             if (Patientlist!=null)
             {

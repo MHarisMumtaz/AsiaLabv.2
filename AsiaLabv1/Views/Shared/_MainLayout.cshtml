@@ -21,6 +21,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- Mainly scripts -->
     <script src="~/js/jquery.metisMenu.js"></script>
     <script src="~/js/jquery.slimscroll.min.js"></script>
+<!--    <script src="~/js/pagination.min.js"></script>
+    <script src="~/js/pagination.js"></script>-->
+    <script src="../../js/pagination.min.js"></script>
+    <script src="../../js/pagination.js"></script>
     <!-- Custom and plugin javascript -->
     <link href="~/css/custom.css" rel="stylesheet">
     <script src="~/js/custom.js"></script>
@@ -55,7 +59,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            if (charCode > 31 && (charCode < 46 || charCode > 57) || charCode == 47) {
                 document.getElementById("com").innerHTML = "Please Enter Numeric Value";
                 return false;
             }
@@ -69,11 +73,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         function isNumberKey2(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                document.getElementById("number").innerHTML = "Please Enter Numeric Value";
+                document.getElementById("number").innerHTML = "Please Enter Numeric Value";                
                 return false;
             }
             else if (charCode != '') {
-                document.getElementById("number").innerHTML = "";
+                document.getElementById("number").innerHTML = "";                
                 return true;
             }
             
@@ -175,7 +179,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 <ul class=" nav_1">
 
-                    <li class="dropdown at-drop">
+                    @*<li class="dropdown at-drop">
                         <a href="#" class="dropdown-toggle dropdown-at " data-toggle="dropdown"><i class="fa fa-globe"></i> <span class="number">5</span></a>
                         <ul class="dropdown-menu menu1 " role="menu">
                             <li>
@@ -246,15 +250,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </li>
                             <li><a href="#" class="view">View all messages</a></li>
                         </ul>
-                    </li>
+                    </li>*@
                     <li class="dropdown">
 
                         @if (Session["loginuser"] != null)
                         {
                             <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret">@Session["loginusername"].ToString()<i class="caret"></i></span><img style="margin-top:4px;" src="~/images/userlogo.jpg"></a>
-                        }
-
-                        <ul class="dropdown-menu " role="menu">
+                        }                        
+                        
+                        <ul class="dropdown-menu" role="menu">
                             <li><a href="@Url.Action("EditProfile","Main")"><i class="fa fa-user"></i>Edit Profile</a></li>
                             @if (Session["loginuser"] != null)
                             {
@@ -288,9 +292,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
 
         </nav>
+
+        @RenderSection("Abc",false)
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="content-main">
-
+                
                 <!--banner-->
                 @RenderSection("Banner", false)
                 <!--//banner-->

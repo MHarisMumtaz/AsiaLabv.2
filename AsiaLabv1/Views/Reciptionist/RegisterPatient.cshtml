@@ -7,8 +7,8 @@
 {
     <div class="banner">
 
-        <h2>
-            <a href="index.html">Home</a>
+        <h2>                  
+            <a href="@Url.Action("ReceptionistDashboard", "Main")">Dashboard</a> 
             <i class="fa fa-angle-right"></i>
             <span>Accept Test</span>
         </h2>
@@ -23,10 +23,15 @@
         <a href="@Url.Action("ReceptionistDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
     </li>
 
+<<<<<<< HEAD
 
 
+  <li><a href="@Url.Action("RegisterPatient", "Reciptionist" )" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i>Accept Test</a></li>
+<li><a href="@Url.Action("PrintReport", "Reciptionist")" class=" hvr-bounce-to-right"><i class="fa fa-file-text-o nav_icon"></i>Print Report</a></li>
+=======
     <li><a href="@Url.Action("RegisterPatient", "Reciptionist" )" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i>Accept Test</a></li>
     <li><a href="@Url.Action("PrintReport", "Reciptionist")" class=" hvr-bounce-to-right"><i class="fa fa-file-text-o nav_icon"></i>Print Report</a></li>
+>>>>>>> 335c4ac8794f9340209d13ac58ec233c6a33296d
 
 
 
@@ -46,8 +51,8 @@
         <div class="tab-content">
 
             <div class="tab-pane active" id="horizontal-form">
-               
-                
+
+
                 <form class="form-horizontal">
 
                     <div class="form-group">
@@ -60,7 +65,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Name, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control1" })
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control1", @placeholder = "Enter Patient Name", required = "required" })
                         </div>
                         <!--<div class="col-sm-2">
                             <p class="help-block">Your help text!</p>
@@ -71,8 +76,7 @@
                         @Html.LabelFor(model => model.GenderId, new { @class = "col-sm-2 control-label" })
 
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(model => model.GenderId, Model.Genders, new { @class = "form-control1 dropdown-toggle" })
-
+                            @Html.DropDownListFor(model => model.GenderId, Model.Genders, "--Select--", new { @class = "drp", required = "required" })
 
                         </div>
                     </div>
@@ -80,7 +84,7 @@
                         @Html.LabelFor(model => model.DateofBirth, new { @class = "col-sm-2 control-label" })
 
                         <div class="col-sm-8">
-                            <input type="date" id="DateOfBirth" class="form-control1" />
+                            <input type="date" id="DateOfBirth" class="form-control1" required />
                         </div>
                         <!--<div class="col-sm-2">
                             <p class="help-block">Your help text!</p>
@@ -90,8 +94,10 @@
                         @Html.LabelFor(model => model.PhoneNumber, new { @class = "col-sm-2 control-label" })
 
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control1",@type="tel",@maxlength="11",@placeholder="0xxxxxxxxxx" })
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control1", @type = "tel", @maxlength = "11", @placeholder = "eg: 03451234567", required = "required", onkeypress = "return isNumberKey(event)" })
+                            <label class="label" id="com" style="color:red"></label>
                         </div>
+
                         <!--<div class="col-sm-2">
                             <p class="help-block">Your help text!</p>
                         </div>-->
@@ -99,16 +105,16 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Email, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control1", type = "email" })
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control1", type = "email", @placeholder = "Enter Email", required = "required" })
                         </div>
-                      
+
                     </div>
 
-                   
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.ReferredId, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(model => model.ReferredId, Model.ReferredDoctors, new { @class = "form-control1" })
+                            @Html.DropDownListFor(model => model.ReferredId, Model.ReferredDoctors, "--Select--", new { @class = "drp", required = "required" })
                         </div>
 
                     </div>
@@ -128,11 +134,12 @@
                         <div id="SelectedTests">
 
                         </div>
-                        <div style='width:1400px' class='row show-grid'> 
-                        <div class='col-md-1'></div>
-                         <div class='col-xs-6 col-sm-4'></div>
-                        <div class='col-md-2'>TotalAmount:</div>
-                        <div class='col-md-1' id="totalAmount">0</div></div>
+                        <div style='width:1400px' class='row show-grid'>
+                            <div class='col-md-1'></div>
+                            <div class='col-xs-6 col-sm-4'></div>
+                            <div class='col-md-2' style="text-align:right">Total Amount</div>
+                            <div class='col-md-1' id="totalAmount" style="text-align:center">0</div>
+                        </div>
                     </div>
 
 
@@ -152,19 +159,19 @@
                             @Html.TextBoxFor(model => model.PaidAmount, new { @class = "form-control1" })
                         </div>
                         <!--<div class="col-sm-2">
-                    <p class="help-block">Your help text!</p>
-                </div>-->
+                            <p class="help-block">Your help text!</p>
+                        </div>-->
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.PayId, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(model => model.PayId, Model.PayTypes, new { @class = "form-control1" })
+                            @Html.DropDownListFor(model => model.PayId, Model.PayTypes, "--Select--", new { @class = "drp" })
                         </div>
                     </div>
 
-                    <i id="spin" style="margin-left:50%" class="fa fa-fw fa-spin fa-spinner"></i>
-                    <br />
+                    <i id="spin" style="margin-left:50%" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
 
+                    <label id="error" style="color:red; margin-left:22%">Please Fill All the Required Fields</label><br />
                     <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
 
 width:60%; height:15%; margin:auto; padding:10px'>
@@ -192,14 +199,14 @@ width:60%; height:15%; margin:auto; padding:10px'>
                     <div class="form-group">
                         @Html.LabelFor(model => model.DeptId, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(model => model.DeptId, Model.Departments,"Select Department", new { @class = "form-control1" })
+                            @Html.DropDownListFor(model => model.DeptId, Model.Departments, "Select Department", new { @class = "drp" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="selector1" class="col-sm-2 control-label">Select SubCategory</label>
                         <div class="col-sm-8">
-                            <select name="selector1" id="subcategories" class="form-control1"></select>
+                            <select name="selector1" id="subcategories" class="drp"></select>
                         </div>
                     </div>
 
@@ -221,7 +228,7 @@ width:60%; height:15%; margin:auto; padding:10px'>
                         </div>
 
                     </div>
-                   
+
 
                     @*<div class="col-sm-2 login-do" style="margin-left:40%">
                             <label class="hvr-shutter-in-horizontal login-sub">
@@ -231,6 +238,7 @@ width:60%; height:15%; margin:auto; padding:10px'>
                     <script type="text/javascript">
                         $('#spin').hide();
                         $('#myDiv').hide();
+                        $('#error').hide();
                         var netAmount = 0;
 
                         var PatientTests = [];
@@ -251,7 +259,7 @@ width:60%; height:15%; margin:auto; padding:10px'>
 
                         function RegisterPatient() {
                             $('#spin').show();
-                            
+
                             var Name = $('#Name').val();
                             var GenderId = $('#GenderId').val();
                             var DateOfBirth = $('#DateOfBirth').val();
@@ -261,86 +269,89 @@ width:60%; height:15%; margin:auto; padding:10px'>
                             var Discount = $('#Discount').val();
                             var PaidAmount = $('#PaidAmount').val();
                             var PayId = $('#PayId').val();
-                                var ReferredId = $('#ReferredId').val();
-                                if (ReferredId == undefined || ReferredId == "") {
-                                    ReferredId = -1;
-                                }
-                                if(Discount==undefined || Discount==""){
-                                    Discount = 0;
-                                }
-                                if (PaidAmount!="" && Name != "" && GenderId != "" && DateOfBirth != "" && PhoneNumber != "" && Email != "" && SelectedPatientTests.length > 0) {
-
-                                    var patientObj = {
-                                        Id: 0,
-                                        Name: $('#Name').val(),
-                                        GenderId: parseInt($('#GenderId').val()),
-                                        DateofBirth: $('#DateOfBirth').val(),
-                                        PhoneNumber: $('#PhoneNumber').val(),
-                                        Email: $('#Email').val(),
-                                        BranchId: -1,
-                                        ReferredId: ReferredId,
-                                        Discount: Discount,
-                                        PaidAmount: PaidAmount,
-                                        PayId: PayId,
-                                        PatientTestIds: SelectedPatientTests
-                                    };
-
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: "@Url.Action("AddPatient","Reciptionist")",
-                                        data: JSON.stringify(patientObj),
-                                        contentType: "application/json",
-                                        dataType: 'json',
-                                        success: function (data) {
-                                            //alert(data);
-                                            $('#spin').hide();
-                                            $('#myDiv').show();
-                                            $('#myDiv').fadeOut(4000);
-                                        }
-                                    });
-                                } else {
-                                    alert("Please select all required fields");
-                                }
+                            var ReferredId = $('#ReferredId').val();
+                            if (ReferredId == undefined || ReferredId == "") {
+                                ReferredId = -1;
                             }
+                            if (Discount == undefined || Discount == "") {
+                                Discount = 0;
+                            }
+                            if (PaidAmount != "" && Name != "" && GenderId != "" && DateOfBirth != "" && PhoneNumber != "" && Email != "" && SelectedPatientTests.length > 0) {
 
-                                    var currentSubCatId = -1;
-                                    function getTests(SubCatId) {
-                                        currentSubCatId = SubCatId;
-                                        if (SubCatId==-1) {
-                                            $('#Tests').empty();
-                                            PatientTests = [];
-                                            return ;
-                                        }
-                                            $.ajax({
-                                                type: 'POST',
-                                                url: "@Url.Action("GetTests","Reciptionist")",
-                                                data: { Id: SubCatId },
-                                                dataType: "json",
-                                                success: function (data) {
-                                                    $('#Tests').empty();
-                                                    PatientTests = [];
-                                                    for (var i = 0; i < data.length; i++) {
-                                                       
-                                                        $('#Tests').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-1'>" + data[i].Id + "</div> <div class='col-xs-6 col-sm-4'>" + data[i].TestSubcategoryName + "</div><div class='col-md-2'>Rs." + data[i].Rate + "/=</div><div class='col-md-1'> &nbsp; <input type='checkbox' onclick='addTest(" + data[i].Id + ")'></div></div>");
+                                var patientObj = {
+                                    Id: 0,
+                                    Name: $('#Name').val(),
+                                    GenderId: parseInt($('#GenderId').val()),
+                                    DateofBirth: $('#DateOfBirth').val(),
+                                    PhoneNumber: $('#PhoneNumber').val(),
+                                    Email: $('#Email').val(),
+                                    BranchId: -1,
+                                    ReferredId: ReferredId,
+                                    Discount: Discount,
+                                    PaidAmount: PaidAmount,
+                                    PayId: PayId,
+                                    PatientTestIds: SelectedPatientTests
+                                };
 
-                                                        PatientTests[data[i].Id] = {
-                                                                catId: SubCatId,
-                                                                TestName: data[i].TestSubcategoryName,
-                                                                Rate: data[i].Rate
-                                                            };
-
-                                                            OriginalListOfTests[data[i].Id] = PatientTests[data[i].Id];
-                                                    }
-                                                }
-                                            });
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "@Url.Action("AddPatient","Reciptionist")",
+                                    data: JSON.stringify(patientObj),
+                                    contentType: "application/json",
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        //alert(data);
+                                        $('#spin').hide();
+                                        $('#myDiv').show();
+                                        $('#myDiv').fadeOut(4000);
                                     }
+                                });
+                            } else {
+                                $('#spin').hide();
+                                $('#error').show();
+                                $('#error').fadeOut(4000);
+                                //alert("Please select all required fields");
+                            }
+                        }
+
+                        var currentSubCatId = -1;
+                        function getTests(SubCatId) {
+                            currentSubCatId = SubCatId;
+                            if (SubCatId == -1) {
+                                $('#Tests').empty();
+                                PatientTests = [];
+                                return;
+                            }
+                            $.ajax({
+                                type: 'POST',
+                                url: "@Url.Action("GetTests","Reciptionist")",
+                                data: { Id: SubCatId },
+                                dataType: "json",
+                                success: function (data) {
+                                    $('#Tests').empty();
+                                    PatientTests = [];
+                                    for (var i = 0; i < data.length; i++) {
+
+                                        $('#Tests').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-1'>" + data[i].Id + "</div> <div class='col-xs-6 col-sm-4'>" + data[i].TestSubcategoryName + "</div><div class='col-md-2'>Rs." + data[i].Rate + "/=</div><div class='col-md-1'> &nbsp; <input type='checkbox' onclick='addTest(" + data[i].Id + ")'></div></div>");
+
+                                        PatientTests[data[i].Id] = {
+                                            catId: SubCatId,
+                                            TestName: data[i].TestSubcategoryName,
+                                            Rate: data[i].Rate
+                                        };
+
+                                        OriginalListOfTests[data[i].Id] = PatientTests[data[i].Id];
+                                    }
+                                }
+                            });
+                        }
 
 
 
                         function removeSelectedTest(TestId) {
                             $('#SelectedTests').empty();
                             $('#Tests').empty();
-                            if (tempPatientTests[TestId].catId==currentSubCatId) {
+                            if (tempPatientTests[TestId].catId == currentSubCatId) {
                                 PatientTests[TestId] = tempPatientTests[TestId];
                             }
                             netAmount = netAmount - parseInt(tempPatientTests[TestId].Rate);
@@ -362,9 +373,9 @@ width:60%; height:15%; margin:auto; padding:10px'>
                             for (var key in PatientTests) {
                                 $('#Tests').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-1'>" + key + "</div> <div class='col-xs-6 col-sm-4'>" + PatientTests[key].TestName + "</div><div class='col-md-2'>Rs." + PatientTests[key].Rate + "/=</div><div class='col-md-1'> &nbsp;<input type='checkbox' onclick='addTest(" + key + ")'></div></div>");
                             }
-                            
+
                             //$('#SelectedTests').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-1'></div> <div class='col-xs-6 col-sm-4'></div><div class='col-md-2'>TotalAmount:</div><div class='col-md-1'>"+netAmount+"</div></div>");
-                          
+
                         }
 
                         function addTest(Id) {
@@ -381,17 +392,17 @@ width:60%; height:15%; margin:auto; padding:10px'>
                             for (var key in PatientTests) {
                                 $('#Tests').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-1'>" + key + "</div> <div class='col-xs-6 col-sm-4'>" + PatientTests[key].TestName + "</div><div class='col-md-2'>Rs." + PatientTests[key].Rate + "/=</div><div class='col-md-1'> &nbsp;<input type='checkbox' onclick='addTest(" + key + ")'></div></div>");
                             }
-                            
+
 
                             //$('#SelectedTests').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-1'></div> <div class='col-xs-6 col-sm-4'></div><div class='col-md-2'>Total Amount:</div><div class='col-md-1'>"+netAmount+"</div></div>");
                             document.getElementById('totalAmount').innerHTML = netAmount;
-                             SelectedPatientTests.push(Id);
+                            SelectedPatientTests.push(Id);
                         }
 
                         function getSubCategory(deptId) {
-                            if (deptId==-1) {
+                            if (deptId == -1) {
 
-                                return ;
+                                return;
                             }
                             $.ajax({
                                 type: 'POST',

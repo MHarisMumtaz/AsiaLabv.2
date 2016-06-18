@@ -57,8 +57,13 @@ namespace AsiaLabv1.Services
                              UserName = user.Name,
                              BranchName = branch.BranchName,
                              BranchAddress = branch.BranchAddress,
-                             UserRole = usertype.TypeDescription
+<<<<<<< HEAD
+                             UserRole = usertype.TypeDescription,                          
                              
+=======
+                             UserRole = usertype.TypeDescription,
+                             BranchId = branch.Id
+>>>>>>> 335c4ac8794f9340209d13ac58ec233c6a33296d
                              
                          }).FirstOrDefault();
             var model = new UserModel();
@@ -69,6 +74,7 @@ namespace AsiaLabv1.Services
                 model.BranchName = Query.BranchName;
                 model.BranchAddress = Query.BranchAddress;
                 model.UserRole = Query.UserRole;
+                model.BranchId = Query.BranchId;
                 return model;
             }
             return null;
@@ -102,30 +108,30 @@ namespace AsiaLabv1.Services
             UserAddresses.Insert(empAddr);
         }
 
-        public void AddUser()
-        {
-            var useremp = new UserEmployee()
-            {
-                Name="Test Receiptionist",
-                Username = "TestReceiptionist",
-                Password = "TestReceiptionist2016",
-                BranchId = 1
-            };
+        //public void AddUser()
+        //{
+        //    var useremp = new UserEmployee()
+        //    {
+        //        Name="Test Receiptionist",
+        //        Username = "TestReceiptionist",
+        //        Password = "TestReceiptionist2016",
+        //        BranchId = 1
+        //    };
            
-            UserEmp.Insert(useremp);
-            UserAddresses.Insert(new Address
-            {
-                UserEmployeeId = useremp.Id,
-                UserTypeId = 3,
-                ContactNo = "0300-689654",
-                Email = "TestReceiptionist@gmail.com",
-                GenderId = 1,
-                Qualification = "MBA",
-                AddressDetail = "H block test address karachi",
-                CNIC = "42101-testreceiptionist"
-            });
+        //    UserEmp.Insert(useremp);
+        //    UserAddresses.Insert(new Address
+        //    {
+        //        UserEmployeeId = useremp.Id,
+        //        UserTypeId = 3,
+        //        ContactNo = "0300-689654",
+        //        Email = "TestReceiptionist@gmail.com",
+        //        GenderId = 1,
+        //        Qualification = "MBA",
+        //        AddressDetail = "H block test address karachi",
+        //        CNIC = "42101-testreceiptionist"
+        //    });
 
-        }
+        //}
 
         public void AddUserType(string UserRole)
         {

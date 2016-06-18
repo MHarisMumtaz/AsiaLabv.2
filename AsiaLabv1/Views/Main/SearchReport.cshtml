@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "SearchReport";
+    Layout = "~/Views/Shared/_SecondMainLayout.cshtml";
+}
+
+@section Title
+{
+   Asia Lab Diagnostic Center | Search Report
+}
+@section Banner
+{
+    <br><br><div class="page-head">
+    <div class="container">
+        <h3>Search</h3>
+    </div>
+</div>
+
+
+}
+
+<div class="contact">
+    <div class="container">
+        <div class="contact-grids">
+
+            <div class="clearfix"> </div>
+        </div>
+        <div class="map wow fadeInDown animated" data-wow-delay=".5s">
+            <h3 class="tittle">To Download Report<br>Enter Receipt Number</h3>
+            <h3 class="tittle"></h3>
+
+        </div>
+
+        <form>
+            <div class="contact-form2" align="center">
+                <input type="text" value="Recipt No." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Recipt No.';}" required>
+                <br><br>
+                <a href="@Url.Action("Report","Main")" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image4','','images/btn2.png',1)"><img src="~/assets/images/btn1.png" width="140" height="50" id="Image4"></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- //contact -->
+<!-- //product-nav -->
+<br><br><div class="coupons">
+    <div class="container">
+        <div class="coupons-grids text-center">
+            <div class="col-md-3 coupons-gd">
+                <h3>Customer  <br>  Care </h3>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("health","Main")"> Health</a></h4>
+                <p>Boost your Health with some daily routine Health Tips</p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("wecare","Main")">We Care</a></h4>
+                <p>Our Customer Service Office is available to answer any questions or  any issues  </p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("faqs","Main")"> FAQs</a></h4>
+                <p>You can view anwers of your required qquestions from the list </p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

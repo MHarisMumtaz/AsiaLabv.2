@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "ecg";
+    Layout = "~/Views/Shared/_SecondMainLayout.cshtml";
+}
+
+@section Title
+{
+    Services | ECG
+}
+@section Banner
+{
+    <br><br><div class="page-head">
+        <div class="container">
+            <h3>Services</h3>
+        </div>
+    </div>
+
+}
+
+<div class="men-wear">
+    <div class="container">
+        <div class="col-md-4 products-left">
+            <div class="filter-price">
+
+                <!---->
+                <script type='text/javascript'>
+//<![CDATA[
+                    $(window).load(function () {
+                        $("#slider-range").slider({
+                            range: true,
+                            min: 0,
+                            max: 9000,
+                            values: [1000, 7000],
+                            slide: function (event, ui) {
+                                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                            }
+                        });
+                        $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+                    });//]]>
+
+                </script>
+                <script type="text/javascript" src="js/jquery-ui.js"></script>
+                <!---->
+            </div>
+            <div class="css-treeview">
+                <h4>Our Services</h4>
+                <ul class="tree-list-pad">
+                    <li><span></span><a href="@Url.Action("Laboratory","Main")">Laboratory</a></li>
+                    <li><span></span><a href="@Url.Action("Ultrasound","Main")"> Ultrasound</a></li>
+
+                    <li><span></span><a href="@Url.Action("Xrays","Main")">X-rays</a></li>
+
+                    <li><span></span><a href="@Url.Action("opg","Main")">OPG</a></li>
+
+                    <li><span></span><a href="@Url.Action("ecg","Main")"> ECG</a></li>
+
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-8 products-right">
+
+            <h2><strong>ECG ( Electrocardiogram )</strong></h2>
+            <div class="clearfix"></div>
+
+            <br><p>
+                An Electrocardiogram (ECG or EKG, abbreviated from the German Electrocardiogram) is a graphic produced by an
+                electrocardiograph, which records the electrical activity of the heart over time.
+                Its name is made of different parts: electro, because it is related to electrical activity,
+                cardio, Greek for heart, gram, a Greek root meaning "to write". In the US, the abbreviation
+                "EKG" is often preferred over "ECG", while "ECG" is used universally in the UK and many other countries.
+                An ECG is an electrical recording of the heart and is used in the investigation of heart
+                disease.
+            </p>
+
+            <br><p>
+                Electrical impulses in the heart originate in the sinoatrialnode and travel through the heart muscle where they cause
+                contraction. The electrical waves can be measured at selectively placed electrodes (electrical contacts) on the skin.
+                Electrodes on different sides of the heart measure the activity of different parts of the heart muscle. An ECG displays
+                the voltage between pairs of these electrodes, and the muscle activity that they measure, from different directions,
+                also understood as vectors. This display indicates the overall rhythm of the heart, and weaknesses in different parts of
+                the heart muscle. It is the particularly abnormal rhythms caused by damage to the conductive tissue that carries
+                electrical signals, or abnormal rhythms caused by levels of dissolved salts (electrolytes), such as potassium.
+
+                It is a graphic display of the electrical activity of the heart.
+
+                An ECG may be done as part of a routine physical exam.
+                It may be repeated any time there are questions about the working of your heart.
+            </p>
+
+            <br><p>
+                In myocardial infarction (MI), the
+                ECG can identify damaged heart muscle. But it can only identify damage to muscle in certain areas, so it can not rule
+            </p>
+
+            <br><p>
+                The ECG cannot reliably measure the pumping ability of the heart; for which ultrasound-based (echocardiography)
+                or nuclear medicine tests are used.
+            </p>
+
+            <br><p>
+                You will be brought to the ECG department in the centre. The technician will ask you to take off your clothing from
+                the waist up, put on a gown, and lie down on a small bed. The technician will place a small electrode
+                (a small self-sticking plastic patch) on each of your arms and legs and
+                across six areas on your chest. You need to lie still for the minute or two that it takes the machine to make a record.
+            </p>
+            <br><p>
+
+                Asia Lab offers a wide range of quality assured clinical investigation services using the latest technology,
+                state of art equipments and testing facilities manned by experienced / trained doctors and technicians.
+
+            </p>
+        </div>
+
+    </div>
+</div>
+<!-- //mens -->
+<!-- //product-nav -->
+<br><br><div class="coupons">
+    <div class="container">
+        <div class="coupons-grids text-center">
+            <div class="col-md-3 coupons-gd">
+                <h3>Customer  <br>  Care </h3>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("health","Main")"> Health</a></h4>
+                <p>Boost your Health with some daily routine Health Tips</p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("wecare","Main")">We Care</a></h4>
+                <p>Our Customer Service Office is available to answer any questions or  any issues  </p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("faqs","Main")"> FAQs</a></h4>
+                <p>You can view anwers of your required qquestions from the list </p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

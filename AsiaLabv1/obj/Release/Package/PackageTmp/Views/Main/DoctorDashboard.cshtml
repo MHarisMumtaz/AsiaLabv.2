@@ -1,0 +1,316 @@
+﻿@{
+    ViewBag.Title = "DoctorDashboard";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@model AsiaLabv1.Models.UserModel
+@section Banner
+{
+    @*<div class="banner">
+
+        <h2>
+            <a href="index.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+            <span>Approve Test</span>
+        </h2>
+    </div>*@
+}
+
+@*---------Start Side Navigation Menu-----------*@
+
+@section NavMenu
+{
+    <li>
+    <a href="@Url.Action("DoctorDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+</li>
+
+
+
+
+}
+@*------------ End Side Navigation Menu----------*@
+
+
+@*------------- Start Main Content Code-------------*@
+
+<div class="content-top">
+
+
+    <div class="col-md-4 ">
+        <h3 style="text-align:center">Lab</h3>
+        <br />
+        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+            <div class="top-content">
+                <h4 style="text-align:center; color:black">Tests Pending for Approval</h4><br />
+                <div style="text-align:center" class="top-content">
+                    <label id="testscount"></label>
+                    <i style="color:black" id="waiting" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                </div>
+
+            </div>
+            @*<div class="col-md-6 top-content1">
+                <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
+            </div>*@
+            <div class="clearfix"> </div>
+        </div>
+
+    </div>
+    @*<div class="col-md-8 content-top-2">
+        <!---start-chart---->
+        <!----->
+
+    </div>*@
+    
+    <div class="col-md-4 ">
+        <h3 style="text-align:center">X-RAY</h3>
+        <br />
+        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+            <div class="top-content">
+                <h4 style="text-align:center; color:black">Tests Pending for Approval</h4><br />
+                <div style="text-align:center" class="top-content">
+                    <label id="">-</label>
+                    
+                </div>
+
+            </div>
+            @*<div class="col-md-6 top-content1">
+                <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
+            </div>*@
+            <div class="clearfix"> </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4 ">
+        <h3 style="text-align:center">Ultrasound</h3>
+        <br />
+        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+            <div class="top-content">
+                <h4 style="text-align:center; color:black">Tests Pending for Approval</h4><br />
+                <div style="text-align:center" class="top-content">
+                    <label id="">-</label>
+                </div>
+
+            </div>
+            @*<div class="col-md-6 top-content1">
+            <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
+        </div>*@
+            <div class="clearfix"> </div>
+        </div>
+
+    </div>
+    <div class="clearfix"> </div>
+</div>
+<!---->
+<div class="typo-grid">
+
+    <div class="typo-1">
+
+
+        <div class="grid_3 grid_5">
+
+            <div class="but_list">
+                <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Pending</a></li>
+                        <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Search Tests</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+
+
+                            <div class="tab-content">
+
+                                <div class="tab-pane active" id="horizontal-form">
+                                    <div class="horz-grid">
+                                        <div class="grid-hor">
+                                            <h4 id="grid-example-mixed-complete">Pending Tests List for Approval </h4>
+
+                                        </div>
+                                        <!---->
+
+                                        <div id="grid"></div>
+                                        @*<div class="row show-grid">
+                                            <div class="col-xs-6 col-sm-3">Patient no.</div>
+                                            <div class="col-xs-6 col-sm-3">Patient Name</div>
+                                            <div class="col-xs-6 col-sm-3">Test Options</div>
+                                        </div>
+                                        <div class="row show-grid">
+                                            <div class="col-xs-6 col-sm-3">1008</div>
+                                            <div class="col-xs-6 col-sm-3">Shahzad</div>
+
+                                            <div class="col-xs-6 col-sm-3">
+                                                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location='PerformTest.html';">Approve Test</button>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row show-grid">
+                                            <div class="col-xs-6 col-sm-3">1009</div>
+                                            <div class="col-xs-6 col-sm-3">Akhtar</div>
+
+                                            <div class="col-xs-6 col-sm-3">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location = 'PerformTest.html';">Approve Test</button>
+
+                                            </div>
+
+
+                                        </div>*@
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+
+                            <h3>Search Tests By Date</h3>
+                            <div class="tab-content">
+
+                                <div class="tab-pane active" id="horizontal-form">
+
+                                    <form class="form-horizontal">
+                                        <br />
+                                        <div class="form-group">
+                                            <label for="pname" class="col-sm-2 control-label">From Date</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" class="form-control1" id="focusedinput">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pname" class="col-sm-2 control-label">To Date</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" class="form-control1" id="focusedinput">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-2 login-do" style="margin-left:40%">
+                                            <label class="hvr-shutter-in-horizontal login-sub">
+                                                <input type="submit" value="See Tests" onclick="window.location='signup.html';" />
+                                            </label>
+                                        </div>
+                                        <br /><br /><br /><br /><br />
+
+                                        <br />
+
+
+                                        <div class="clearfix"> </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<script type="text/javascript">
+
+    
+    setInterval(kendoGrid, 60000);
+
+    window.onload = kendoGrid();
+
+    function kendoGrid() {
+        var crudServiceBaseUrl = "/Doctor",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "/GetPatientInfo",
+                            dataType: "json",
+
+                        },
+
+                        parameterMap: function (options, operation) {
+
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        },
+
+                    },
+                    batch: true,
+                    pageSize: 20,
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                PatientNumber: { type: "string" },
+                            }
+                        }
+                    },
+                    completed: function () { },
+                    requestEnd: function (e) { $('#grid').data('kendoGrid').refresh(); },
+                });
+
+        $("#grid").kendoGrid({
+            dataSource: dataSource,
+            dataBound: onDataBound,
+            pageable: true,
+            height: 550,
+            //toolbar: ["create"],
+            columns: [
+
+                  { field: "PatientNumber", title: "Patient Id", width: "130px" },
+                  { field: "PatientName", title: "Patient Name", width: "130px" },
+                  { command: { text: "Approve Test", click: redirect }, title: "", width: "250px" },
+            ],
+            editable: "inline"
+        });
+
+
+    };
+
+    function redirect(e) {
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+        $.ajax({
+            type: 'POST',
+            url: '/Doctor/Temp/',
+            data: { patientId: dataItem.id },
+            dataType: "json",
+
+        });
+
+        window.location.href = "/Doctor/ApproveTest"
+    }
+
+    function onDataBound(arg) {
+        var grid = $("#grid").data("kendoGrid");
+        var dataSource = grid.dataSource;
+
+        var totalRecords = dataSource.total();
+        $("#testscount").text(totalRecords);
+        $('#waiting').hide();
+    }
+
+
+
+</script>
+
+
+<!----->
+<!--//content-->
+@*------------- End Main Content Code-------------*@
+
+

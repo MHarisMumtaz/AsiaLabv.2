@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_SecondMainLayout.cshtml";
+}
+
+@section Title
+{
+    Asia Lab Diagnostic Center | Report
+}
+@section Banner
+{
+    <br><br><div class="page-head">
+        <div class="container">
+            <h3>Reports</h3>
+        </div>
+    </div>
+
+
+}
+<div class="contact">
+    <div class="container">
+        <div class="map wow fadeInDown animated" data-wow-delay=".5s">
+            <h3 class="tittle">Your Report</h3>
+            <h4 align="center">WELCOME Mr. ALi</h4>
+            <br>
+            <table width="800" align="center">
+                <thead>
+                    <tr>
+                        <th>Receipt # : 987662</th>
+                        <th>D.O.B : 19-may-2016</th>
+                        <th>Gender : Male</th>
+                    </tr>
+                    <br>
+                </thead>
+            </table>
+            <br>
+            <table width="800" align="center">
+                <thead>
+                    <tr>
+                        <th>Order Date : </th>
+                        <td>19-may-2016</td>
+                    </tr>
+
+                    <tr>
+                        <th>Location : </th>
+                        <td>Karachi</td>
+                    </tr>
+
+                    <tr>
+                        <th>Reffered By : </th>
+                        <td> Mr Khan</td>
+                    </tr>
+
+                    <tr>
+                        <th>Test Conducted :</th>
+                        <td>Blood Test</td>
+                        <td>Sugar Test</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <table width="800">
+            <thead>
+                <tr>
+                    <ul>Test 1</ul>
+                    <ul>Test 2</ul>
+                    <ul>Test 3</ul>
+                </tr>
+            </thead>
+        </table>
+        <form>
+
+            <br><br>
+            <a href="@Href("~/assets/987662.pdf")" target="_blank"><img src="~/assets/images/pdf.png" style="float:right" width="120" /></a>
+
+        </form>
+    </div>
+</div>
+
+<!-- //contact -->
+<!-- //product-nav -->
+<br><br><div class="coupons">
+    <div class="container">
+        <div class="coupons-grids text-center">
+            <div class="col-md-3 coupons-gd">
+                <h3>Customer  <br>  Care </h3>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("health","Main")"> Health</a></h4>
+                <p>Boost your Health with some daily routine Health Tips</p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("wecare","Main")">We Care</a></h4>
+                <p>Our Customer Service Office is available to answer any questions or  any issues  </p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <h4><a class="start1" href="@Url.Action("faqs","Main")"> FAQs</a></h4>
+                <p>You can view anwers of your required qquestions from the list </p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

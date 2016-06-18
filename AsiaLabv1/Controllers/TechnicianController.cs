@@ -20,25 +20,34 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult GetPatientInfo()
         {
+            int SessionBrId = pts.GetBranchId(Session["branch"].ToString());
+
  
             var patientInfo=pts.GetPatientTests();
             List<RequiredPatient> rp = new List<RequiredPatient>();
              foreach (var item in patientInfo)
                     {
-                        rp.Add(new RequiredPatient
+                        if (item.BranchId==SessionBrId)
                         {
-                           //Id=item.PatientId,
-                           //PatientName=item.Patient.PatientName,
-                           //PatientNumber=item.Patient.PatientNumber
-                           Id=item.Id,
-                           PatientName=item.PatientName,
-                           PatientNumber=item.Id.ToString(),
+                            rp.Add(new RequiredPatient
+                            {
+                                //Id=item.PatientId,
+                                //PatientName=item.Patient.PatientName,
+                                //PatientNumber=item.Patient.PatientNumber
 
-                        });
+                                Id = item.Id,
+                                PatientName = item.PatientName,
+                                PatientNumber = item.Id.ToString(),
+
+
+                            });
+                        }
+                     
                     }
                     return Json(rp, JsonRequestBehavior.AllowGet);
 
           }
+
 
         public ActionResult PerformTest()
         {
@@ -48,13 +57,13 @@ namespace AsiaLabv1.Controllers
         public void Temp(string patientId)
         {
             _patientId = Convert.ToInt16(patientId);
-            TempData["ID"] = patientId;
+            Session["ID"] = patientId;
         }
 
         public ActionResult GetTests()
         {
 
-            var patientDetails = pts.GetPatientTestsById(Convert.ToInt16(TempData["ID"]));
+            var patientDetails = pts.GetPatientTestsById(Convert.ToInt16(Session["ID"]));
             List<RequiredTechnicianItems> TechnicianItems = new List<RequiredTechnicianItems>();
             List<RequiredTest> rt = new List<RequiredTest>();
 

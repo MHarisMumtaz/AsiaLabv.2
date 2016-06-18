@@ -14,6 +14,7 @@ namespace AsiaLabv1.Controllers
 
         PatientTestService pts = new PatientTestService();
         public static int _patienttestId, _patientId;
+        public static string _deptname;
 
         public ActionResult Index()
         {
@@ -25,10 +26,16 @@ namespace AsiaLabv1.Controllers
             return View();
         }
 
+        public ActionResult DeptName(string deptname)
+        {
+            _deptname = deptname;
+            return Json("Successfull", JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetPatientInfo()
         {
 
-            var patientInfo = pts.GetPatientTestsDoctor();
+            var patientInfo = pts.GetPatientTestsDoctor(_deptname);
             List<RequiredPatient> rp = new List<RequiredPatient>();
             foreach (var item in patientInfo)
             {

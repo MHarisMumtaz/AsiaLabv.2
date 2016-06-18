@@ -16,6 +16,7 @@ namespace AsiaLabv1.Services
         Repository<TechnicianPatientsTest> _TechnicianPatientTestRepository = new Repository<TechnicianPatientsTest>();
         Repository<DoctorPatientsTest> _DoctorsPatientsTestsRepository = new Repository<DoctorPatientsTest>();
         Repository<DoctorComment> _DoctorCommentsRepository = new Repository<DoctorComment>();
+        Repository<TestCategory> _TestCategoryRepository = new Repository<TestCategory>();
 
         public void Add(PatientTest Patienttest)
         {
@@ -51,7 +52,7 @@ namespace AsiaLabv1.Services
             return query;
         }
 
-        public List<Patient> GetPatientTestsDoctor()
+        public List<Patient> GetPatientTestsDoctor(String deptname)
         {
             var abc=(from ptr in _PatientTestResultRepository.Table
                          where ptr.ApprovalStatus=="Approved"
@@ -60,7 +61,7 @@ namespace AsiaLabv1.Services
             var check2 = (from pt in _PatientTestRepository.Table
                           join tr in _PatientTestResultRepository.Table
                           on pt.Id equals tr.PatientTestId
-                          where !abc.Contains(tr.PatientTestId)
+                          where abc.Contains(tr.PatientTestId) == false && pt.TestSubcategory.TestCategory.TestDepartment.DepartmentName == deptname
                           select pt.PatientId).ToList();
 
           
@@ -74,7 +75,7 @@ namespace AsiaLabv1.Services
 
         public List<PatientTest> GetPatientTestsById(int id)
         {
-            var query = (from pt in _PatientTestRepository.Table
+            var query = (from pt in _PatientTestRepository.Table 
                          join t in _TestSubCategoryRepository.Table
                          on pt.TestSubcategoryId equals t.Id
                          //where !_PatientTestResultRepository.Table.Any(ptr => ptr.PatientTestId == pt.Id)

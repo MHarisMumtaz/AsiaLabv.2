@@ -10,6 +10,9 @@ namespace AsiaLabv1.Services
     public class PatientService
     {
         Repository<Patient> _PatientRepository = new Repository<Patient>();
+        Repository<PatientTest> _PatientTestRepository = new Repository<PatientTest>();
+        Repository<PatientTestResult> _PatientTestResultRepository = new Repository<PatientTestResult>();
+
         Repository<PatientRefer> _PatientReferRepository = new Repository<PatientRefer>();
 
         public void Add(PatientModel model)
@@ -38,6 +41,33 @@ namespace AsiaLabv1.Services
                     ReferId = model.ReferredId
                 });
             }
+        }
+
+        public List<Patient> GetPatientsByBranchId(int BranchId)
+        {
+            var Query = (from P in _PatientRepository.Table
+                         where P.BranchId == BranchId
+                         select P).ToList();
+            return Query;
+        }
+      
+        public List<Patient> SearchPatient(int BranchId,string name)
+        {
+            var Query = (from P in _PatientRepository.Table
+                         where P.BranchId == BranchId && P.PatientName==name
+                         select P).ToList();
+            return Query;
+        }
+
+        public List<Patient> SearchByStatus(int BranchId)
+        {
+            var Query = (from P in _PatientRepository.Table
+                         join Ptest in _PatientTestRepository.Table on P.Id equals Ptest.PatientId
+                         join Presult in _PatientTestResultRepository.Table on Ptest.Id equals Presult.PatientTestId
+                         where (P.BranchId == BranchId && Presult.ApprovalStatus == "Approved")
+                         select P).ToList();
+
+            return Query;
         }
     }
 }

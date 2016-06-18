@@ -254,6 +254,38 @@ namespace AsiaLabv1.Controllers
             
         }
 
+        
+        public ActionResult GetPatientList(PatientSearchModel model)
+        {
+            List<Patient> Patientlist = null;
+            Patientlist = PatientServices.GetPatientsByBranchId(Convert.ToInt32(Session["BranchId"]));
+            
+            if (model.ShowGeneratedReportPatients)
+            {
+               Patientlist = PatientServices.SearchByStatus(Convert.ToInt32(Session["BranchId"]));
+            }
+            if (model.Name!=null)
+            {
+                Patientlist = Patientlist.Where(p => p.PatientName.Contains(model.Name)).ToList();
+            }
+            if (model.PatientId>0)
+            {
+                Patientlist = Patientlist.Where(P => P.Id == model.PatientId).ToList();
+            }
+             var list = new List<PatientModel>();
+            if (Patientlist!=null)
+            {
+                foreach (var item in Patientlist)
+                {
+                    list.Add(new PatientModel()
+                    {
+                        Id = item.Id,
+                        Name = item.PatientName
+                    });
+                }
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
        
 
     }

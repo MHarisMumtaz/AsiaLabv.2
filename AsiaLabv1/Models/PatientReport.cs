@@ -84,8 +84,8 @@ namespace AsiaLabv1.Models
             WriteTextOnPdf(graph, font, pdfPage, "Doctor Approved:", 350, 228);
             WriteTextOnPdf(graph, font, pdfPage, PatientDoctor.Name, 430, 228);
 
-            WriteTextOnPdf(graph, font, pdfPage, "Date:", 350, 242);
-            WriteTextOnPdf(graph, font, pdfPage, PatientInfo.DateTime.ToShortDateString(), 379, 242);
+            WriteTextOnPdf(graph, font, pdfPage, "Sample Date:", 350, 242);
+            WriteTextOnPdf(graph, font, pdfPage, PatientInfo.DateTime.ToString(), 386, 242);
 
             font = new XFont("Arial, Helvetica, sans-serif", 10, XFontStyle.Regular);
 

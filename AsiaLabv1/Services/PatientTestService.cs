@@ -1,4 +1,5 @@
-﻿using AsiaLabv1.Repositories;
+﻿using AsiaLabv1.Models;
+using AsiaLabv1.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,8 @@ namespace AsiaLabv1.Services
 {
     public class PatientTestService
     {
-        
+
+        Repository<TestDepartment> _TestDeptRepository = new Repository<TestDepartment>();
 
         Repository<PatientTest> _PatientTestRepository = new Repository<PatientTest>();
         Repository<TestSubcategory> _TestSubCategoryRepository = new Repository<TestSubcategory>();
@@ -189,13 +191,89 @@ namespace AsiaLabv1.Services
             return query;
         }
 
+        public List<PatientReportModel> GetPatientTestsDetails(int PatientId)
+        {
+            var Query = (from Ptest in _PatientTestRepository.Table
+                         join TestSubcat in _TestSubCategoryRepository.Table on Ptest.TestSubcategoryId equals TestSubcat.Id
+                         join TestCat in _TestCategoryRepository.Table on TestSubcat.TestCategoryId equals TestCat.Id
+                         join TestDept in _TestDeptRepository.Table on TestCat.TestDepartmentId equals TestDept.Id
+                         join PtestResult in _PatientTestResultRepository.Table on Ptest.Id equals PtestResult.PatientTestId
+                         where Ptest.PatientId == PatientId
+                         select new
+                         {
+                             DeptId = TestDept.Id,
+                             DeptName = TestDept.DepartmentName,
+                             CatId = TestCat.Id,
+                             TestCatName = TestCat.TestName,
+                             TestSubCatId = TestSubcat.Id,
+                             TestSubCatName = TestSubcat.TestSubcategoryName,
+                             LowerBound = TestSubcat.LowerBound,
+                             UpperBound = TestSubcat.UpperBound,
+                             result = PtestResult.Result,
+                             Unit = TestSubcat.Unit
+                         }).ToList();
+            var list = new List<PatientReportModel>();
+            var SubcatList = GetSubCategoryByPatientId(PatientId);
+            SubcatList = SubcatList.OrderBy(S => S.Id).ToList();
+            Query = Query.OrderBy(P => P.TestSubCatId).ToList();
+            var newlist = Query.Zip(SubcatList, (first, second) => new { Q = first, S = second });
+            foreach (var item in newlist)
+            {
+                list.Add(new PatientReportModel
+                {
+<<<<<<< HEAD
+                    DepartmentId = item.DeptId,
+                    CategoryId = item.CatId,
+                    TestSubCategoryId = item.TestSubCatId,
+                    DepartmentName = item.DeptName,
+                    TestSubCategoryName = item.TestSubCatName,
+                    TestCategoryName = item.TestCatName,
+                    LowerBound = item.LowerBound,
+                    UpperBound = item.UpperBound,
+                    Result = item.result,
+                    Unit = item.Unit
+=======
+                    DepartmentId = item.Q.DeptId,
+                    CategoryId = item.Q.CatId,
+                    TestSubCategoryId = item.Q.TestSubCatId,
+                    DepartmentName = item.Q.DeptName,
+                    TestSubCategoryName = item.S.TestSubcategoryName,
+                    TestCategoryName = item.Q.TestCatName,
+                    LowerBound = item.S.LowerBound,
+                    UpperBound = item.S.UpperBound,
+                    Result = item.Q.result,
+                    Unit = item.S.Unit
+>>>>>>> d5ab939d5c84014fae1b43f17d3eecd261f494c0
+                });
+            }
+            return list;
+        }
+
         public string GetComment(int patientid)
         {
             var query = (from dc in _DoctorCommentsRepository.Table
                          where dc.PatientId == patientid
                          select dc).ToList();
+<<<<<<< HEAD
             if (query.Count > 0) { return query.LastOrDefault().Comments; }
             return "";
+=======
+<<<<<<< HEAD
+            if (query.Count > 0) { return query.LastOrDefault().Comments; }
+            return "";
+=======
+            return query.LastOrDefault().Comments;
+>>>>>>> d1ea62a26c800dd2ff16a5aa6bdc9387ac7d612c
+        }
+
+        public List<TestSubcategory> GetSubCategoryByPatientId(int patientId)
+        {
+            var Query = (from PT in _PatientTestRepository.Table
+                         join Subcat in _TestSubCategoryRepository.Table on PT.TestSubcategoryId equals Subcat.Id
+                         where PT.PatientId==patientId
+                         select Subcat).ToList();
+            return Query;
+>>>>>>> d5ab939d5c84014fae1b43f17d3eecd261f494c0
         }
     }
 }

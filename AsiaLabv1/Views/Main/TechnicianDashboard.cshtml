@@ -7,21 +7,21 @@
 {
     @*<div class="banner">
 
-        <h2>
-            <a href="index.html">Home</a>
-            <i class="fa fa-angle-right"></i>
-            <span>Perform Test</span>
-        </h2>
-    </div>*@
+            <h2>
+                <a href="index.html">Home</a>
+                <i class="fa fa-angle-right"></i>
+                <span>Perform Test</span>
+            </h2>
+        </div>*@
 }
 
 @*---------Start Side Navigation Menu-----------*@
 
 @section NavMenu
 {
-   <li>
-    <a href="@Url.Action("TechnicianDashboard", "Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
-</li>
+    <li>
+        <a href="@Url.Action("TechnicianDashboard", "Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
 
 
 
@@ -109,39 +109,38 @@
 
                                         </div>
                                         <!---->
-
                                         @*Grid Code*@
                                         <div id="grid"></div>
 
                                         @*<div class="row show-grid">
-                                            <div class="col-xs-6 col-sm-3">Patient no.</div>
-                                            <div class="col-xs-6 col-sm-3">Patient Name</div>
-                                            <div class="col-xs-6 col-sm-3">Test Options</div>
-                                        </div>
-                                        <div class="row show-grid">
-                                            <div class="col-xs-6 col-sm-3">1008</div>
-                                            <div class="col-xs-6 col-sm-3">Shahzad</div>
+                                                <div class="col-xs-6 col-sm-3">Patient no.</div>
+                                                <div class="col-xs-6 col-sm-3">Patient Name</div>
+                                                <div class="col-xs-6 col-sm-3">Test Options</div>
+                                            </div>
+                                            <div class="row show-grid">
+                                                <div class="col-xs-6 col-sm-3">1008</div>
+                                                <div class="col-xs-6 col-sm-3">Shahzad</div>
 
-                                            <div class="col-xs-6 col-sm-3">
-                                                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location='PerformTest.html';">Perform Test</button>
+                                                <div class="col-xs-6 col-sm-3">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-xs btn-danger" onclick="window.location='PerformTest.html';">Perform Test</button>
+
+                                                </div>
+
 
                                             </div>
+                                            <div class="row show-grid">
+                                                <div class="col-xs-6 col-sm-3">1009</div>
+                                                <div class="col-xs-6 col-sm-3">Akhtar</div>
+
+                                                <div class="col-xs-6 col-sm-3">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-xs btn-danger" onclick="window.location = 'PerformTest.html';">Perform Test</button>
+
+                                                </div>
 
 
-                                        </div>
-                                        <div class="row show-grid">
-                                            <div class="col-xs-6 col-sm-3">1009</div>
-                                            <div class="col-xs-6 col-sm-3">Akhtar</div>
-
-                                            <div class="col-xs-6 col-sm-3">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location = 'PerformTest.html';">Perform Test</button>
-
-                                            </div>
-
-
-                                        </div>*@
+                                            </div>*@
 
 
                                     </div>
@@ -245,83 +244,83 @@
 
     });
 
-        setInterval(kendoGrid, 60000);
+    setInterval(kendoGrid, 60000);
 
-        //window.onload = kendoGrid();
-     
-        function kendoGrid () {
-            var crudServiceBaseUrl = "/Technician",
-                    dataSource = new kendo.data.DataSource({
-                        transport: {
-                            read: {
-                                url: crudServiceBaseUrl + "/GetPatientInfo",
-                                dataType: "json",
+    //window.onload = kendoGrid();
 
-                            },
-                       
-                            parameterMap: function (options, operation) {
-
-                                if (operation !== "read" && options.models) {
-                                    return { models: kendo.stringify(options.models) };
-                                }
-                            },
+    function kendoGrid() {
+        var crudServiceBaseUrl = "/Technician",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "/GetPatientInfo",
+                            dataType: "json",
 
                         },
-                        batch: true,
-                        pageSize: 20,
-                        schema: {
-                            model: {
-                                id: "Id",
-                                fields: {
-                                    PatientNumber: { type: "string" },  
-                                }
+
+                        parameterMap: function (options, operation) {
+
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
                             }
                         },
-                        completed: function () {},
-                        requestEnd: function (e) { $('#grid').data('kendoGrid').refresh();},
-                    });
 
-            $("#grid").kendoGrid({
-                dataSource: dataSource,
-                dataBound: onDataBound,
-                pageable: true,
-                height: 550,
-                //toolbar: ["create"],
-                columns: [
+                    },
+                    batch: true,
+                    pageSize: 20,
+                    schema: {
+                        model: {
+                            id: "Id",
+                            fields: {
+                                PatientNumber: { type: "string" },
+                            }
+                        }
+                    },
+                    completed: function () { },
+                    requestEnd: function (e) { $('#grid').data('kendoGrid').refresh(); },
+                });
 
-                      { field: "PatientNumber", title: "Patient Id", width: "130px" },
-                      { field: "PatientName", title: "Patient Name", width: "130px" },
-                      { command: { text: "Perform Test", click: redirect }, title: "", width: "250px" },
-                ],
-                editable: "inline"
-            });
-        
+        $("#grid").kendoGrid({
+            dataSource: dataSource,
+            dataBound: onDataBound,
+            pageable: true,
+            height: 550,
+            //toolbar: ["create"],
+            columns: [
 
-        };
+                  { field: "PatientNumber", title: "Patient Id", width: "130px" },
+                  { field: "PatientName", title: "Patient Name", width: "130px" },
+                  { command: { text: "Perform Test", click: redirect }, title: "", width: "250px" },
+            ],
+            editable: "inline"
+        });
 
-        function redirect(e) {
 
-            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    };
 
-            $.ajax({
-                type: 'POST',
-                url: '/Technician/Temp/',
-                data: { patientId: dataItem.id },
-                dataType: "json",
-                   
-            });
+    function redirect(e) {
 
-            window.location.href = "/Technician/PerformTest"
-        }
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
-        function onDataBound(arg) {
-            var grid = $("#grid").data("kendoGrid");
-            var dataSource = grid.dataSource;
+        $.ajax({
+            type: 'POST',
+            url: '/Technician/Temp/',
+            data: { patientId: dataItem.id },
+            dataType: "json",
 
-            var totalRecords = dataSource.total();
-            $("#testscount").text(totalRecords);
-            $('#waiting').hide();
-        }
+        });
+
+        window.location.href = "/Technician/PerformTest"
+    }
+
+    function onDataBound(arg) {
+        var grid = $("#grid").data("kendoGrid");
+        var dataSource = grid.dataSource;
+
+        var totalRecords = dataSource.total();
+        $("#testscount").text(totalRecords);
+        $('#waiting').hide();
+    }
 
 </script>
 <!----->

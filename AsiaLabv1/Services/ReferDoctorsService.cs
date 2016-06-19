@@ -10,6 +10,7 @@ namespace AsiaLabv1.Services
     public class ReferDoctorsService
     {
         Repository<Refer> _ReferRepository = new Repository<Refer>();
+        Repository<PatientRefer> _PatientReferRepository = new Repository<PatientRefer>();
 
         public void Add(Refer ReferDoctor)
         {
@@ -34,6 +35,15 @@ namespace AsiaLabv1.Services
         public void Delete(int Doc)
         {
             _ReferRepository.DeleteById(Doc);
+        }
+
+        public Refer GetPatientReferById(int PatientId)
+        {
+            var query = (from PR in _PatientReferRepository.Table
+                         join R in _ReferRepository.Table on PR.ReferId equals R.Id
+                         where PR.PatientId == PatientId
+                         select R).FirstOrDefault();
+            return query;
         }
     }
 }

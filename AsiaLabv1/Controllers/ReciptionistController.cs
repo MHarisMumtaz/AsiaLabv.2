@@ -284,6 +284,8 @@ namespace AsiaLabv1.Controllers
             try
             {
                 var TestReportDetailsList = PatientTestService.GetPatientTestsDetails(PatientId);
+
+              
                 var ReferDoctor = ReferDoctorsServices.GetPatientReferById(PatientId);
                 var BranchName = Session["branch"].ToString();
                 var Patient = PatientServices.GetByPatientId(PatientId);

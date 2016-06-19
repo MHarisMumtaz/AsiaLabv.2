@@ -213,11 +213,15 @@ namespace AsiaLabv1.Services
                              Unit = TestSubcat.Unit
                          }).ToList();
             var list = new List<PatientReportModel>();
-
-            foreach (var item in Query)
+            var SubcatList = GetSubCategoryByPatientId(PatientId);
+            SubcatList = SubcatList.OrderBy(S => S.Id).ToList();
+            Query = Query.OrderBy(P => P.TestSubCatId).ToList();
+            var newlist = Query.Zip(SubcatList, (first, second) => new { Q = first, S = second });
+            foreach (var item in newlist)
             {
                 list.Add(new PatientReportModel
                 {
+<<<<<<< HEAD
                     DepartmentId = item.DeptId,
                     CategoryId = item.CatId,
                     TestSubCategoryId = item.TestSubCatId,
@@ -228,6 +232,18 @@ namespace AsiaLabv1.Services
                     UpperBound = item.UpperBound,
                     Result = item.result,
                     Unit = item.Unit
+=======
+                    DepartmentId = item.Q.DeptId,
+                    CategoryId = item.Q.CatId,
+                    TestSubCategoryId = item.Q.TestSubCatId,
+                    DepartmentName = item.Q.DeptName,
+                    TestSubCategoryName = item.S.TestSubcategoryName,
+                    TestCategoryName = item.Q.TestCatName,
+                    LowerBound = item.S.LowerBound,
+                    UpperBound = item.S.UpperBound,
+                    Result = item.Q.result,
+                    Unit = item.S.Unit
+>>>>>>> d5ab939d5c84014fae1b43f17d3eecd261f494c0
                 });
             }
             return list;
@@ -238,8 +254,20 @@ namespace AsiaLabv1.Services
             var query = (from dc in _DoctorCommentsRepository.Table
                          where dc.PatientId == patientid
                          select dc).ToList();
+<<<<<<< HEAD
             if (query.Count > 0) { return query.LastOrDefault().Comments; }
             return "";
+=======
+            return query.LastOrDefault().Comments;
+        }
+
+        public List<TestSubcategory> GetSubCategoryByPatientId(int patientId)
+        {
+            var Query = (from PT in _PatientTestRepository.Table
+                         join Subcat in _TestSubCategoryRepository.Table on PT.TestSubcategoryId equals Subcat.Id
+                         select Subcat).ToList();
+            return Query;
+>>>>>>> d5ab939d5c84014fae1b43f17d3eecd261f494c0
         }
     }
 }

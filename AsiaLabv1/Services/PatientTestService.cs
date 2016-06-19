@@ -191,7 +191,6 @@ namespace AsiaLabv1.Services
             return query;
         }
 
-<<<<<<< HEAD
         public List<PatientReportModel> GetPatientTestsDetails(int PatientId)
         {
             var Query = (from Ptest in _PatientTestRepository.Table
@@ -211,7 +210,7 @@ namespace AsiaLabv1.Services
                              LowerBound = TestSubcat.LowerBound,
                              UpperBound = TestSubcat.UpperBound,
                              result = PtestResult.Result,
-                             Unit=TestSubcat.Unit
+                             Unit = TestSubcat.Unit
                          }).ToList();
             var list = new List<PatientReportModel>();
 
@@ -228,18 +227,19 @@ namespace AsiaLabv1.Services
                     LowerBound = item.LowerBound,
                     UpperBound = item.UpperBound,
                     Result = item.result,
-                    Unit=item.Unit
+                    Unit = item.Unit
                 });
             }
             return list;
-=======
+        }
+
         public string GetComment(int patientid)
         {
             var query = (from dc in _DoctorCommentsRepository.Table
                          where dc.PatientId == patientid
                          select dc).ToList();
-            return query.LastOrDefault().Comments;
->>>>>>> f63794c6f2cc2a9a94fe95cac305568d95e07e96
+            if (query.Count > 0) { return query.LastOrDefault().Comments; }
+            return "";
         }
     }
 }

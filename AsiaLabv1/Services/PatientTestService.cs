@@ -248,6 +248,7 @@ namespace AsiaLabv1.Services
         {
             var Query = (from PT in _PatientTestRepository.Table
                          join Subcat in _TestSubCategoryRepository.Table on PT.TestSubcategoryId equals Subcat.Id
+                         where PT.PatientId==patientId
                          select Subcat).ToList();
             return Query;
         }

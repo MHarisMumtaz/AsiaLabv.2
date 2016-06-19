@@ -59,6 +59,10 @@ namespace AsiaLabv1.Services
                              BranchAddress = branch.BranchAddress,
                              UserRole = usertype.TypeDescription,
                              BranchId = branch.Id
+<<<<<<< HEAD
+=======
+
+>>>>>>> e3bde193a12d33d340d7c1e66311cdb2b671e3b7
                              
                          }).FirstOrDefault();
             var model = new UserModel();

@@ -17,8 +17,16 @@ namespace AsiaLabv1.Services
         Repository<TechnicianPatientsTest> _TechnicianPatientTestRepository = new Repository<TechnicianPatientsTest>();
         Repository<DoctorPatientsTest> _DoctorsPatientsTestsRepository = new Repository<DoctorPatientsTest>();
         Repository<DoctorComment> _DoctorCommentsRepository = new Repository<DoctorComment>();
+<<<<<<< HEAD
         Repository<TestCategory> _TestCategoryRepository = new Repository<TestCategory>();
         Repository<Branch> _BranchRepository = new Repository<Branch>();
+=======
+
+        Repository<TestCategory> _TestCategoryRepository = new Repository<TestCategory>();
+
+        Repository<Branch> _BranchRepository = new Repository<Branch>();
+
+>>>>>>> e3bde193a12d33d340d7c1e66311cdb2b671e3b7
 
         public void Add(PatientTest Patienttest)
         {

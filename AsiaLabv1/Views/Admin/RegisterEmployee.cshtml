@@ -2,16 +2,7 @@
     ViewBag.Title = "RegisterEmployee";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-<script type="text/javascript">
-    function validateForm() {
-        var x = document.forms["myForm"]["phone"].value;
-        if (isNaN(x))
-        {
-            alert("Input your phone number");
-            return false;
-        }
-    }
-</script>
+
 @model AsiaLabv1.Models.UserModel
 @section Banner
 {

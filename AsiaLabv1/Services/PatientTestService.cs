@@ -221,6 +221,18 @@ namespace AsiaLabv1.Services
             {
                 list.Add(new PatientReportModel
                 {
+<<<<<<< HEAD
+                    DepartmentId = item.DeptId,
+                    CategoryId = item.CatId,
+                    TestSubCategoryId = item.TestSubCatId,
+                    DepartmentName = item.DeptName,
+                    TestSubCategoryName = item.TestSubCatName,
+                    TestCategoryName = item.TestCatName,
+                    LowerBound = item.LowerBound,
+                    UpperBound = item.UpperBound,
+                    Result = item.result,
+                    Unit = item.Unit
+=======
                     DepartmentId = item.Q.DeptId,
                     CategoryId = item.Q.CatId,
                     TestSubCategoryId = item.Q.TestSubCatId,
@@ -231,6 +243,7 @@ namespace AsiaLabv1.Services
                     UpperBound = item.S.UpperBound,
                     Result = item.Q.result,
                     Unit = item.S.Unit
+>>>>>>> d5ab939d5c84014fae1b43f17d3eecd261f494c0
                 });
             }
             return list;
@@ -241,6 +254,10 @@ namespace AsiaLabv1.Services
             var query = (from dc in _DoctorCommentsRepository.Table
                          where dc.PatientId == patientid
                          select dc).ToList();
+<<<<<<< HEAD
+            if (query.Count > 0) { return query.LastOrDefault().Comments; }
+            return "";
+=======
             return query.LastOrDefault().Comments;
         }
 
@@ -251,6 +268,7 @@ namespace AsiaLabv1.Services
                          where PT.PatientId==patientId
                          select Subcat).ToList();
             return Query;
+>>>>>>> d5ab939d5c84014fae1b43f17d3eecd261f494c0
         }
     }
 }

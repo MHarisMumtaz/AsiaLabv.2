@@ -38,19 +38,29 @@
 <div class="content-top">
 
 
-    @*<div class="col-md-4 ">
-        <div class="content-top-1">
-            <div class="col-md-6 top-content">
-                <h5>Tests Pending</h5>
-                <label id="testscount"></label>
-            </div>
-            <div class="col-md-6 top-content1">
-                <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
-            </div>
+    <div class="col-md-2" id="unapproved">
+
+        <br />
+        <div style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
+            <h4 style="text-align:center; color:black">Not Aproved Tests</h4>
+
             <div class="clearfix"> </div>
         </div>
 
-    </div>*@
+    </div>
+
+    <div class="col-md-2" id="rejected">
+
+        <br />
+        <div style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
+            <h4 style="text-align:center; color:black">Rejected Tests</h4>
+
+            <div class="clearfix"> </div>
+        </div>
+
+    </div>
+
+
     <div class="col-md-4 ">
         <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
             <div class="top-content">
@@ -61,9 +71,6 @@
                 </div>
 
             </div>
-            @*<div class="col-md-6 top-content1">
-                    <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
-                </div>*@
             <div class="clearfix"> </div>
         </div>
 
@@ -205,56 +212,89 @@
 
 <script type="text/javascript">
 
-    setInterval(kendoGrid, 60000);
+    $("#unapproved").click(function () {
 
-    window.onload = kendoGrid();
+        $.ajax({
+            type: 'GET',
+            url: '/Technician/Temp2/',
+            data: { approvalstatus: 'Not Approved' },
+            dataType: "json",
+            success: function (data) {
+                kendoGrid();
+            }
+
+        });
+
+
+    });
+
+    $("#rejected").click(function () {
+
+        $.ajax({
+            type: 'GET',
+            url: '/Technician/Temp2/',
+            data: { approvalstatus: 'Rejected' },
+            dataType: "json",
+            success: function (data) {
+                alert('Success');
+                kendoGrid();
+            },
+
+        });
+
+
+    });
+
+        setInterval(kendoGrid, 60000);
+
+        //window.onload = kendoGrid();
      
         function kendoGrid () {
-        var crudServiceBaseUrl = "/Technician",
-                dataSource = new kendo.data.DataSource({
-                    transport: {
-                        read: {
-                            url: crudServiceBaseUrl + "/GetPatientInfo",
-                            dataType: "json",
+            var crudServiceBaseUrl = "/Technician",
+                    dataSource = new kendo.data.DataSource({
+                        transport: {
+                            read: {
+                                url: crudServiceBaseUrl + "/GetPatientInfo",
+                                dataType: "json",
 
-                        },
+                            },
                        
-                        parameterMap: function (options, operation) {
+                            parameterMap: function (options, operation) {
 
-                            if (operation !== "read" && options.models) {
-                                return { models: kendo.stringify(options.models) };
+                                if (operation !== "read" && options.models) {
+                                    return { models: kendo.stringify(options.models) };
+                                }
+                            },
+
+                        },
+                        batch: true,
+                        pageSize: 20,
+                        schema: {
+                            model: {
+                                id: "Id",
+                                fields: {
+                                    PatientNumber: { type: "string" },  
+                                }
                             }
                         },
+                        completed: function () {},
+                        requestEnd: function (e) { $('#grid').data('kendoGrid').refresh();},
+                    });
 
-                    },
-                    batch: true,
-                    pageSize: 20,
-                    schema: {
-                        model: {
-                            id: "Id",
-                            fields: {
-                                PatientNumber: { type: "string" },  
-                            }
-                        }
-                    },
-                    completed: function () {},
-                    requestEnd: function (e) { $('#grid').data('kendoGrid').refresh();},
-                });
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                dataBound: onDataBound,
+                pageable: true,
+                height: 550,
+                //toolbar: ["create"],
+                columns: [
 
-        $("#grid").kendoGrid({
-            dataSource: dataSource,
-            dataBound: onDataBound,
-            pageable: true,
-            height: 550,
-            //toolbar: ["create"],
-            columns: [
-
-                  { field: "PatientNumber", title: "Patient Id", width: "130px" },
-                  { field: "PatientName", title: "Patient Name", width: "130px" },
-                  { command: { text: "Perform Test", click: redirect }, title: "", width: "250px" },
-            ],
-            editable: "inline"
-        });
+                      { field: "PatientNumber", title: "Patient Id", width: "130px" },
+                      { field: "PatientName", title: "Patient Name", width: "130px" },
+                      { command: { text: "Perform Test", click: redirect }, title: "", width: "250px" },
+                ],
+                editable: "inline"
+            });
         
 
         };
@@ -263,13 +303,13 @@
 
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/Technician/Temp/',
-                    data: { patientId: dataItem.id },
-                    dataType: "json",
+            $.ajax({
+                type: 'POST',
+                url: '/Technician/Temp/',
+                data: { patientId: dataItem.id },
+                dataType: "json",
                    
-                });
+            });
 
             window.location.href = "/Technician/PerformTest"
         }

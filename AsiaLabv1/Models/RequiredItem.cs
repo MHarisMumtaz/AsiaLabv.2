@@ -20,6 +20,7 @@ namespace AsiaLabv1
         public string unit { get; set; }
         public double rate { get; set; }
         public string result { get; set; }
+        public string comment { get; set; }
 
     }
 
@@ -37,6 +38,7 @@ namespace AsiaLabv1
         public string PatientName { get; set; }
 
         public List<RequiredTest> PatientTests { get; set; }
+        public List<string> PreviousTests { get; set; }
 
     } 
     

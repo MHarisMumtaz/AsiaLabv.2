@@ -34,7 +34,6 @@ namespace AsiaLabv1.Services
         
         public List<TestSubcategory> GetSubCategTestsByTestCategoryId(int TestCategId)
         {
-
             var Query = (from testSub in _TestSubCatgeroryRepository.Table
                          join testCateg in _TestCatgeroryRepository.Table on testSub.TestCategoryId equals testCateg.Id
                          where testCateg.Id == TestCategId

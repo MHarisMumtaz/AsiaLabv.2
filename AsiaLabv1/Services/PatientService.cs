@@ -43,6 +43,14 @@ namespace AsiaLabv1.Services
             }
         }
 
+        public Patient GetByPatientId(int Id)
+        {
+            var Query = (from P in _PatientRepository.Table
+                         where P.Id == Id
+                         select P).FirstOrDefault();
+            return Query;
+        }
+
         public List<Patient> GetPatientsByBranchId(int BranchId)
         {
             var Query = (from P in _PatientRepository.Table
@@ -51,12 +59,32 @@ namespace AsiaLabv1.Services
             return Query;
         }
       
-        public List<Patient> SearchPatient(int BranchId,string name)
+        public List<PatientModel> SearchPatient(int BranchId)
         {
             var Query = (from P in _PatientRepository.Table
-                         where P.BranchId == BranchId && P.PatientName==name
-                         select P).ToList();
-            return Query;
+                         join Ptest in _PatientTestRepository.Table on P.Id equals Ptest.PatientId
+                         join Presult in _PatientTestResultRepository.Table on Ptest.Id equals Presult.PatientTestId
+                         where (P.BranchId == BranchId)
+                         select new
+                         {
+                             Id = P.Id,
+                             PatientName = P.PatientName,
+                             Status = Presult.ApprovalStatus,
+                             RegisterDate = P.DateTime
+                         }).Distinct().ToList();
+            var list = new List<PatientModel>();
+
+            foreach (var item in Query)
+            {
+                list.Add(new PatientModel
+                {
+                    Id = item.Id,
+                    Name = item.PatientName,
+                    Status = item.Status,
+                    Date = item.RegisterDate
+                });
+            }
+            return list;
         }
 
         public List<Patient> SearchByStatus(int BranchId)

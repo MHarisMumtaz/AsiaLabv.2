@@ -50,6 +50,9 @@ namespace AsiaLabv1.Models
         [Display(Name="Paid Amount")]
         public double PaidAmount { get; set; }
 
+
+        public string Status { get; set; }
+        public DateTime? Date { get; set; }
         public PatientModel()
         {
             this.PayTypes = new List<SelectListItem>();

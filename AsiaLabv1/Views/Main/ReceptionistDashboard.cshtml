@@ -79,7 +79,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Select Date</label>
                         <div class="col-sm-8">
-                            <input type="date" id="patientName" class="form-control1 dropdown-toggle" />
+                            <input type="date" id="patientDate" class="form-control1 dropdown-toggle" />
                         </div>
                     </div>
                     
@@ -124,15 +124,37 @@
 </div>
 
 <script>
+
+
+
+        function report(id){
+           // var approveStatus=status;
+            var patientId=id;
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("GenerateReport","Reciptionist")",
+                data: {PatientId: id},
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (data) {
+                    alert(data);
+                }
+         });
+        }
+
+
     $('#loadspinner').hide();
     function search() {
         $('#loadspinner').show();
-        var approveStatus = $('#showGeneratedReportPatient').is(":checked");
-
+       // var approveStatus = $('#showGeneratedReportPatient').is(":checked");
+        var mydate=$('#patientDate').val();
+        if (mydate=="") {
+            mydate=null;
+        }
         var model = {
             PatientId: $('#patientNo').val(),
             Name: $('#patientName').val(),
-            ShowGeneratedReportPatients: approveStatus
+            date: mydate
         };
 
         $.ajax({
@@ -160,11 +182,12 @@
                 //    }
                 //})
                 for (var i = 0; i < data.length; i++) {
-                    $('#SearchedPatient').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-2' style='width:10%'>" + data[i].Id + "</div> <div class='col-xs-6 col-sm-4'>" + data[i].Name + "</div><div class='col-md-2'>-</div><div class='col-md-1'><button type='button' class='btn btn-xs btn-danger' onclick=''>Generate</button></div><div class='col-md-1'><a href=''><button type='button' class='btn btn-xs btn-danger' onclick=''>Print Report</button></a></div></div>");
+                    $('#SearchedPatient').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-2' style='width:10%'>" + data[i].Id + "</div> <div class='col-xs-6 col-sm-4'>" + data[i].Name + "</div><div class='col-md-2'>"+data[i].Status+"</div><div class='col-md-1'><button type='button' class='btn btn-xs btn-danger' onclick='recipt()'>Generate</button></div><div class='col-md-1'><a class='btn btn-xs btn-danger' onclick='report("+data[i].Id+")'>Print Report</a></div></div>");
                 }
                 //$('#spin').hide();
             }
         });
     }
-    search();
+        search();
+
 </script>

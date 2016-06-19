@@ -18,12 +18,31 @@ namespace AsiaLabv1.Controllers
             return View();
         }
 
+        public ActionResult Temp2(string approvalstatus)
+        {
+            if (approvalstatus == "Rejected")
+            {
+                Session["approvalstatus"] = approvalstatus;
+            }
+            else
+            {
+                Session["approvalstatus"] = null;
+            }
+            
+            return Json("Successfull",JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetPatientInfo()
         {
             int SessionBrId = pts.GetBranchId(Session["branch"].ToString());
 
- 
-            var patientInfo=pts.GetPatientTests();
+
+            var patientInfo = pts.GetPatientTests(SessionBrId);
+            if (Session["approvalstatus"]!=null)
+            {
+                 patientInfo=pts.GetPatientTestsUpdate(Session["approvalstatus"].ToString());
+            }
+            
             List<RequiredPatient> rp = new List<RequiredPatient>();
              foreach (var item in patientInfo)
                     {
@@ -54,6 +73,8 @@ namespace AsiaLabv1.Controllers
             return View();
         }
 
+        
+
         public void Temp(string patientId)
         {
             _patientId = Convert.ToInt16(patientId);
@@ -69,6 +90,7 @@ namespace AsiaLabv1.Controllers
 
                 _patienttestId = patientDetails[0].Id;
                 var pno = patientDetails[0].Patient.Id;
+                var comments=pts.GetComment(pno);
                 var pname = patientDetails[0].Patient.PatientName;
                 var ptests = patientDetails[0].Patient.PatientTests;
 
@@ -82,7 +104,8 @@ namespace AsiaLabv1.Controllers
                         testName=item2.TestSubcategory.TestSubcategoryName,
                         lowerBound=item2.TestSubcategory.LowerBound,
                         upperBound=item2.TestSubcategory.UpperBound,
-                        unit=item2.TestSubcategory.Unit
+                        unit=item2.TestSubcategory.Unit,
+                        comment = comments
 
                     });
                    
@@ -92,7 +115,8 @@ namespace AsiaLabv1.Controllers
                 
                 PatientNumber=pno.ToString(),
                 PatientName=pname,
-                PatientTests=rt
+                PatientTests=rt,
+                PreviousTests = pts.GetTestResultsById(_patienttestId),
                 
                 
                 });
@@ -104,27 +128,38 @@ namespace AsiaLabv1.Controllers
         public ActionResult TestResults(string[] result)
         {
             int id = _patienttestId;
-            for (int i = 0; i < result.Length; i++)
+            if (Session["approvalstatus"].ToString() != "Rejected")
             {
-                pts.InsertPatientTestResults(new PatientTestResult { 
-                
-                PatientTestId=id,
-                Result=result[i],
-                ApprovalStatus="Not Approved",
-                Remarks="Remarksss",
+                for (int i = 0; i < result.Length; i++)
+                {
+                    pts.InsertPatientTestResults(new PatientTestResult
+                    {
+
+                        PatientTestId = id,
+                        Result = result[i],
+                        ApprovalStatus = "Not Approved",
+                        Remarks = "Remarksss",
+
+                    });
+
+                }
+
+                pts.InsertTechnicianPatientTests(new TechnicianPatientsTest
+                {
+
+                    TechnicianId = Convert.ToInt16(Session["loginuser"]),
+                    Dated = DateTime.Now,
+                    PatientId = _patientId,
+                    
 
                 });
+            }
+            else
+            {
+                    pts.UpdateRejectedTest(_patienttestId,result);
+                    Session["approvalstatus"] = null;
 
             }
-
-            pts.InsertTechnicianPatientTests(new TechnicianPatientsTest
-            {
-
-                TechnicianId = Convert.ToInt16(Session["loginuser"]),
-                Dated = DateTime.Now,
-                PatientId = _patientId,
-
-            });
 
 
             return Json("Successfull");

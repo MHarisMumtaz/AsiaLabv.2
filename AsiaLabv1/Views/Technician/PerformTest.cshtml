@@ -39,6 +39,7 @@
                     <!---->
                     <div class="row show-grid">
                         <div class="col-xs-6 col-sm-3">Test Name</div>
+                        <div class="col-xs-6 col-sm-3">Previous Results</div>
                         <div class="col-md-1">Result</div>
                         <div class="col-xs-6 col-sm-3">Lower Bound</div>
                         <div class="col-xs-6 col-sm-3">Upper Bound</div>
@@ -56,6 +57,7 @@
                 <div id="loadspinner">
                     <i style="margin-left:50%" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
                 </div>
+
                 <div id="myDiv" class='alert alert-success fade in' style='text-align:center;
 
 width:60%; height:10%; margin:auto; padding:10px'>
@@ -63,14 +65,19 @@ width:60%; height:10%; margin:auto; padding:10px'>
                          style='margin-bottom:2px; margin-right:5px' /> Test Performed Successfully!
 
                 </div>
-                <br />
-                <div class="col-sm-8" style="margin-left:40%">
-                    <input type="button" id="btninsert" class="btn btn-danger" value="Submit Test" />
-                </div>               
 
-                <div class="clearfix"> </div>
+                <div id="labelcomment">
+                    <label id="comment"></label>
+                </div>
 
-            </div>
+                    <br />
+                    <div class="col-sm-8" style="margin-left:40%">
+                        <input type="button" id="btninsert" class="btn btn-danger" value="Submit Test" />
+                    </div>
+
+                    <div class="clearfix"> </div>
+
+                </div>
         </div>
     </div>
 </div>
@@ -98,6 +105,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
                   
 
                     $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '</div>');
+                    $('#tests').append('<div style="margin-top:3px; color:#FF0000" class="col-xs-6 col-sm-3" id="previousresults' + i + '">' + data[0].PreviousTests[i] + '</div>');
 
                     $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testresult' + i + '"><input type="text" maxlength="5" style="height:22px" class="form-control" id="focusedinput' + i + '"/"></div>');
                     
@@ -117,6 +125,8 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
 
                 }
+                alert(data[0].PatientTests[0].comment);
+                $('#comment').append('<label id="comment">' + data[0].PatientTests[0].comment + '</label>');
                 
 
             },

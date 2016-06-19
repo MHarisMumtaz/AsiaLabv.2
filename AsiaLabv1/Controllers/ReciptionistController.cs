@@ -26,6 +26,7 @@ namespace AsiaLabv1.Controllers
         ReferDoctorsService ReferDoctorsServices = new ReferDoctorsService();
         PatientPaymentService PatientPaymentServices = new PatientPaymentService();
         BranchService BranchServices = new BranchService();
+        DoctorPatientsTestService DoctorPatientServices = new DoctorPatientsTestService();
 
         public ActionResult PrintReport()
         {
@@ -257,36 +258,66 @@ namespace AsiaLabv1.Controllers
         
         public ActionResult GetPatientList(PatientSearchModel model)
         {
-            List<Patient> Patientlist = null;
-            Patientlist = PatientServices.GetPatientsByBranchId(Convert.ToInt32(Session["BranchId"]));
+            List<PatientModel> Patientlist = null;
+            Patientlist = PatientServices.SearchPatient(Convert.ToInt32(Session["BranchId"]));
             
-            if (model.ShowGeneratedReportPatients)
+            if (model.date!=null)
             {
-               Patientlist = PatientServices.SearchByStatus(Convert.ToInt32(Session["BranchId"]));
+                Patientlist = Patientlist.Where(p => p.Date.Value.ToShortDateString()==model.date.Value.ToShortDateString()).ToList();
             }
             if (model.Name!=null)
             {
-                Patientlist = Patientlist.Where(p => p.PatientName.Contains(model.Name)).ToList();
+                Patientlist = Patientlist.Where(p => p.Name.Contains(model.Name)).ToList();
             }
             if (model.PatientId>0)
             {
                 Patientlist = Patientlist.Where(P => P.Id == model.PatientId).ToList();
             }
-             var list = new List<PatientModel>();
-            if (Patientlist!=null)
-            {
-                foreach (var item in Patientlist)
-                {
-                    list.Add(new PatientModel()
-                    {
-                        Id = item.Id,
-                        Name = item.PatientName
-                    });
-                }
-            }
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-       
 
+            return Json(Patientlist, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GenerateReport(int PatientId)
+        {
+            string ReturnMessage = "Report Generated";
+            try
+            {
+                var TestReportDetailsList = PatientTestService.GetPatientTestsDetails(PatientId);
+                var ReferDoctor = ReferDoctorsServices.GetPatientReferById(PatientId);
+                var BranchName = Session["branch"].ToString();
+                var Patient = PatientServices.GetByPatientId(PatientId);
+                var PatientDoctor = DoctorPatientServices.GetDoctorByPatientId(PatientId);
+
+                GeneratePatientReport(TestReportDetailsList, ReferDoctor, Patient, PatientDoctor, BranchName);
+            }
+            catch (Exception ex)
+            {
+                ReturnMessage = ex.Message;
+            }
+            return Json(ReturnMessage, JsonRequestBehavior.AllowGet);
+        }
+
+        public void GeneratePatientReport(List<PatientReportModel> model,Refer ReferDoctor,Patient PatientInfo,UserEmployee PatientDoctor,string BranchName)
+        {
+            string filename = "Report-" + PatientInfo.Id + ".pdf";
+            if (!System.IO.File.Exists(Request.MapPath("/PatientsReport/") + filename))
+            {
+                var Path = Server.MapPath("/images/");
+
+                PatientReport Report = new PatientReport(Path, model, ReferDoctor, PatientInfo, PatientDoctor, BranchName);
+
+                PdfDocument pdf = Report.CreateDocument();
+
+
+                pdf.Save(Server.MapPath("/PatientsReport/") + filename);
+            //    System.IO.FileInfo fi=new System.IO.FileInfo(Request.MapPath("/PatientsReport/") + filename);
+            //    fi.Delete();
+            } 
+           
+
+            // ...and start a viewer.
+            Process.Start(Server.MapPath("/PatientsReport/") + filename);
+        }
     }
 }

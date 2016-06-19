@@ -9,6 +9,7 @@ namespace AsiaLabv1.Models
     {
         public int PatientId { get; set; }
         public string Name { get; set; }
-        public bool ShowGeneratedReportPatients { get; set; }
+
+        public DateTime? date { get; set; }
     }
 }

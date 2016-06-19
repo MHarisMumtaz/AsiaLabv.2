@@ -58,13 +58,13 @@ namespace AsiaLabv1.Controllers
         public void Temp(string patientId)
         {
             _patientId = Convert.ToInt16(patientId);
-            TempData["ID"] = patientId;
+            Session["ID"] = patientId;
         }
 
         public ActionResult GetTests()
         {
 
-            var patientDetails = pts.GetPatientTestsById(Convert.ToInt16(TempData["ID"]));
+            var patientDetails = pts.GetPatientTestsById(Convert.ToInt16(Session["ID"]));
             List<RequiredTechnicianItems> DoctorItems = new List<RequiredTechnicianItems>();
             List<RequiredTest> rt = new List<RequiredTest>();
 

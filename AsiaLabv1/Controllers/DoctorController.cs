@@ -109,11 +109,11 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult ApprovePatientTest(string patientId, string comments)
         {
-            pts.UpdateTest(Convert.ToInt16(patientId.Substring(12)));
+            pts.UpdateTest(Convert.ToInt16(patientId.Substring(12)),"Approved");
 
             pts.InsertDoctorsPatientsTests(new DoctorPatientsTest
             {
-
+                
                 DoctorId = Convert.ToInt16(Session["loginuser"]),
                 PatientId = _patientId,
                 Dated = DateTime.Now
@@ -130,6 +130,23 @@ namespace AsiaLabv1.Controllers
             });
 
             return Json("Successful");
+        }
+
+
+        public ActionResult RejectPatientTest(string patientId, string comments)
+        {
+            pts.UpdateTest(Convert.ToInt16(patientId.Substring(12)),"Rejected");
+
+            pts.InsertDoctorComments(new DoctorComment
+            {
+
+                PatientId = _patientId,
+                Comments = comments,
+                DoctorId = Convert.ToInt16(Session["loginuser"])
+
+            });
+
+            return Json("Successfull");
         }
 
 

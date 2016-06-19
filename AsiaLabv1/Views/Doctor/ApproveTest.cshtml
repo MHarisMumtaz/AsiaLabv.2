@@ -131,7 +131,7 @@
                     <br /><br />
                     <div class="form-group">
                         <h4 id="grid-example-mixed-complete">Doctor's Comments</h4><br />
-                        <div class="col-sm-8"><textarea name="txtarea1" id="txtarea1" cols="50" rows="4" class="form-control1"></textarea></div>
+                        <div class="col-sm-8"><textarea id="txtarea1" cols="50" rows="4" class="form-control1"></textarea></div>
 
                     </div>
 
@@ -155,7 +155,9 @@ width:60%; height:10%; margin:auto; padding:10px'>
                             </label>*@
                     </div>
                     <div class="col-sm-2">
+
                         <input style="float:left" type="button" id="btnreject" class="btn btn-danger" value="Reject" />
+
                         @*<label class="hvr-shutter-in-horizontal login-sub">
 
 
@@ -229,7 +231,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
         $('#loadspinner').show();
 
         var pid = $('#pno').text();
-        var comment = $('#txtarea1').text;
+        var comment = $('#txtarea1').val();
         //alert(pid);
 
 
@@ -253,6 +255,29 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
         });
 
+
+    });
+
+
+    $('#btnreject').click(function () {
+
+        var pid = $('#pno').text();
+        var comment = $('#txtarea1').val();
+        alert(comment);
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Doctor/RejectPatientTest/',
+            traditional: true,
+            data: { patientId: pid, comments: comment },
+            dataType: "json",
+            success: function (data) {
+                window.location.href = "/Main/DoctorDashboard"
+
+            },
+
+        });
 
     });
 

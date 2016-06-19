@@ -46,7 +46,7 @@ namespace AsiaLabv1.Services
                          join pt in _PatientTestRepository.Table
                          on p.Id equals pt.PatientId
                          //where !_PatientTestResultRepository.Table.Any(ptr => ptr.PatientTestId == pt.Id)
-                         where check2.Contains(pt.PatientId) && p.BranchId==branchid
+                         where check2.Contains(pt.PatientId)==false && p.BranchId==branchid
                          select p).ToList<Patient>().GroupBy(test => test.Id).Select(grp => grp.First()).ToList();
 
             
@@ -194,7 +194,8 @@ namespace AsiaLabv1.Services
             var query = (from dc in _DoctorCommentsRepository.Table
                          where dc.PatientId == patientid
                          select dc).ToList();
-            return query.LastOrDefault().Comments;
+            if (query.Count > 0) { return query.LastOrDefault().Comments; }
+            return "";
         }
     }
 }

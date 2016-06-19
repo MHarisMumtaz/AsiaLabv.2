@@ -32,20 +32,20 @@
 
 @*------------- Start Main Content Code-------------*@
 
-<div class="content-top" >
+<div class="content-top">
 
 
     <div class="col-md-2" id="labbox">
-       
+
         <br />
         <div style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
             <h4 style="text-align:center; color:black">Lab</h4>
-          
+
             <div class="clearfix"> </div>
         </div>
 
     </div>
-   
+
     <div class="col-md-2" id="xraybox">
 
         <br />
@@ -56,7 +56,7 @@
         </div>
 
     </div>
-    
+
     <div class="col-md-2" id="ultrabox">
 
         <br />
@@ -69,7 +69,7 @@
     </div>
     <div class="clearfix"> </div>
     <div class="content-top">
-        <div class="col-md-4">            
+        <div class="col-md-4">
             <br />
             <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
                 <div class="top-content">
@@ -78,7 +78,7 @@
 
                         <i style="color:black" id="waiting" class="fa fa-fw fa-spin fa-spinner"></i>
                         <label id="testscount"></label>
-                      
+
 
                     </div>
 
@@ -88,45 +88,11 @@
             </div>
 
         </div>
-        </div>
-
-    @*<div class="col-md-4 " id="xraybox">
-        <h3 style="text-align:center">X-RAY</h3>
-        <br />
-        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
-            <div class="top-content">
-                <h4 style="text-align:center; color:black">Tests Pending for Approval</h4><br />
-                <div style="text-align:center" class="top-content">
-
-                </div>
-
-            </div>
-          
-            <div class="clearfix"> </div>
-        </div>
-
-    </div>*@
-
-    @*<div class="col-md-4 " id="ultrabox">
-        <h3 style="text-align:center">Ultrasound</h3>
-        <br />
-        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
-            <div class="top-content">
-                <h4 style="text-align:center; color:black">Tests Pending for Approval</h4><br />
-                <div style="text-align:center" class="top-content">
-                </div>
-
-            </div>
-            
-            <div class="clearfix"> </div>
-        </div>
-
-    </div>*@
-
+    </div>
 
     <div class="clearfix"> </div>
 
-   
+
 </div>
 <!---->
 <div class="typo-grid">
@@ -229,6 +195,7 @@
 
     $('#labbox').click(function () {
 
+        $('#waiting').show();
         $.ajax({
             type: 'POST',
             url: '/Doctor/DeptName/',
@@ -236,7 +203,7 @@
             dataType: "json",
 
             success: function () {
-                alert('Successfull');
+                //alert('Successfull');
                 kendoGrid();
             },
 
@@ -245,6 +212,7 @@
 
     $('#xraybox').click(function () {
 
+        $('#waiting').show();
         $.ajax({
             type: 'POST',
             url: '/Doctor/DeptName/',
@@ -252,7 +220,7 @@
             dataType: "json",
 
             success: function () {
-                alert('Successfull');
+                //alert('Successfull');
                 kendoGrid();
             },
 
@@ -261,6 +229,7 @@
 
     $('#ultrabox').click(function () {
 
+        $('#waiting').show();
         $.ajax({
             type: 'POST',
             url: '/Doctor/DeptName/',
@@ -268,7 +237,7 @@
             dataType: "json",
 
             success: function () {
-                alert('Successfull');
+                //alert('Successfull');
                 kendoGrid();
             },
 
@@ -277,7 +246,7 @@
 
     setInterval(kendoGrid, 60000);
 
-    window.onload = kendoGrid();
+    //window.onload = kendoGrid();
 
     function kendoGrid() {
         var crudServiceBaseUrl = "/Doctor",
@@ -356,13 +325,15 @@
         //    $("#testscount").text(totalRecords);
         //}
         $("#testscount").text(totalRecords);
-
         $('#waiting').hide();
     }
 
 
 
 </script>
+
+
+
 
 
 <!----->

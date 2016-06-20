@@ -127,6 +127,7 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult TestResults(string[] result)
         {
+            var testids = pts.GetPatientTestsById(_patientId);
             int id = _patienttestId;
             if (Session["approvalstatus"].ToString() != "Rejected")
             {
@@ -135,7 +136,7 @@ namespace AsiaLabv1.Controllers
                     pts.InsertPatientTestResults(new PatientTestResult
                     {
 
-                        PatientTestId = id,
+                        PatientTestId = testids[i].Id,
                         Result = result[i],
                         ApprovalStatus = "Not Approved",
                         Remarks = "Remarksss",

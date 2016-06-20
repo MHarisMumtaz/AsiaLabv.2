@@ -15,7 +15,7 @@ namespace AsiaLabv1.Services
         Repository<PatientTest> _PatientTestRepository = new Repository<PatientTest>();
         Repository<TestSubcategory> _TestSubCategoryRepository = new Repository<TestSubcategory>();
         Repository<Patient> _PatientRepository = new Repository<Patient>();
-        Repository<PatientTestResult> _PatientTestResultRepository= new Repository<PatientTestResult>();
+        Repository<PatientTestResult> _PatientTestResultRepository = new Repository<PatientTestResult>();
         Repository<TechnicianPatientsTest> _TechnicianPatientTestRepository = new Repository<TechnicianPatientsTest>();
         Repository<DoctorPatientsTest> _DoctorsPatientsTestsRepository = new Repository<DoctorPatientsTest>();
         Repository<DoctorComment> _DoctorCommentsRepository = new Repository<DoctorComment>();
@@ -29,7 +29,7 @@ namespace AsiaLabv1.Services
 
         public List<Patient> GetPatientTests(int branchid)
         {
-            
+
             //var query = (from pt in _PatientTestService.Table
             //             join p in _PatientRepository.Table
             //             on pt.PatientId equals p.Id
@@ -48,14 +48,12 @@ namespace AsiaLabv1.Services
                          join pt in _PatientTestRepository.Table
                          on p.Id equals pt.PatientId
                          //where !_PatientTestResultRepository.Table.Any(ptr => ptr.PatientTestId == pt.Id)
-                         where check2.Contains(pt.PatientId)==false && p.BranchId==branchid
+                         where check2.Contains(pt.PatientId)==false && p.BranchId == branchid
                          select p).ToList<Patient>().GroupBy(test => test.Id).Select(grp => grp.First()).ToList();
-
-            
-               
 
             return query;
         }
+
 
         public List<Patient> GetPatientTestsUpdate(string approvalstatus)
         {
@@ -88,9 +86,9 @@ namespace AsiaLabv1.Services
 
         public List<Patient> GetPatientTestsDoctor(String deptname)
         {
-            var abc=(from ptr in _PatientTestResultRepository.Table
-                     where ptr.ApprovalStatus == "Approved" || ptr.ApprovalStatus == "Rejected"
-                         select ptr.PatientTestId).ToList();
+            var abc = (from ptr in _PatientTestResultRepository.Table
+                       where ptr.ApprovalStatus == "Approved" || ptr.ApprovalStatus == "Rejected"
+                       select ptr.PatientTestId).ToList();
 
             var check2 = (from pt in _PatientTestRepository.Table
                           join tr in _PatientTestResultRepository.Table
@@ -98,7 +96,7 @@ namespace AsiaLabv1.Services
                           where abc.Contains(tr.PatientTestId) == false && pt.TestSubcategory.TestCategory.TestDepartment.DepartmentName == deptname
                           select pt.PatientId).ToList();
 
-          
+
             var query = (from p in _PatientRepository.Table
                          join pt in _PatientTestRepository.Table
                          on p.Id equals pt.PatientId
@@ -109,7 +107,7 @@ namespace AsiaLabv1.Services
 
         public List<PatientTest> GetPatientTestsById(int id)
         {
-            var query = (from pt in _PatientTestRepository.Table 
+            var query = (from pt in _PatientTestRepository.Table
                          join t in _TestSubCategoryRepository.Table
                          on pt.TestSubcategoryId equals t.Id
                          //where !_PatientTestResultRepository.Table.Any(ptr => ptr.PatientTestId == pt.Id)
@@ -118,8 +116,8 @@ namespace AsiaLabv1.Services
                          select pt).ToList<PatientTest>();
             return query;
         }
-        
-   
+
+
         public void InsertPatientTestResults(PatientTestResult model)
         {
             _PatientTestResultRepository.Insert(model);
@@ -130,12 +128,12 @@ namespace AsiaLabv1.Services
             _TechnicianPatientTestRepository.Insert(model);
         }
 
-        public void UpdateTest(int id,string status)
+        public void UpdateTest(int id, string status)
         {
-            
+
             int iid = (from p in _PatientTestRepository.Table
-                      where p.PatientId == id
-                      select p.Id).FirstOrDefault();
+                       where p.PatientId == id
+                       select p.Id).FirstOrDefault();
 
             List<PatientTestResult> original = (from ptr in _PatientTestResultRepository.Table
                                                 where ptr.PatientTestId == iid
@@ -148,13 +146,13 @@ namespace AsiaLabv1.Services
                     item.ApprovalStatus = status;
                     _PatientTestResultRepository.UpdateGeneric(item);
                 }
-              
-            }    
+
+            }
         }
 
-        public void UpdateRejectedTest(int id,string[] tests)
+        public void UpdateRejectedTest(int id, string[] tests)
         {
-            
+
             List<PatientTestResult> original = (from ptr in _PatientTestResultRepository.Table
                                                 where ptr.PatientTestId == id
                                                 select ptr).ToList<PatientTestResult>();
@@ -221,18 +219,6 @@ namespace AsiaLabv1.Services
             {
                 list.Add(new PatientReportModel
                 {
-<<<<<<< HEAD
-                    DepartmentId = item.DeptId,
-                    CategoryId = item.CatId,
-                    TestSubCategoryId = item.TestSubCatId,
-                    DepartmentName = item.DeptName,
-                    TestSubCategoryName = item.TestSubCatName,
-                    TestCategoryName = item.TestCatName,
-                    LowerBound = item.LowerBound,
-                    UpperBound = item.UpperBound,
-                    Result = item.result,
-                    Unit = item.Unit
-=======
                     DepartmentId = item.Q.DeptId,
                     CategoryId = item.Q.CatId,
                     TestSubCategoryId = item.Q.TestSubCatId,
@@ -243,7 +229,6 @@ namespace AsiaLabv1.Services
                     UpperBound = item.S.UpperBound,
                     Result = item.Q.result,
                     Unit = item.S.Unit
->>>>>>> d5ab939d5c84014fae1b43f17d3eecd261f494c0
                 });
             }
             return list;
@@ -254,26 +239,18 @@ namespace AsiaLabv1.Services
             var query = (from dc in _DoctorCommentsRepository.Table
                          where dc.PatientId == patientid
                          select dc).ToList();
-<<<<<<< HEAD
             if (query.Count > 0) { return query.LastOrDefault().Comments; }
+
             return "";
-=======
-<<<<<<< HEAD
-            if (query.Count > 0) { return query.LastOrDefault().Comments; }
-            return "";
-=======
-            return query.LastOrDefault().Comments;
->>>>>>> d1ea62a26c800dd2ff16a5aa6bdc9387ac7d612c
         }
 
         public List<TestSubcategory> GetSubCategoryByPatientId(int patientId)
         {
             var Query = (from PT in _PatientTestRepository.Table
                          join Subcat in _TestSubCategoryRepository.Table on PT.TestSubcategoryId equals Subcat.Id
-                         where PT.PatientId==patientId
+                         where PT.PatientId == patientId
                          select Subcat).ToList();
             return Query;
->>>>>>> d5ab939d5c84014fae1b43f17d3eecd261f494c0
         }
     }
 }

@@ -48,11 +48,9 @@ namespace AsiaLabv1.Services
                          join pt in _PatientTestRepository.Table
                          on p.Id equals pt.PatientId
                          //where !_PatientTestResultRepository.Table.Any(ptr => ptr.PatientTestId == pt.Id)
-<<<<<<< HEAD
-                         where check2.Contains(pt.PatientId) && p.BranchId == branchid
-=======
+
                          where check2.Contains(pt.PatientId)==false && p.BranchId==branchid
->>>>>>> d8b0c124b15e773e4cc4db03f66fd70652b19821
+
                          select p).ToList<Patient>().GroupBy(test => test.Id).Select(grp => grp.First()).ToList();
 
 
@@ -247,16 +245,9 @@ namespace AsiaLabv1.Services
                          select dc).ToList();
             if (query.Count > 0) { return query.LastOrDefault().Comments; }
             return "";
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< HEAD
+
             if (query.Count > 0) { return query.LastOrDefault().Comments; }
-            return "";
-=======
             return query.LastOrDefault().Comments;
->>>>>>> d1ea62a26c800dd2ff16a5aa6bdc9387ac7d612c
->>>>>>> d8b0c124b15e773e4cc4db03f66fd70652b19821
         }
 
 
@@ -264,11 +255,7 @@ namespace AsiaLabv1.Services
         {
             var Query = (from PT in _PatientTestRepository.Table
                          join Subcat in _TestSubCategoryRepository.Table on PT.TestSubcategoryId equals Subcat.Id
-<<<<<<< HEAD
-                         where PT.PatientId == patientId
-=======
                          where PT.PatientId==patientId
->>>>>>> d8b0c124b15e773e4cc4db03f66fd70652b19821
                          select Subcat).ToList();
             return Query;
         }

@@ -129,7 +129,7 @@ namespace AsiaLabv1.Controllers
         {
             var testids = pts.GetPatientTestsById(_patientId);
             int id = _patienttestId;
-            if (Session["approvalstatus"].ToString() != "Rejected")
+            if (Session["approvalstatus"]== null)
             {
                 for (int i = 0; i < result.Length; i++)
                 {

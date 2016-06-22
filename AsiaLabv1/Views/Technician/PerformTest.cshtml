@@ -105,8 +105,9 @@ width:60%; height:10%; margin:auto; padding:10px'>
                   
 
                     $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '</div>');
-                    $('#tests').append('<div style="margin-top:3px; color:#FF0000" class="col-xs-6 col-sm-3" id="previousresults' + i + '">' + data[0].PreviousTests[i] + '</div>');
-
+                    if (data[0].PreviousTests[i] != null) {
+                        $('#tests').append('<div style="margin-top:3px; color:#FF0000" class="col-xs-6 col-sm-3" id="previousresults' + i + '">' + data[0].PreviousTests[i] + '</div>');
+                    }
                     $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testresult' + i + '"><input type="text" maxlength="5" style="height:22px" class="form-control" id="focusedinput' + i + '"/"></div>');
                     
                     $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3"  id="testlowerbound' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
@@ -125,7 +126,6 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
 
                 }
-                alert(data[0].PatientTests[0].comment);
                 $('#comment').append('<label id="comment">' + data[0].PatientTests[0].comment + '</label>');
                 
 

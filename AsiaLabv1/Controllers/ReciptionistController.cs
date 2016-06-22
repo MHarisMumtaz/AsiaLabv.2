@@ -256,8 +256,7 @@ namespace AsiaLabv1.Controllers
         public ActionResult GenerateReport(int PatientId)
         {
             string ReturnMessage = "Report Generated";
-            try
-            {
+           
                 var TestReportDetailsList = PatientTestService.GetPatientTestsDetails(PatientId);
 
               
@@ -267,11 +266,7 @@ namespace AsiaLabv1.Controllers
                 var PatientDoctor = DoctorPatientServices.GetDoctorByPatientId(PatientId);
 
                 GeneratePatientReport(TestReportDetailsList, ReferDoctor, Patient, PatientDoctor, BranchName);
-            }
-            catch (Exception ex)
-            {
-                ReturnMessage = ex.Message;
-            }
+           
             return Json(ReturnMessage, JsonRequestBehavior.AllowGet);
         }
 

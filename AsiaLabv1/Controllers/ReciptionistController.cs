@@ -203,7 +203,7 @@ namespace AsiaLabv1.Controllers
                     Text = referdoctor.ReferredDoctorName
                 });
                 var branchContact = BranchServices.GetBranchContact(branch.Id);
-                GeneratePdf(model, selectedTests,branch,branchContact);
+                GeneratePatientRecipt(model, gender, selectedTests, branch, branchContact);
 
                 return Json("SuccessFully Added Patient", JsonRequestBehavior.AllowGet);
             }
@@ -212,47 +212,22 @@ namespace AsiaLabv1.Controllers
         }
 
         [NonAction]
-        public void GeneratePdf(PatientModel model,List<TestSubcategory> tests,Branch branch,Contact branchcontact)
+        public void GeneratePatientRecipt(PatientModel model,Gender gender,List<TestSubcategory> tests,Branch branch,Contact branchcontact)
         {
             var path = Server.MapPath("/images/");
-            // Create a invoice form with the sample invoice data
-            PatientRecipt patient = new PatientRecipt(path, model, tests,branch,branchcontact);
-
-            // Create a MigraDoc document
-            Document document = patient.CreateDocument();
-            document.UseCmykColor = true;
-
-
-            // Create a renderer for PDF that uses Unicode font encoding
-            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
-
-            // Set the MigraDoc document
-            pdfRenderer.Document = document;
-
-            // Create the PDF document
-            pdfRenderer.RenderDocument();
-
-            // Save the PDF document...
-            string filename = "Patient-"+model.Id+".pdf";
-            //#if DEBUG
-            //    // I don't want to close the document constantly...
-            //    filename = "Patient-" + Guid.NewGuid().ToString("N").ToUpper() + ".pdf";
-            //#endif
-
-            pdfRenderer.Save(Server.MapPath("/PatientsReport/") + filename);
-            // ...and start a viewer.
-            Process.Start(Server.MapPath("/PatientsReport/") + filename);
-
-
-           // PdfDocument pdf = new PdfDocument();
-           // PdfPage pdfPage = pdf.AddPage();
-           // XGraphics graph = XGraphics.FromPdfPage(pdfPage);
-           // XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
-           //// graph.DrawRectangle(XBrushes.BlueViolet, new RectangleF(0, 0, 100, 50));
-           // graph.DrawString("This is my first PDF document", font, XBrushes.Black,
-           // new XRect(0, 0, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.Center);
-           // pdf.Save("firstpage.pdf");
             
+            PatientRecipt recipt = new PatientRecipt(path,Session["loginusername"].ToString(),gender, model, tests,branch,branchcontact);
+
+            string filename = "Recipt-" + model.Id + ".pdf";
+            if (!System.IO.File.Exists(Request.MapPath("/PatientsReport/") + filename))
+            {
+                PdfDocument pdf = recipt.CreateDocument();
+
+                pdf.Save(Server.MapPath("/PatientsReport/") + filename);
+                //    System.IO.FileInfo fi=new System.IO.FileInfo(Request.MapPath("/PatientsReport/") + filename);
+                //    fi.Delete();
+            }
+            Process.Start(Server.MapPath("/PatientsReport/") + filename);
         }
 
         

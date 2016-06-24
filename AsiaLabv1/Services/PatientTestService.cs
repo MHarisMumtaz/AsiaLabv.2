@@ -48,9 +48,32 @@ namespace AsiaLabv1.Services
                          join pt in _PatientTestRepository.Table
                          on p.Id equals pt.PatientId
                          //where !_PatientTestResultRepository.Table.Any(ptr => ptr.PatientTestId == pt.Id)
+<<<<<<< HEAD
                          where check2.Contains(pt.PatientId) == false && p.BranchId == branchid
                          select p).ToList<Patient>().GroupBy(test => test.Id).Select(grp => grp.First()).ToList();
 
+=======
+<<<<<<< HEAD
+                         where check2.Contains(pt.PatientId)==false && p.BranchId==branchid
+=======
+<<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
+                         where check2.Contains(pt.PatientId)==false && p.BranchId == branchid
+                         select p).ToList<Patient>().GroupBy(test => test.Id).Select(grp => grp.First()).ToList();
+
+=======
+<<<<<<< HEAD
+                         where check2.Contains(pt.PatientId) && p.BranchId == branchid
+=======
+>>>>>>> d1bf2b49b2d49f8cfacc3617c4bc51cdd69e079e
+                         where check2.Contains(pt.PatientId)==false && p.BranchId==branchid
+
+>>>>>>> ce077809716b1d3a7d79cf3a2bb908a5e4dd9df7
+                         select p).ToList<Patient>().GroupBy(test => test.Id).Select(grp => grp.First()).ToList();
+
+>>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
             return query;
         }
 
@@ -239,8 +262,39 @@ namespace AsiaLabv1.Services
             var query = (from dc in _DoctorCommentsRepository.Table
                          where dc.PatientId == patientid
                          select dc).ToList();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
             if (query.Count > 0) { return query.LastOrDefault().Comments; }
             return "";
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+            if (query.Count > 0) { return query.LastOrDefault().Comments; }
+            return query.LastOrDefault().Comments;
+=======
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+>>>>>>> ec465a24c1b2e269a22b6111de625db5fae943b5
+>>>>>>> ce077809716b1d3a7d79cf3a2bb908a5e4dd9df7
+            if (query.Count > 0) { return query.LastOrDefault().Comments; }
+            return "";
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+            return query.LastOrDefault().Comments;
+>>>>>>> d1ea62a26c800dd2ff16a5aa6bdc9387ac7d612c
+>>>>>>> d8b0c124b15e773e4cc4db03f66fd70652b19821
+>>>>>>> ec465a24c1b2e269a22b6111de625db5fae943b5
+>>>>>>> d1bf2b49b2d49f8cfacc3617c4bc51cdd69e079e
+>>>>>>> ce077809716b1d3a7d79cf3a2bb908a5e4dd9df7
+>>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
         }
 
 
@@ -248,7 +302,27 @@ namespace AsiaLabv1.Services
         {
             var Query = (from PT in _PatientTestRepository.Table
                          join Subcat in _TestSubCategoryRepository.Table on PT.TestSubcategoryId equals Subcat.Id
+<<<<<<< HEAD
                          where PT.PatientId == patientId
+=======
+<<<<<<< HEAD
+                         where PT.PatientId==patientId
+=======
+<<<<<<< HEAD
+                         where PT.PatientId==patientId
+=======
+<<<<<<< HEAD
+                         where PT.PatientId == patientId
+=======
+<<<<<<< HEAD
+                         where PT.PatientId == patientId
+=======
+                         where PT.PatientId==patientId
+>>>>>>> d8b0c124b15e773e4cc4db03f66fd70652b19821
+>>>>>>> ec465a24c1b2e269a22b6111de625db5fae943b5
+>>>>>>> d1bf2b49b2d49f8cfacc3617c4bc51cdd69e079e
+>>>>>>> ce077809716b1d3a7d79cf3a2bb908a5e4dd9df7
+>>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
                          select Subcat).ToList();
             return Query;
         }

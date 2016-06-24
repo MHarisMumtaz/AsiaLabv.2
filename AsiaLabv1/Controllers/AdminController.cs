@@ -21,6 +21,7 @@ namespace AsiaLabv1.Controllers
         TestCategoryService TestCategoryServices = new TestCategoryService();
         TestSubCategoryService TestSubCategoryServices = new TestSubCategoryService();
         ReferDoctorsService ReferDoctorsServices = new ReferDoctorsService();
+        PatientPaymentService PatientsPaymentService = new PatientPaymentService();
         #endregion
 
         public static int CategId = 0;
@@ -420,5 +421,7 @@ namespace AsiaLabv1.Controllers
             return Json("Record Deleted", JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        
     }
 }

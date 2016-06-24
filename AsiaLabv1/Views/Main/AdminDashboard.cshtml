@@ -59,77 +59,98 @@
     <!----->
     <!---->
     <div class="grid-form1">
-        <h3>Branch Revenue</h3>
+        <h4>Branch Revenues - Department Wise</h4>
+        <form action="/Main/GetRevenue" class="form-horizontal" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">From</label>
+                <div class="col-sm-8">
+                    <input type="date" name="Sdate" class="form-control1 dropdown-toggle" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">To</label>
+                <div class="col-sm-8">
+                    <input type="date" name="Edate" class="form-control1 dropdown-toggle" />
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-8">
+                    <input style="margin-left:13%" type="submit" value="Show Revenue" class="btn btn-danger" />
+                </div>
+
+
+            </div>
+
+        </form>
+
         <div class="tab-content">
 
+            <div>From: <label style="color: #d95459">@TempData["StartDate"]</label></div>
+
+            <div>To: <label style="color: #d95459">@TempData["EndDate"]</label></div>
+           
+
+
+
+
             <div class="tab-pane active" id="horizontal-form">
+                <div class="horz-grid">
 
+                    <div style="width:100%" class="row show-grid">
+                        <div class="col-md-2" style="text-align: center; border-right: solid; border-right-color: #d95459">&nbsp;</div>
 
-                <form class="form-horizontal">
-
-                    <div class="form-group">
-                        <div class="col-sm-8">
-                           
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Patient No.</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="patientNo" class="form-control1 dropdown-toggle" placeholder="Enter Patient ID" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Patient Name</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="patientName" class="form-control1 dropdown-toggle" placeholder="Enter Patient Name" />
-                        </div>
-                    </div>
-                   
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Select Date</label>
-                        <div class="col-sm-8">
-                            <input type="date" id="patientName" class="form-control1 dropdown-toggle" />
-                        </div>
-                    </div>
-
-                    <i id="loadspinner" style="margin-left:50%" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
-                    <br />
-                    <div class="form-group">
-
-
-                        <div class="col-sm-8" style="margin-left:24%">
-
-                            <input type="button" value="Search" class="btn btn-danger" onclick="search()" />
-
-                        </div>
+                        <div class="col-md-2" style="text-align:center">Gulistan-e-Johar</div>
+                        <div class="col-md-2" style="text-align:center">Liaquatabad</div>
+                        <div class="col-md-2" style="text-align:center">North Karachi</div>
+                        <div class="col-md-2" style="text-align:center">Surjani</div>
+                        <div class="col-md-2" style="text-align:center">Garden</div>
 
                     </div>
 
-                    <div class="horz-grid">
-                        <div class="grid-hor">
-                            <h4 id="grid-example-mixed-complete">Patients</h4>
-
-                        </div>
-                        <div style="width:1400px" class="row show-grid">
-                            <div class="col-lg-1" style="text-align:center; width:10%">Patient No.</div>
-                            <div class="col-xs-6 col-sm-4" style="text-align:center">Name</div>
-                            <div class="col-md-2" style="text-align:center">Status</div>
-                            <div class="col-md-1" style="text-align:center">Receipt</div>
-                            <div class="col-md-1" style="text-align:center">Report</div>
-
-                        </div>
-                        <div style="border: 2px; border-style: solid; width:92%;  color: #d95459; ">
-                        </div>
-                        <div id="SearchedPatient" style="width:1400px">
-
-
-                        </div>
+                    <div style="border: 2px; border-style: solid; width:100%;  color: #d95459; ">
+                    </div>
+                    <div style="width:100%" class="row show-grid">
+                        <div class="col-md-2" style="border-right: solid; border-right-color: #d95459">Lab</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayJoharLab"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayLiaquatabadLab"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayNorthLab"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PaySurjaniLab"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayGardenLab"]</div>
+                    </div>
+                    <div style="width:100%" class="row show-grid">
+                        <div class="col-md-2" style="border-right: solid; border-right-color: #d95459">X-RAY</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayJoharXRAY"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayLiaquatabadXRAY"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayNorthXRAY"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PaySurjaniXRAY"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayGardenXRAY"]</div>
 
                     </div>
-                </form>
+                    <div style="width:100%" class="row show-grid">
+                        <div class="col-md-2" style="border-right: solid; border-right-color: #d95459">Ultrasound</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayJoharUltra"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayLiaquatabadUltra"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayNorthUltra"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PaySurjaniUltra"]</div>
+                        <div class="col-md-2" style="text-align:center">@TempData["PayGardenUltra"]</div>
+
+                    </div>
+
+
+                </div>
+
+
             </div>
+
+
         </div>
     </div>
 </div>
+<script>
+
+</script>
 @*------------- End Main Content Code-------------*@

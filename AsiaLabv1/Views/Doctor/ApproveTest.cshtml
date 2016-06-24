@@ -147,6 +147,14 @@ width:60%; height:10%; margin:auto; padding:10px'>
                              style='margin-bottom:2px; margin-right:5px' /> Test Approved Successfully!
 
                     </div>
+                    <div id="testrejectedsuccess" class='alert alert-success fade in' style='text-align:center;
+
+width:60%; height:10%; margin:auto; padding:10px'>
+                        <img src='~/images/rsz_success.png'
+                             style='margin-bottom:2px; margin-right:5px' /> Test Rejected Successfully!
+
+                    </div>
+                    <br />
                     <div class="col-sm-2">
                         <input style="float:left" type="button" id="btnapprove" class="btn btn-danger" value="Approved" />
                         @*<label class="hvr-shutter-in-horizontal login-sub">
@@ -178,6 +186,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
     $('#loadspinner').hide();
     $('#myDiv').hide();
+    $('#testrejectedsuccess').hide();
     window.onload = getTests;
 
     function getTests() {
@@ -261,9 +270,10 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
     $('#btnreject').click(function () {
 
+        $('#loadspinner').show();
         var pid = $('#pno').text();
         var comment = $('#txtarea1').val();
-        alert(comment);
+        //alert(comment);
 
         $.ajax({
 
@@ -273,6 +283,9 @@ width:60%; height:10%; margin:auto; padding:10px'>
             data: { patientId: pid, comments: comment },
             dataType: "json",
             success: function (data) {
+                $('#loadspinner').hide();
+                $('#testrejectedsuccess').show();
+                $('#testrejectedsuccess').fadeOut(3000);
                 window.location.href = "/Main/DoctorDashboard"
 
             },

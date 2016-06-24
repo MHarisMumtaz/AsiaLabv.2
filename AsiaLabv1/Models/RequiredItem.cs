@@ -40,8 +40,15 @@ namespace AsiaLabv1
         public List<RequiredTest> PatientTests { get; set; }
         public List<string> PreviousTests { get; set; }
 
-    } 
-    
+    }
+
+    public class RequiredPayment
+    {
+        public double NetAmount { get; set; }
+        public string DeptName { get; set; }
+        public int BracnhId { get; set; }  
+        
+    }
 
 
     

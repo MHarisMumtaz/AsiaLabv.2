@@ -28,13 +28,13 @@ namespace AsiaLabv1.Controllers
         BranchService BranchServices = new BranchService();
         DoctorPatientsTestService DoctorPatientServices = new DoctorPatientsTestService();
 
-        public ActionResult PrintReport()
-        {
-            return View();
-        }
-
+        
         public ActionResult RegisterPatient()
         {
+            if (Session["loginusername"] == null)
+            {
+                return RedirectToAction("LoginPage", "Main");
+            }
             //:hello
             var model = new PatientModel();
             var Genders = GenderServices.GetAll();

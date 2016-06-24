@@ -23,6 +23,10 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult ApproveTest()
         {
+            if (Session["loginusername"] == null)
+            {
+                return RedirectToAction("LoginPage", "Main");
+            }
             return View();
         }
 
@@ -40,7 +44,7 @@ namespace AsiaLabv1.Controllers
             List<RequiredPatient> rp = new List<RequiredPatient>();
             foreach (var item in patientInfo)
             {
-                if (item.BranchId==SessionBrId)
+                if (item.BranchId == SessionBrId)
                 {
                     rp.Add(new RequiredPatient
                     {
@@ -49,7 +53,7 @@ namespace AsiaLabv1.Controllers
                         PatientNumber = item.Id.ToString(),
 
                     });
-                }                
+                }
             }
             return Json(rp, JsonRequestBehavior.AllowGet);
 
@@ -68,8 +72,9 @@ namespace AsiaLabv1.Controllers
             List<RequiredTechnicianItems> DoctorItems = new List<RequiredTechnicianItems>();
             List<RequiredTest> rt = new List<RequiredTest>();
 
-            _patienttestId = patientDetails[0].Id;
-            var results=pts.GetTestResultsById(_patienttestId);
+            var tests = pts.GetPatientTestsById(patientDetails[0].Patient.Id);
+            //_patienttestId = patientDetails[0].Id;
+
             var pno = patientDetails[0].Patient.Id;
             var pname = patientDetails[0].Patient.PatientName;
             var ptests = patientDetails[0].Patient.PatientTests;
@@ -77,13 +82,13 @@ namespace AsiaLabv1.Controllers
 
             foreach (var item2 in ptests)
             {
-
+                var results = pts.GetTestResultsById(tests[pointer].Id);
                 rt.Add(new RequiredTest
                 {
 
                     Id = item2.TestSubcategory.Id,
                     testName = item2.TestSubcategory.TestSubcategoryName,
-                    result=results[pointer].ToString(),
+                    result = results[0].ToString(),
                     lowerBound = item2.TestSubcategory.LowerBound,
                     upperBound = item2.TestSubcategory.UpperBound,
                     unit = item2.TestSubcategory.Unit
@@ -109,11 +114,11 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult ApprovePatientTest(string patientId, string comments)
         {
-            pts.UpdateTest(Convert.ToInt16(patientId.Substring(12)),"Approved");
+            pts.UpdateTest(Convert.ToInt16(patientId.Substring(12)), "Approved");
 
             pts.InsertDoctorsPatientsTests(new DoctorPatientsTest
             {
-                
+
                 DoctorId = Convert.ToInt16(Session["loginuser"]),
                 PatientId = _patientId,
                 Dated = DateTime.Now
@@ -135,7 +140,7 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult RejectPatientTest(string patientId, string comments)
         {
-            pts.UpdateTest(Convert.ToInt16(patientId.Substring(12)),"Rejected");
+            pts.UpdateTest(Convert.ToInt16(patientId.Substring(12)), "Rejected");
 
             pts.InsertDoctorComments(new DoctorComment
             {

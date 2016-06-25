@@ -6,7 +6,7 @@
 {
     <div class="banner">
         <h2>
-            <a href="index.html">Home</a>
+            <a href="@Url.Action("TechnicianDashboard", "Main")">Dashboard</a>
             <i class="fa fa-angle-right"></i>
             <span>Perform Test</span>
         </h2>
@@ -39,10 +39,10 @@
                     <!---->
                     <div class="row show-grid">
                         <div class="col-xs-6 col-sm-3">Test Name</div>
-                        <div class="col-xs-6 col-sm-3">Previous Results</div>
+                        <div id="pruparwala" class="col-xs-6 col-sm-2">Previous Results</div>
                         <div class="col-md-1">Result</div>
-                        <div class="col-xs-6 col-sm-3">Lower Bound</div>
-                        <div class="col-xs-6 col-sm-3">Upper Bound</div>
+                        <div class="col-xs-6 col-sm-2">Lower Bound</div>
+                        <div class="col-xs-6 col-sm-2">Upper Bound</div>
                         <div class="col-md-1">Unit</div>
 
                     </div>
@@ -66,9 +66,24 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
                 </div>
 
-                <div id="labelcomment">
-                    <label id="comment"></label>
+                <div class="form-group">
+                    
+                    <div id="">
+                        <label style="margin-left:40%; color:red" id="ErrorResult">Please Enter Result(s)</label>
+                    </div>
                 </div>
+
+
+                <div class="form-group" id="doccom">
+                    <h4 id="grid-example-mixed-complete">Doctor's Comments</h4><br />
+                    <div id="labelcomment">
+                        <label style="margin-left:10%" id="comment"></label>
+                    </div>
+                </div>
+               
+                
+                  
+                
 
                     <br />
                     <div class="col-sm-8" style="margin-left:40%">
@@ -84,9 +99,10 @@ width:60%; height:10%; margin:auto; padding:10px'>
 <br /><br /><br />
  
 <script type="text/javascript">
-
+   
     $('#loadspinner').hide();
     $('#myDiv').hide();
+    $('#ErrorResult').hide();
 
     window.onload = getTests;     
     
@@ -105,27 +121,46 @@ width:60%; height:10%; margin:auto; padding:10px'>
                   
 
                     $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '</div>');
+<<<<<<< HEAD
+                    $('#tests').append('<div style="margin-top:3px; color:#000000; font-style:italic" class="col-xs-6 col-sm-2" id="previousresults' + i + '">' + data[0].PreviousTests[i] + '</div>');
+                    var pr = $('#previousresults' + i).text();
+                    if (pr == "undefined" || pr == "") {
+                        $('#previousresults' + i).text("-");
+
+=======
                     if (data[0].PreviousTests[i] != null) {
                         $('#tests').append('<div style="margin-top:3px; color:#FF0000" class="col-xs-6 col-sm-3" id="previousresults' + i + '">' + data[0].PreviousTests[i] + '</div>');
+>>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
                     }
                     $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testresult' + i + '"><input type="text" maxlength="5" style="height:22px" class="form-control" id="focusedinput' + i + '"/"></div>');
                     
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3"  id="testlowerbound' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
-                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3"  id="testupperbound' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-2"  id="testlowerbound' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
+                    $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-2"  id="testupperbound' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
                     $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit' + i + '">' + data[0].PatientTests[i].unit + '</div>');
 
+                                 
                    
-                    var lb = $('#testlowerbound' + i).text();
-                    lb = parseInt(lb);
-                    var ub = $('#testupperbound' + i).text();
-                    ub = parseInt(ub);
-                    var res = $('#focusedinput' + i).val();                                 
+
+                    //for (var i = 0; i < data[0].PatientTests.length; i++) {                                              
+                    //    var pr = $('#previousresults' + i).text();
+                    //    if (pr =="undefined"||pr=="") {
+                    //        $('#previousresults' + i).text("-");
+
+                    //    }
+                      
+                    //}
+                    
+                    
                    
                    
                   
 
 
                 }
+<<<<<<< HEAD
+                //alert(data[0].PatientTests[0].comment);
+=======
+>>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
                 $('#comment').append('<label id="comment">' + data[0].PatientTests[0].comment + '</label>');
                 
 
@@ -137,28 +172,30 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
     }
 
-
+    
 
     $('#btninsert').click(function () {
 
-
-        //if (res) {
-
-        //}
+       
         $('#loadspinner').show();
         var inputCount = document.getElementById('tests').getElementsByTagName('input').length;
         var results = [];
 
         for (var i = 0; i < inputCount; i++) {
 
-
             testresult = $('#focusedinput' + i).val();
-
             results.push(testresult);
 
+            if (results[i]=="") {
+                
+                $('#ErrorResult').show();
+                $('#ErrorResult').fadeOut(4000);
+                $('#loadspinner').hide();
+                return false;
+                
+            }
+
         }
-
-
 
         $.ajax({
 
@@ -178,6 +215,9 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
             },
         });
+
+
+       
 
         //For Results
 

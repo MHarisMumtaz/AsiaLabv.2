@@ -37,6 +37,10 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult RegisterPatient()
         {
+            if (Session["loginusername"] == null)
+            {
+                return RedirectToAction("LoginPage", "Main");
+            }
             //:hello
             var model = new PatientModel();
             var Genders = GenderServices.GetAll();

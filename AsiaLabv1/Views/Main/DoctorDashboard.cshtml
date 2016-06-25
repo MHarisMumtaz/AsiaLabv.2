@@ -31,68 +31,58 @@
 
 
 @*------------- Start Main Content Code-------------*@
+<div class="col-md-2" id="labbox">
 
-<div class="content-top">
+    <br />
+    <div id="labdiv" style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
+        <h4 id="labh" style="text-align:center; color:black">Lab</h4>
 
-
-    <div class="col-md-2" id="labbox">
-
-        <br />
-        <div style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
-            <h4 style="text-align:center; color:black">Lab</h4>
-
-            <div class="clearfix"> </div>
-        </div>
-
+        <div class="clearfix"> </div>
     </div>
 
-    <div class="col-md-2" id="xraybox">
+</div>
 
-        <br />
-        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
-            <h4 style="text-align:center; color:black">X-RAY</h4>
+<div class="col-md-2" id="xraybox">
 
-            <div class="clearfix"> </div>
-        </div>
+    <br />
+    <div id="xraydiv" style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+        <h4 id="xrayh" style="text-align:center; color:black">X-RAY</h4>
 
+        <div class="clearfix"> </div>
     </div>
 
-    <div class="col-md-2" id="ultrabox">
+</div>
 
-        <br />
-        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
-            <h4 style="text-align:center; color:black">Ultrasound</h4>
+<div class="col-md-2" id="ultrabox">
 
-            <div class="clearfix"> </div>
-        </div>
+    <br />
+    <div id="ultradivv" style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+        <h4 id="ultrahh" style="text-align:center; color:black">Ultrasound</h4>
 
+        <div class="clearfix"> </div>
     </div>
-    <div class="clearfix"> </div>
-    <div class="content-top">
-        <div class="col-md-4">
-            <br />
-            <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
-                <div class="top-content">
-                    <h4 style="text-align:center; color:black">Tests Pending for Approval</h4><br />
-                    <div style="text-align:center" class="top-content">
 
-                        <i style="color:black" id="waiting" class="fa fa-fw fa-spin fa-spinner"></i>
-                        <label id="testscount"></label>
-
-
-                    </div>
-
-                </div>
-
-                <div class="clearfix"> </div>
+</div>
+<div class="col-md-4 ">
+    <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+        <div class="top-content">
+            <h4 id="showack" style="text-align:center; color:black">Tests Pending to Perform</h4><br />
+            <div style="text-align:center" class="top-content">
+                <label id="testscount"></label>
+                <i style="color:black" id="waiting" class="fa fa-spinner fa-spin fa fa-fw"></i>
             </div>
 
         </div>
+        <div class="clearfix"> </div>
     </div>
 
+</div>
+<div class="content-top">
+
+
+
+
     <div class="clearfix"> </div>
-
-
 </div>
 <!---->
 <div class="typo-grid">
@@ -195,6 +185,16 @@
 
     $('#labbox').click(function () {
 
+        $("#testscount").hide();
+        $("#labdiv").css('background-color', '#d95459');
+        $("#labh").css('color', '#FFFFFF');
+
+        $("#xraydiv").css('background-color', '#FFFFFF');
+        $("#xrayh").css('color', '#000000');
+
+        $("#ultradivv").css('background-color', '#FFFFFF');
+        $("#ultrahh").css('color', '#000000');
+
         $.ajax({
             type: 'POST',
             url: '/Doctor/DeptName/',
@@ -202,7 +202,7 @@
             dataType: "json",
 
             success: function () {
-                alert('Successfull');
+                //alert('Successfull');
                 kendoGrid();
             },
 
@@ -210,6 +210,16 @@
     });
 
     $('#xraybox').click(function () {
+        $("#testscount").hide();
+        $("#xraydiv").css('background-color', '#d95459');
+        $("#xrayh").css('color', '#FFFFFF');
+
+        $("#labdiv").css('background-color', '#FFFFFF');
+        $("#labh").css('color', '#000000');
+
+        $('#ultradivv').css('background-color', '#FFFFFF');
+        $('#ultrahh').css('color', '#000000');
+
 
         $.ajax({
             type: 'POST',
@@ -218,7 +228,7 @@
             dataType: "json",
 
             success: function () {
-                alert('Successfull');
+                //alert('Successfull');
                 kendoGrid();
             },
 
@@ -226,6 +236,16 @@
     });
 
     $('#ultrabox').click(function () {
+        $("#testscount").hide();
+
+        $("#ultradivv").css('background-color', '#d95459');
+        $("#ultrahh").css('color', '#FFFFFF');
+
+        $("#xraydiv").css('background-color', '#FFFFFF');
+        $("#xrayh").css('color', '#000000');
+
+        $('#labdiv').css('background-color', '#FFFFFF');
+        $('#labh').css('color', '#000000');
 
         $.ajax({
             type: 'POST',
@@ -234,7 +254,7 @@
             dataType: "json",
 
             success: function () {
-                alert('Successfull');
+                //alert('Successfull');
                 kendoGrid();
             },
 
@@ -246,6 +266,8 @@
     //window.onload = kendoGrid();
 
     function kendoGrid() {
+
+        $('#waiting').show();
         var crudServiceBaseUrl = "/Doctor",
                 dataSource = new kendo.data.DataSource({
                     transport: {
@@ -321,6 +343,7 @@
         //else {
         //    $("#testscount").text(totalRecords);
         //}
+        $("#testscount").show();
         $("#testscount").text(totalRecords);
         $('#waiting').hide();
     }

@@ -34,52 +34,46 @@
 
 
 @*------------- Start Main Content Code-------------*@
+<div class="col-md-3" id="unapproved">
 
-<div class="content-top">
+    <br />
+    <div id="spdiv" style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
+        <h5 id="sph" style="text-align:center; color:black">Show Pending Tests</h5>
 
-
-    <div class="col-md-2" id="unapproved">
-
-        <br />
-        <div style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
-            <h4 style="text-align:center; color:black">Not Aproved Tests</h4>
-
-            <div class="clearfix"> </div>
-        </div>
-
+        <div class="clearfix"> </div>
     </div>
 
-    <div class="col-md-2" id="rejected">
+</div>
 
-        <br />
-        <div style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
-            <h4 style="text-align:center; color:black">Rejected Tests</h4>
+<div class="col-md-3" id="rejected">
 
-            <div class="clearfix"> </div>
-        </div>
+    <br />
+    <div id="srdiv" style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
+        <h5 id="srh" style="text-align:center; color:black">Show Rejected Tests</h5>
 
+        <div class="clearfix"> </div>
     </div>
 
-
-    <div class="col-md-4 ">
-        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
-            <div class="top-content">
-                <h4 style="text-align:center; color:black">Tests Pending to Perform</h4><br />
-                <div style="text-align:center" class="top-content">
-                    <label id="testscount"></label>
-                    <i style="color:black" id="waiting" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
-                </div>
-
+</div>
+<div class="col-md-4 ">
+    <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+        <div class="top-content">
+            <h4 id="showack" style="text-align:center; color:black">Tests Pending to Perform</h4><br />           
+            <div style="text-align:center" class="top-content">
+                <label id="testscount"></label>
+                <i style="color:black" id="waiting" class="fa fa-spinner fa-spin fa fa-fw"></i>
             </div>
-            <div class="clearfix"> </div>
+
         </div>
-
+        <div class="clearfix"> </div>
     </div>
-    <div class="col-md-8 content-top-2">
-        <!---start-chart---->
-        <!----->
 
-    </div>
+</div>
+<div class="content-top">  
+
+
+   
+   
     <div class="clearfix"> </div>
 </div>
 <!---->
@@ -99,7 +93,7 @@
                     <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
 
-                            <h3>Show all Pending Tests</h3>
+                            @*<h3>Show all Pending Tests</h3>*@
                             <div class="tab-content">
 
                                 <div class="tab-pane active" id="horizontal-form">
@@ -211,8 +205,18 @@
 
 <script type="text/javascript">
 
-    $("#unapproved").click(function () {
+    $("#waiting").hide();
+    
 
+    $("#unapproved").click(function () {
+        $("#testscount").hide();
+        $("#spdiv").css('background-color', '#d95459');
+        $("#sph").css('color', '#FFFFFF');
+
+        $("#srdiv").css('background-color', '#FFFFFF');
+        $("#srh").css('color', '#000000');
+
+          
         $.ajax({
             type: 'GET',
             url: '/Technician/Temp2/',
@@ -220,6 +224,7 @@
             dataType: "json",
             success: function (data) {
                 kendoGrid();
+                
             }
 
         });
@@ -228,15 +233,22 @@
     });
 
     $("#rejected").click(function () {
+        $("#testscount").hide();
+        $("#srdiv").css('background-color', '#d95459');
+        $("#srh").css('color', '#FFFFFF');
 
+        $("#spdiv").css('background-color', '#FFFFFF');
+        $("#sph").css('color', '#000000');
+       
         $.ajax({
             type: 'GET',
             url: '/Technician/Temp2/',
             data: { approvalstatus: 'Rejected' },
             dataType: "json",
             success: function (data) {
-                alert('Success');
+                //alert('Success');
                 kendoGrid();
+               
             },
 
         });
@@ -249,6 +261,7 @@
     //window.onload = kendoGrid();
 
     function kendoGrid() {
+        $("#waiting").show();
         var crudServiceBaseUrl = "/Technician",
                 dataSource = new kendo.data.DataSource({
                     transport: {
@@ -318,6 +331,7 @@
         var dataSource = grid.dataSource;
 
         var totalRecords = dataSource.total();
+        $("#testscount").show();
         $("#testscount").text(totalRecords);
         $('#waiting').hide();
     }

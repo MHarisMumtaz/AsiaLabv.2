@@ -12,7 +12,7 @@ namespace AsiaLabv1.Controllers
     {
         PatientTestService pts = new PatientTestService();
 
-        public static int _patienttestId,_patientId;
+        public static int _patienttestId, _patientId;
         public ActionResult Index()
         {
             return View();
@@ -28,8 +28,8 @@ namespace AsiaLabv1.Controllers
             {
                 Session["approvalstatus"] = null;
             }
-            
-            return Json("Successfull",JsonRequestBehavior.AllowGet);
+
+            return Json("Successfull", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetPatientInfo()
@@ -38,42 +38,46 @@ namespace AsiaLabv1.Controllers
 
 
             var patientInfo = pts.GetPatientTests(SessionBrId);
-            if (Session["approvalstatus"]!=null)
+            if (Session["approvalstatus"] != null)
             {
-                 patientInfo=pts.GetPatientTestsUpdate(Session["approvalstatus"].ToString());
+                patientInfo = pts.GetPatientTestsUpdate(Session["approvalstatus"].ToString());
             }
-            
+
             List<RequiredPatient> rp = new List<RequiredPatient>();
-             foreach (var item in patientInfo)
+            foreach (var item in patientInfo)
+            {
+                if (item.BranchId == SessionBrId)
+                {
+                    rp.Add(new RequiredPatient
                     {
-                        if (item.BranchId==SessionBrId)
-                        {
-                            rp.Add(new RequiredPatient
-                            {
-                                //Id=item.PatientId,
-                                //PatientName=item.Patient.PatientName,
-                                //PatientNumber=item.Patient.PatientNumber
+                        //Id=item.PatientId,
+                        //PatientName=item.Patient.PatientName,
+                        //PatientNumber=item.Patient.PatientNumber
 
-                                Id = item.Id,
-                                PatientName = item.PatientName,
-                                PatientNumber = item.Id.ToString(),
+                        Id = item.Id,
+                        PatientName = item.PatientName,
+                        PatientNumber = item.Id.ToString(),
 
 
-                            });
-                        }
-                     
-                    }
-                    return Json(rp, JsonRequestBehavior.AllowGet);
+                    });
+                }
 
-          }
+            }
+            return Json(rp, JsonRequestBehavior.AllowGet);
+
+        }
 
 
         public ActionResult PerformTest()
         {
+            if (Session["loginusername"] == null)
+            {
+                return RedirectToAction("LoginPage", "Main");
+            }
             return View();
         }
 
-        
+
 
         public void Temp(string patientId)
         {
@@ -88,48 +92,53 @@ namespace AsiaLabv1.Controllers
             List<RequiredTechnicianItems> TechnicianItems = new List<RequiredTechnicianItems>();
             List<RequiredTest> rt = new List<RequiredTest>();
 
-                _patienttestId = patientDetails[0].Id;
-                var pno = patientDetails[0].Patient.Id;
-                var comments=pts.GetComment(pno);
-                var pname = patientDetails[0].Patient.PatientName;
-                var ptests = patientDetails[0].Patient.PatientTests;
+            _patienttestId = patientDetails[0].Id;
+            var pno = patientDetails[0].Patient.Id;
+            var comments = pts.GetComment(pno);
+            var pname = patientDetails[0].Patient.PatientName;
+            var ptests = patientDetails[0].Patient.PatientTests;
 
-                foreach (var item2 in ptests)
+            foreach (var item2 in ptests)
+            {
+
+                rt.Add(new RequiredTest
                 {
 
-                    rt.Add(new RequiredTest
-                    {
-                        
-                        Id=item2.TestSubcategory.Id,
-                        testName=item2.TestSubcategory.TestSubcategoryName,
-                        lowerBound=item2.TestSubcategory.LowerBound,
-                        upperBound=item2.TestSubcategory.UpperBound,
-                        unit=item2.TestSubcategory.Unit,
-                        comment = comments
+                    Id = item2.TestSubcategory.Id,
+                    testName = item2.TestSubcategory.TestSubcategoryName,
+                    lowerBound = item2.TestSubcategory.LowerBound,
+                    upperBound = item2.TestSubcategory.UpperBound,
+                    unit = item2.TestSubcategory.Unit,
+                    comment = comments
 
-                    });
-                   
-                }
-
-                TechnicianItems.Add(new RequiredTechnicianItems { 
-                
-                PatientNumber=pno.ToString(),
-                PatientName=pname,
-                PatientTests=rt,
-                PreviousTests = pts.GetTestResultsById(_patienttestId),
-                
-                
                 });
-            
 
-            return Json(TechnicianItems,JsonRequestBehavior.AllowGet);
+            }
+
+            TechnicianItems.Add(new RequiredTechnicianItems
+            {
+
+                PatientNumber = pno.ToString(),
+                PatientName = pname,
+                PatientTests = rt,
+                PreviousTests = pts.GetTestResultsById(_patienttestId),
+
+
+            });
+
+
+            return Json(TechnicianItems, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult TestResults(string[] result)
         {
             var testids = pts.GetPatientTestsByPatientId(_patientId);
             int id = _patienttestId;
+<<<<<<< HEAD
+            if (Session["approvalstatus"] == null)
+=======
             if (Session["approvalstatus"]== null)
+>>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
             {
                 for (int i = 0; i < result.Length; i++)
                 {
@@ -151,21 +160,21 @@ namespace AsiaLabv1.Controllers
                     TechnicianId = Convert.ToInt16(Session["loginuser"]),
                     Dated = DateTime.Now,
                     PatientId = _patientId,
-                    
+
 
                 });
             }
             else
             {
-                    pts.UpdateRejectedTest(_patienttestId,result);
-                    Session["approvalstatus"] = null;
+                pts.UpdateRejectedTest(_patienttestId, result);
+                Session["approvalstatus"] = null;
 
             }
 
 
             return Json("Successfull");
         }
-        
+
 
     }
 }

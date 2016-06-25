@@ -15,6 +15,7 @@ namespace AsiaLabv1.Controllers
         //any query related to employee has been written in this class
         UserService UsersService = new UserService();
         BranchService BranchesService = new BranchService();
+        PatientPaymentService PatientsPaymentService = new PatientPaymentService();
         public ActionResult MainPage()
         {
             return View();
@@ -71,11 +72,11 @@ namespace AsiaLabv1.Controllers
         }
 
         public ActionResult LoginPage()
-        {                        
+        {
             return View("LoginPage");
         }
 
-        
+
 
         public ActionResult EditProfile()
         {
@@ -84,13 +85,16 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult AdminDashboard()
         {
+            
+
+
             if (Session["loginusername"] == null)
             {
-                return RedirectToAction("LoginPage","Main");
+                return RedirectToAction("LoginPage", "Main");
             }
             return View();
         }
-       
+
         public ActionResult DoctorDashboard()
         {
             if (Session["loginusername"] == null)
@@ -138,10 +142,10 @@ namespace AsiaLabv1.Controllers
             //BranchesService.AddBranch("branch1name", "branch 1 address", "Br Code");
 
             //UsersService.AddUser();
-         //   var t = UsersService.GetAllUserTypes();
-          //  var a = BranchesService.GetAllBranches();
+            //   var t = UsersService.GetAllUserTypes();
+            //  var a = BranchesService.GetAllBranches();
 
-           // UsersService.AddUser();
+            // UsersService.AddUser();
             //var t = UsersService.GetAllUserTypes();
             // var a = BranchesService.GetAllBranches();
             #endregion
@@ -149,39 +153,95 @@ namespace AsiaLabv1.Controllers
             string username = LoginForm["Email"].ToString();
             string password = LoginForm["Password"].ToString();
 
-            var model = UsersService.ValidateLogin(username, password);            
+            var model = UsersService.ValidateLogin(username, password);
 
-            if (model==null)
+            if (model == null)
             {
                 TempData["Error"] = "Username or Password is Incorrect";
                 return RedirectToAction("LoginPage", "Main");
             }
-            
+
 
             if (model != null)
             {
                 Session["BranchId"] = model.BranchId;
                 Session["loginuser"] = model.Id;
-               
+
                 Session["loginusername"] = model.Name;
                 Session["name"] = model.Name;
                 Session["role"] = model.UserRole;
 
-                if (model.Name == "Humam admin")
+                if (model.UserRole == "Admin")
                 {
                     Session["AdminLabelShow"] = model.Name;
                 }
-                
+
                 Session["branch"] = model.BranchName;
+                
                 return View(model.UserRole + "Dashboard", model);
             }
+            
 
             return RedirectToAction("LoginPage");
         }
 
-        public ActionResult abc()
+        public ActionResult GetRevenue(FormCollection Revenue)
         {
-            return View();
+            #region revenues
+
+            string startDate = Revenue["Sdate"];
+            string endDate = Revenue["Edate"];
+            TempData["StartDate"] = startDate;
+            TempData["EndDate"] = endDate;
+
+            var PayLiaquatabadLab = PatientsPaymentService.GetTotalNetAmountByBranchId("Lab", 1, startDate, endDate);
+            TempData["PayLiaquatabadLab"] = PayLiaquatabadLab;
+
+            var PayLiaquatabadXRAY = PatientsPaymentService.GetTotalNetAmountByBranchId("X-RAY", 1, startDate, endDate);
+            TempData["PayLiaquatabadXRAY"] = PayLiaquatabadXRAY;
+
+            //var PayLiaquatabadUltra = PatientsPaymentService.GetTotalNetAmountByBranchId("Ultrasound", 1);
+            //TempData["PayLiaquatabadUltra"] = PayLiaquatabadUltra;
+
+            var PaySurjaniLab = PatientsPaymentService.GetTotalNetAmountByBranchId("Lab", 2,startDate,endDate);
+            TempData["PaySurjaniLab"] = PaySurjaniLab;
+
+            var PaySurjaniXRAY = PatientsPaymentService.GetTotalNetAmountByBranchId("X-RAY", 2, startDate, endDate);
+            TempData["PaySurjaniXRAY"] = PaySurjaniXRAY;
+
+            //var PaySurjaniUltra = PatientsPaymentService.GetTotalNetAmountByBranchId("Ultrasound", 2);
+            //TempData["PaySurjaniUltra"] = PaySurjaniUltra;
+
+            var PayGardenLab = PatientsPaymentService.GetTotalNetAmountByBranchId("Lab", 3, startDate, endDate);
+            TempData["PayGardenLab"] = PayGardenLab;
+
+            //var PayGardenXRAY = PatientsPaymentService.GetTotalNetAmountByBranchId("X-RAY", 3);
+            //TempData["PayGardenXRAY"] = PayGardenXRAY;
+
+            //var PayGardenUltra = PatientsPaymentService.GetTotalNetAmountByBranchId("Ultrasound", 3);
+            //TempData["PayGardenUltra"] = PayGardenUltra;
+
+            var PayNorthLab = PatientsPaymentService.GetTotalNetAmountByBranchId("Lab", 4, startDate, endDate);
+            TempData["PayNorthLab"] = PayNorthLab;
+
+            //var PayNorthXRAY = PatientsPaymentService.GetTotalNetAmountByBranchId("X-RAY", 4);
+            //TempData["PayNorthXRAY"] = PayNorthXRAY;
+
+            //var PayNorthUltra = PatientsPaymentService.GetTotalNetAmountByBranchId("Ultrasound", 4);
+            //TempData["PayNorthUltra"] = PayNorthUltra;
+
+            var PayJoharLab = PatientsPaymentService.GetTotalNetAmountByBranchId("Lab", 6, startDate, endDate);
+            TempData["PayJoharLab"] = PayJoharLab;
+
+            //var PayJoharXRAY = PatientsPaymentService.GetTotalNetAmountByBranchId("X-RAY", 6);
+            //TempData["PayJoharXRAY"] = PayJoharXRAY;
+
+            //var PayJoharUltra = PatientsPaymentService.GetTotalNetAmountByBranchId("Ultrasound", 6);
+            //TempData["PayJoharUltra"] = PayJoharUltra;
+
+
+            #endregion
+            return RedirectToAction("AdminDashboard","Main");
         }
 
 

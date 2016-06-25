@@ -17,7 +17,7 @@ namespace AsiaLabv1.Services
 
         public void Add(PatientModel model)
         {
-            int PatientAge = DateTime.Now.Year - model.DateofBirth.Year;
+            
             var patient = new Patient()
             {
                 PatientName = model.Name,
@@ -26,8 +26,8 @@ namespace AsiaLabv1.Services
                 GenderId = model.GenderId,
                 DateTime = DateTime.Now,
                 Email = model.Email,
-                Age = PatientAge.ToString(),
-                Days = "", //days and months are empty becuase humam didn't created those fields in ui
+                Age = model.Age,
+                Days = "", //days and months are empty becuase humam didn't created those fields on ui
                 Months = ""
             };
             

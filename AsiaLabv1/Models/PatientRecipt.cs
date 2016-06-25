@@ -28,9 +28,7 @@ namespace AsiaLabv1.Models
         Contact BranchContact;
         Gender gender;
         string path;
-        /// <summary>
-        /// Initializes a new instance of the class BillFrom and opens the specified XML document.
-        /// </summary>
+
         public PatientRecipt(string path,string LogedInUser,Gender gender, PatientModel model, List<TestSubcategory> PatientTests,Branch branch,Contact branchcontact)
         {
             this.LogedInUser = LogedInUser;
@@ -42,9 +40,6 @@ namespace AsiaLabv1.Models
             this.gender = gender;
         }
 
-        /// <summary>
-        /// Creates the invoice document.
-        /// </summary>
         public PdfDocument CreateDocument()
         {
             #region old code
@@ -60,46 +55,45 @@ namespace AsiaLabv1.Models
 
             //FillContent();
             #endregion
-            int GlobX = 100;
+            int ReciptSlideX = 100;
             PdfDocument pdf = new PdfDocument();
             PdfPage pdfPage = pdf.AddPage();
 
             XGraphics graph = XGraphics.FromPdfPage(pdfPage);
             XFont font = new XFont("Arial, Helvetica, sans-serif", 12, XFontStyle.Bold);
 
-            WriteTextOnPdf(graph, font, pdfPage, "Asia Laboratory", GlobX, 30);
-            DrawLineonPdf(graph, new PointF(GlobX - 10, 50), new PointF(GlobX + 170, 50), 3);
+            WriteTextOnPdf(graph, font, pdfPage, "Asia Laboratory", ReciptSlideX + 5, 30);
+            DrawLineonPdf(graph, new PointF(ReciptSlideX - 10, 50), new PointF(ReciptSlideX + 170, 50), 3);
             font = new XFont("Arial, Helvetica, sans-serif", 9, XFontStyle.Regular);
-            WriteTextOnPdf(graph, font, pdfPage,Branch.BranchName, GlobX + 10, 56);
-            WriteTextOnPdf(graph, font, pdfPage, Branch.BranchAddress, GlobX + 10, 65);
-            WriteTextOnPdf(graph, font, pdfPage, "Tel: "+BranchContact.BranchContactNo, GlobX + 10, 75);
-            DrawLineonPdf(graph, new PointF(GlobX - 10, 90), new PointF(GlobX + 170, 90), 1);
+            WriteTextOnPdf(graph, font, pdfPage,Branch.BranchName, ReciptSlideX + 10, 56);
+            WriteTextOnPdf(graph, font, pdfPage, Branch.BranchAddress, ReciptSlideX + 10, 65);
+            WriteTextOnPdf(graph, font, pdfPage, "Tel: "+BranchContact.BranchContactNo, ReciptSlideX + 10, 75);
+            DrawLineonPdf(graph, new PointF(ReciptSlideX - 10, 90), new PointF(ReciptSlideX + 170, 90), 1);
 
             font = new XFont("Arial, Helvetica, sans-serif", 10, XFontStyle.Regular);
-            WriteTextOnPdf(graph, font, pdfPage, "Statement of Asia Laboratory Charges", GlobX - 4, 98);
+            WriteTextOnPdf(graph, font, pdfPage, "Statement of Asia Laboratory Charges", ReciptSlideX - 4, 98);
 
             font = new XFont("Arial, Helvetica, sans-serif", 9, XFontStyle.Regular);
-            WriteTextOnPdf(graph, font, pdfPage, "Recipt. #", GlobX - 4, 118);
-            WriteTextOnPdf(graph, font, pdfPage, ":  "+model.Id, GlobX + 35, 118);
-            WriteTextOnPdf(graph, font, pdfPage, "Name", GlobX - 4, 133);
-            WriteTextOnPdf(graph, font, pdfPage, ":  "+model.Name, GlobX + 35, 133);
-            WriteTextOnPdf(graph, font, pdfPage, "Gender", GlobX - 4, 148);
-            var age = DateTime.Now.Year - model.DateofBirth.Year;
-            WriteTextOnPdf(graph, font, pdfPage, ":  " + gender.GenderDescription + " " + age + "Y", GlobX + 35, 148);
-            WriteTextOnPdf(graph, font, pdfPage, "Phone", GlobX - 4, 161);
-            WriteTextOnPdf(graph, font, pdfPage, ":  "+model.PhoneNumber, GlobX + 35, 161);
+            WriteTextOnPdf(graph, font, pdfPage, "Recipt. #", ReciptSlideX - 4, 118);
+            WriteTextOnPdf(graph, font, pdfPage, ":  "+model.Id, ReciptSlideX + 35, 118);
+            WriteTextOnPdf(graph, font, pdfPage, "Name", ReciptSlideX - 4, 133);
+            WriteTextOnPdf(graph, font, pdfPage, ":  "+model.Name, ReciptSlideX + 35, 133);
+            WriteTextOnPdf(graph, font, pdfPage, "Gender", ReciptSlideX - 4, 148);
+            WriteTextOnPdf(graph, font, pdfPage, ":  " + gender.GenderDescription + " " + model.Age + "Y", ReciptSlideX + 35, 148);
+            WriteTextOnPdf(graph, font, pdfPage, "Phone", ReciptSlideX - 4, 161);
+            WriteTextOnPdf(graph, font, pdfPage, ":  "+model.PhoneNumber, ReciptSlideX + 35, 161);
 
             font = new XFont("Arial, Helvetica, sans-serif", 10, XFontStyle.Underline);
-            WriteTextOnPdf(graph, font, pdfPage, "e-Reports", GlobX - 4, 180);
-            WriteTextOnPdf(graph, font, pdfPage, ":  www.asialabs.com/LabReports", GlobX + 36, 180);
+            WriteTextOnPdf(graph, font, pdfPage, "e-Reports", ReciptSlideX - 4, 180);
+            WriteTextOnPdf(graph, font, pdfPage, ":  www.asialabs.com/LabReports", ReciptSlideX + 36, 180);
             font = new XFont("Arial, Helvetica, sans-serif", 10, XFontStyle.Regular);
-            DrawLineonPdf(graph, new PointF(GlobX - 10, 194), new PointF(GlobX + 170, 194), 1);
-            WriteTextOnPdf(graph, font, pdfPage, "Charges:", GlobX - 6, 205);
+            DrawLineonPdf(graph, new PointF(ReciptSlideX - 10, 194), new PointF(ReciptSlideX + 170, 194), 1);
+            WriteTextOnPdf(graph, font, pdfPage, "Charges:", ReciptSlideX - 6, 205);
             font = new XFont("Arial, Helvetica, sans-serif", 8, XFontStyle.Underline);
-            WriteTextOnPdf(graph, font, pdfPage, "Test", GlobX - 6, 217);
-            WriteTextOnPdf(graph, font, pdfPage, "Amount", GlobX + 140, 217);
+            WriteTextOnPdf(graph, font, pdfPage, "Test", ReciptSlideX - 6, 217);
+            WriteTextOnPdf(graph, font, pdfPage, "Amount", ReciptSlideX + 140, 217);
             font = new XFont("Arial, Helvetica, sans-serif", 9, XFontStyle.Bold);
-            int X1 = GlobX - 6, X2 = GlobX + 140, Y = 230;
+            int X1 = ReciptSlideX - 6, X2 = ReciptSlideX + 140, Y = 230;
             foreach (var item in PatientTests)
             {
                 WriteTextOnPdf(graph, font, pdfPage, item.TestSubcategoryName, X1, Y);
@@ -112,7 +106,7 @@ namespace AsiaLabv1.Models
             WriteTextOnPdf(graph, font, pdfPage, "Total Charges", X1, Y);
             WriteTextOnPdf(graph, font, pdfPage, NetAmount.ToString(), X2, Y);
             Y += 12;
-            DrawLineonPdf(graph, new PointF(GlobX - 10, Y), new PointF(GlobX + 170, Y), 1);
+            DrawLineonPdf(graph, new PointF(ReciptSlideX - 10, Y), new PointF(ReciptSlideX + 170, Y), 1);
             Y += 13;
             WriteTextOnPdf(graph, font, pdfPage, "Payment Receivables:", X1, Y);
             font = new XFont("Arial, Helvetica, sans-serif", 9, XFontStyle.Regular);
@@ -130,7 +124,7 @@ namespace AsiaLabv1.Models
             DrawLineonPdf(graph, new PointF(200, Y), new PointF(226, Y), 1);
             WriteTextOnPdf(graph, font, pdfPage, (NetAmount - model.Discount).ToString(), X2, Y);
             Y += 12;
-            DrawLineonPdf(graph, new PointF(GlobX - 10, Y), new PointF(GlobX + 170, Y), 1);
+            DrawLineonPdf(graph, new PointF(ReciptSlideX - 10, Y), new PointF(ReciptSlideX + 170, Y), 1);
             font = new XFont("Arial, Helvetica, sans-serif", 9, XFontStyle.Bold);
             Y += 10;
             WriteTextOnPdf(graph, font, pdfPage, "Reporting Schedule", X1, Y);
@@ -149,7 +143,7 @@ namespace AsiaLabv1.Models
             }
           
             Y += 18;
-            DrawLineonPdf(graph, new PointF(GlobX - 10, Y), new PointF(GlobX + 170, Y), 1);
+            DrawLineonPdf(graph, new PointF(ReciptSlideX - 10, Y), new PointF(ReciptSlideX + 170, Y), 1);
             Y += 12;
             font = new XFont("Arial, Helvetica, sans-serif", 7, XFontStyle.Regular);
             WriteTextOnPdf(graph, font, pdfPage, "Please collect your reports between 7:30PM to 8:30 PM on", X1, Y);
@@ -167,7 +161,7 @@ namespace AsiaLabv1.Models
             WriteTextOnPdf(graph, font, pdfPage, "Working Hours", X1, Y);
             WriteTextOnPdf(graph, font, pdfPage, "Mon to Sat   8:00Am to 10:30Pm", X2 - 75, Y);
             Y += 12;
-            DrawLineonPdf(graph, new PointF(GlobX - 10, Y), new PointF(GlobX + 170, Y), 1);
+            DrawLineonPdf(graph, new PointF(ReciptSlideX - 10, Y), new PointF(ReciptSlideX + 170, Y), 1);
             Y += 15;
             WriteTextOnPdf(graph, font, pdfPage, "Printed On:", X1, Y);
             WriteTextOnPdf(graph, font, pdfPage, DateTime.Now.ToShortDateString() + "" + DateTime.Now.ToShortTimeString(), X1 + 60, Y);
@@ -195,6 +189,7 @@ namespace AsiaLabv1.Models
             pen.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
             graph.DrawRectangle(pen, rect);
         }
+
         #region old code
         ///// <summary>
         ///// Defines the styles used to format the MigraDoc document.

@@ -84,7 +84,7 @@ namespace AsiaLabv1.Controllers
         public ActionResult GetTests()
         {
 
-            var patientDetails = pts.GetPatientTestsById(Convert.ToInt16(Session["ID"]));
+            var patientDetails = pts.GetPatientTestsByPatientId(Convert.ToInt16(Session["ID"]));
             List<RequiredTechnicianItems> TechnicianItems = new List<RequiredTechnicianItems>();
             List<RequiredTest> rt = new List<RequiredTest>();
 
@@ -127,7 +127,7 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult TestResults(string[] result)
         {
-            var testids = pts.GetPatientTestsById(_patientId);
+            var testids = pts.GetPatientTestsByPatientId(_patientId);
             int id = _patienttestId;
             if (Session["approvalstatus"]== null)
             {

@@ -64,11 +64,11 @@ namespace AsiaLabv1.Controllers
         public ActionResult GetTests()
         {
 
-            var patientDetails = pts.GetPatientTestsById(Convert.ToInt16(Session["ID"]));
+            var patientDetails = pts.GetPatientTestsByPatientId(Convert.ToInt16(Session["ID"]));
             List<RequiredTechnicianItems> DoctorItems = new List<RequiredTechnicianItems>();
             List<RequiredTest> rt = new List<RequiredTest>();
 
-            var tests=pts.GetPatientTestsById(patientDetails[0].Patient.Id);
+            var tests=pts.GetPatientTestsByPatientId(patientDetails[0].Patient.Id);
             //_patienttestId = patientDetails[0].Id;
             
             var pno = patientDetails[0].Patient.Id;

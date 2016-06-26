@@ -50,8 +50,7 @@ namespace AsiaLabv1.Controllers
                     {
                         Id = item.Id,
                         PatientName = item.PatientName,
-                        PatientNumber = item.Id.ToString(),
-
+                        PatientNumber = item.Id.ToString()
                     });
                 }
             }
@@ -68,19 +67,11 @@ namespace AsiaLabv1.Controllers
         public ActionResult GetTests()
         {
 
-            var patientDetails = pts.GetPatientTestsById(Convert.ToInt16(Session["ID"]));
+            var patientDetails = pts.GetPatientTestsByPatientId(Convert.ToInt16(Session["ID"]));
             List<RequiredTechnicianItems> DoctorItems = new List<RequiredTechnicianItems>();
             List<RequiredTest> rt = new List<RequiredTest>();
 
-<<<<<<< HEAD
-            var tests = pts.GetPatientTestsById(patientDetails[0].Patient.Id);
-            //_patienttestId = patientDetails[0].Id;
-
-=======
-            var tests=pts.GetPatientTestsById(patientDetails[0].Patient.Id);
-            //_patienttestId = patientDetails[0].Id;
-            
->>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
+            var tests = pts.GetPatientTestsByPatientId(patientDetails[0].Patient.Id);
             var pno = patientDetails[0].Patient.Id;
             var pname = patientDetails[0].Patient.PatientName;
             var ptests = patientDetails[0].Patient.PatientTests;
@@ -94,11 +85,7 @@ namespace AsiaLabv1.Controllers
 
                     Id = item2.TestSubcategory.Id,
                     testName = item2.TestSubcategory.TestSubcategoryName,
-<<<<<<< HEAD
-                    result = results[0].ToString(),
-=======
                     result=results[0].ToString(),
->>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
                     lowerBound = item2.TestSubcategory.LowerBound,
                     upperBound = item2.TestSubcategory.UpperBound,
                     unit = item2.TestSubcategory.Unit

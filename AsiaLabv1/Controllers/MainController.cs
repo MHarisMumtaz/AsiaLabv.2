@@ -131,7 +131,8 @@ namespace AsiaLabv1.Controllers
                 username:  TestReceiptionist
                 password:  TestReceiptionist2016
              */
-
+          
+           
 
             #region commented bekar code baad m delete krdengy ye
             //UsersService.AddUserType("Admin");
@@ -166,7 +167,6 @@ namespace AsiaLabv1.Controllers
             {
                 Session["BranchId"] = model.BranchId;
                 Session["loginuser"] = model.Id;
-
                 Session["loginusername"] = model.Name;
                 Session["name"] = model.Name;
                 Session["role"] = model.UserRole;

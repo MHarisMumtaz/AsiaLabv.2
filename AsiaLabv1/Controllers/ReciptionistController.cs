@@ -28,7 +28,13 @@ namespace AsiaLabv1.Controllers
         BranchService BranchServices = new BranchService();
         DoctorPatientsTestService DoctorPatientServices = new DoctorPatientsTestService();
 
-        
+        PaymentService PaymentServices = new PaymentService();
+
+        public ActionResult PrintReport()
+        {
+            return View();
+        }
+
         public ActionResult RegisterPatient()
         {
             if (Session["loginusername"] == null)
@@ -158,6 +164,8 @@ namespace AsiaLabv1.Controllers
                 int UserId = Convert.ToInt32(Session["loginuser"].ToString());
                 var branch = UserServices.GetUserBranch(UserId);
                 model.BranchId = branch.Id;
+                model.Age = (DateTime.Now.Year - model.DateofBirth.Year).ToString();
+               
                 PatientServices.Add(model);
                 List<TestSubcategory> selectedTests = new List<TestSubcategory>();
                 double netAmount = 0;
@@ -185,7 +193,7 @@ namespace AsiaLabv1.Controllers
                     PaidAmount = model.PaidAmount,
                     Discount = model.Discount,
                     NetAmount = netAmount,
-                    Balance = model.PaidAmount - netAmount,
+                    Balance = netAmount - model.PaidAmount,
                     PayTypeId = model.PayId
                 });
                 
@@ -210,26 +218,6 @@ namespace AsiaLabv1.Controllers
             return Json("Please assign tests to patients", JsonRequestBehavior.AllowGet);
             
         }
-
-        [NonAction]
-        public void GeneratePatientRecipt(PatientModel model,Gender gender,List<TestSubcategory> tests,Branch branch,Contact branchcontact)
-        {
-            var path = Server.MapPath("/images/");
-            
-            PatientRecipt recipt = new PatientRecipt(path,Session["loginusername"].ToString(),gender, model, tests,branch,branchcontact);
-
-            string filename = "Recipt-" + model.Id + ".pdf";
-            if (!System.IO.File.Exists(Request.MapPath("/PatientsReport/") + filename))
-            {
-                PdfDocument pdf = recipt.CreateDocument();
-
-                pdf.Save(Server.MapPath("/PatientsReport/") + filename);
-                //    System.IO.FileInfo fi=new System.IO.FileInfo(Request.MapPath("/PatientsReport/") + filename);
-                //    fi.Delete();
-            }
-            Process.Start(Server.MapPath("/PatientsReport/") + filename);
-        }
-
         
         public ActionResult GetPatientList(PatientSearchModel model)
         {
@@ -253,7 +241,35 @@ namespace AsiaLabv1.Controllers
         }
 
         [HttpGet]
-        public ActionResult GenerateReport(int PatientId)
+        public ActionResult Recipt(int Id)
+        {
+            var patient = PatientServices.GetByPatientId(Id);
+            var gender = GenderServices.GetById(patient.GenderId);
+            var branch = BranchServices.GetById(patient.BranchId);
+            var branchContact = BranchServices.GetBranchContact(patient.BranchId);
+            var refer = ReferDoctorsServices.GetPatientReferById(patient.Id);
+            var SubTestList = PatientTestService.GetSubCategoryByPatientId(patient.Id);
+            var payment = PaymentServices.GetPaymentByPatientId(patient.Id);
+
+            var model = new PatientModel
+            {
+                Id = patient.Id,
+                Name = patient.PatientName,
+                Date = patient.DateTime,
+                Age = patient.Age,
+                Email = patient.Email,
+                Discount = payment.Discount,
+                PaidAmount = payment.PaidAmount,
+                PhoneNumber = patient.PatientNumber
+            };
+
+            GeneratePatientRecipt(model, gender, SubTestList, branch, branchContact);
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Report(int PatientId)
         {
             string ReturnMessage = "Report Generated";
            
@@ -270,6 +286,7 @@ namespace AsiaLabv1.Controllers
             return Json(ReturnMessage, JsonRequestBehavior.AllowGet);
         }
 
+        [NonAction]
         public void GeneratePatientReport(List<PatientReportModel> model,Refer ReferDoctor,Patient PatientInfo,UserEmployee PatientDoctor,string BranchName)
         {
             string filename = "Report-" + PatientInfo.Id + ".pdf";
@@ -286,9 +303,26 @@ namespace AsiaLabv1.Controllers
             //    System.IO.FileInfo fi=new System.IO.FileInfo(Request.MapPath("/PatientsReport/") + filename);
             //    fi.Delete();
             } 
-           
-
             // ...and start a viewer.
+            Process.Start(Server.MapPath("/PatientsReport/") + filename);
+        }
+
+        [NonAction]
+        public void GeneratePatientRecipt(PatientModel model, Gender gender, List<TestSubcategory> tests, Branch branch, Contact branchcontact)
+        {
+            var path = Server.MapPath("/images/");
+
+            PatientRecipt recipt = new PatientRecipt(path, Session["loginusername"].ToString(), gender, model, tests, branch, branchcontact);
+
+            string filename = "Recipt-" + model.Id + ".pdf";
+            if (!System.IO.File.Exists(Request.MapPath("/PatientsReport/") + filename))
+            {
+                PdfDocument pdf = recipt.CreateDocument();
+
+                pdf.Save(Server.MapPath("/PatientsReport/") + filename);
+                //    System.IO.FileInfo fi=new System.IO.FileInfo(Request.MapPath("/PatientsReport/") + filename);
+                //    fi.Delete();
+            }
             Process.Start(Server.MapPath("/PatientsReport/") + filename);
         }
     }

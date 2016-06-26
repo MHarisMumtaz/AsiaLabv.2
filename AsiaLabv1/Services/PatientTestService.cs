@@ -29,20 +29,10 @@ namespace AsiaLabv1.Services
 
         public List<Patient> GetPatientTests(int branchid)
         {
-
-            //var query = (from pt in _PatientTestService.Table
-            //             join p in _PatientRepository.Table
-            //             on pt.PatientId equals p.Id
-            //             where !_PatientTestResultRepository.Table.Any(ptr => ptr.PatientTestId == pt.Id)
-            //             select pt).ToList<PatientTest>().GroupBy(test => test.Id).Select(grp => grp.First()).ToList();
-
             var check2 = (from pt in _PatientTestRepository.Table
                           join tr in _PatientTestResultRepository.Table
                           on pt.Id equals tr.PatientTestId
                           select pt.PatientId).ToList();
-
-            //var check = (from tr in _PatientTestResultRepository.Table
-            //             select tr.PatientTestId).ToList();
 
             var query = (from p in _PatientRepository.Table
                          join pt in _PatientTestRepository.Table
@@ -55,8 +45,6 @@ namespace AsiaLabv1.Services
 
         public List<Patient> GetPatientTestsUpdate(string approvalstatus)
         {
-
-
             var check2 = (from pt in _PatientTestRepository.Table
                           join tr in _PatientTestResultRepository.Table
                           on pt.Id equals tr.PatientTestId
@@ -69,11 +57,9 @@ namespace AsiaLabv1.Services
                          where check2.Contains(pt.PatientId)
                          select p).ToList<Patient>().GroupBy(test => test.Id).Select(grp => grp.First()).ToList();
 
-
-
-
             return query;
         }
+
         public int GetBranchId(string Name)
         {
             int query = (from b in _BranchRepository.Table
@@ -149,7 +135,7 @@ namespace AsiaLabv1.Services
         public void UpdateRejectedTest(int id, string[] tests)
         {
 
-            List<PatientTestResult> original = (from ptr in _PatientTestResultRepository.Table
+            var original = (from ptr in _PatientTestResultRepository.Table
                                                 where ptr.PatientTestId == id
                                                 select ptr).ToList<PatientTestResult>();
 

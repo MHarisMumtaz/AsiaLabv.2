@@ -2,7 +2,7 @@
     ViewBag.Title = "Accounting";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-
+@model AsiaLabv1.Models.AccountingModel
 @section Banner
 {
     <div class="banner">
@@ -70,35 +70,36 @@
                     <div class="form-group">
                         <label for="selector1" class="col-sm-2 control-label">Select Branch Name</label>
                         <div class="col-sm-8">
-                            <select name="selector1" id="selector1" class="form-control1">
+                               @Html.DropDownListFor(model => model.BranchId, Model.Branches, "--Select--", new { @class = "drp", required = "required" })
+                          <!--  <select name="selector1" id="selector1" class="form-control1">
                                 <option>Garden Branch</option>
                                 <option>North Karachi Branch</option>
                                 <option>Liaquatabad Branch</option>
                                 <option>Johar Branch</option>
                                 <option>Surjani Branch</option>
-                            </select>
+                            </select>-->
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="pname" class="col-sm-2 control-label">From Date</label>
+                        <label for="pname" class="col-sm-2 control-label">Date</label>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control1" id="focusedinput">
+                            <input type="date" class="form-control1" id="summaryDate">
                         </div>
 
                     </div>
-                    <div class="form-group">
+                   <!-- <div class="form-group">
                         <label for="pname" class="col-sm-2 control-label">To Date</label>
                         <div class="col-sm-8">
                             <input type="date" class="form-control1" id="focusedinput">
                         </div>
 
-                    </div>
+                    </div>-->
 
                     <div class="col-sm-2 login-do" style="margin-left:40%">
                         <label class="hvr-shutter-in-horizontal login-sub">
-                            <input type="submit" value="See Results" onclick="window.location='signup.html';" />
+                            <input type="button" value="Print Summary" onclick="printSummary()" />
                         </label>
                     </div>
                     <br /><br /><br /><br /><br /><br /><br /><br /><br />
@@ -114,7 +115,26 @@
 </div>
 <br /><br /><br />
 
-
+<script>
+    function printSummary() {
+        var summarydate = $('#summaryDate').val();
+        var branchId = $('#BranchId').val();
+        var model={
+            Date : summarydate,
+            BranchId:branchId
+        }
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("PrintSummary","Admin")",
+            data: JSON.stringify(model),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (data) {
+                alert(data);
+        }
+    });
+    }
+</script>
 
 
 

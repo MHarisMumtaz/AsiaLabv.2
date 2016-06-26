@@ -9,7 +9,6 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using System.Xml.XPath;
-using System.Web;
 using System.Drawing;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
@@ -19,7 +18,6 @@ namespace AsiaLabv1.Models
     public class PatientRecipt
     {
 
-        
         double NetAmount;
         PatientModel model;
         string LogedInUser;
@@ -58,7 +56,7 @@ namespace AsiaLabv1.Models
             int ReciptSlideX = 100;
             PdfDocument pdf = new PdfDocument();
             PdfPage pdfPage = pdf.AddPage();
-
+           
             XGraphics graph = XGraphics.FromPdfPage(pdfPage);
             XFont font = new XFont("Arial, Helvetica, sans-serif", 12, XFontStyle.Bold);
 
@@ -122,7 +120,7 @@ namespace AsiaLabv1.Models
             Y += 12;
             WriteTextOnPdf(graph, font, pdfPage, "Total Balance:", X1, Y);
             DrawLineonPdf(graph, new PointF(200, Y), new PointF(226, Y), 1);
-            WriteTextOnPdf(graph, font, pdfPage, (NetAmount - model.Discount).ToString(), X2, Y);
+            WriteTextOnPdf(graph, font, pdfPage, (NetAmount - model.PaidAmount).ToString(), X2, Y);
             Y += 12;
             DrawLineonPdf(graph, new PointF(ReciptSlideX - 10, Y), new PointF(ReciptSlideX + 170, Y), 1);
             font = new XFont("Arial, Helvetica, sans-serif", 9, XFontStyle.Bold);
@@ -170,6 +168,7 @@ namespace AsiaLabv1.Models
             WriteTextOnPdf(graph, font, pdfPage, LogedInUser, X1 + 60, Y);
             return pdf;
         }
+        
         public void DrawLineonPdf(XGraphics graph, PointF P1, PointF P2, int stroke)
         {
             Pen blackPen = new Pen(System.Drawing.Color.Black, stroke);

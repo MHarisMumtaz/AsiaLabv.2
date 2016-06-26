@@ -193,7 +193,7 @@ namespace AsiaLabv1.Controllers
                     PaidAmount = model.PaidAmount,
                     Discount = model.Discount,
                     NetAmount = netAmount,
-                    Balance = model.PaidAmount - netAmount,
+                    Balance = netAmount - model.PaidAmount,
                     PayTypeId = model.PayId
                 });
                 

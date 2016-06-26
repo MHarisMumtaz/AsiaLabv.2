@@ -1,7 +1,9 @@
 ﻿using AsiaLabv1.Models;
 using AsiaLabv1.Services;
+using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,6 +16,7 @@ namespace AsiaLabv1.Controllers
     {
 
         #region Services
+        
         UserService UserServices = new UserService();
         BranchService BranchServices = new BranchService();
         GenderService GenderServices = new GenderService();
@@ -22,6 +25,8 @@ namespace AsiaLabv1.Controllers
         TestSubCategoryService TestSubCategoryServices = new TestSubCategoryService();
         ReferDoctorsService ReferDoctorsServices = new ReferDoctorsService();
         PatientPaymentService PatientsPaymentService = new PatientPaymentService();
+        PatientService PatientServices = new PatientService();
+
         #endregion
 
         public static int CategId = 0;
@@ -35,12 +40,50 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult Accounting()
         {
-            return View();
+            var model = new AccountingModel();
+            var branches = BranchServices.GetAllBranches();
+            foreach (var item in branches)
+            {
+                model.Branches.Add(new SelectListItem
+                {
+                    Text = item.BranchName,
+                    Value = item.Id.ToString()
+                });
+            }
+            return View(model);
         }
 
         public ActionResult Templates()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult PrintSummary(AccountingModel model)
+        {
+            var list = PatientServices.GetPatientsSummary(model.date, model.BranchId);
+            var branch = BranchServices.GetById(model.BranchId);
+            GenerateSummaryReport(list, model.date, branch.BranchName);
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        [NonAction]
+        public void GenerateSummaryReport(List<CashSummaryModel> model, DateTime date, string BranchName)
+        {
+            string filename = "Summary-" + date.Year + "-" + date.Month + "-" + date.Day + ".pdf";
+            if (!System.IO.File.Exists(Request.MapPath("/SummaryReports/") + filename))
+            {
+                CashSummaryReport Report = new CashSummaryReport(model, date, BranchName);
+
+                PdfDocument pdf = Report.CreateDocument();
+
+                pdf.Save(Server.MapPath("/SummaryReports/") + filename);
+                //    System.IO.FileInfo fi=new System.IO.FileInfo(Request.MapPath("/PatientsReport/") + filename);
+                //    fi.Delete();
+            }
+            // ...and start a viewer.
+            Process.Start(Server.MapPath("/SummaryReports/") + filename);
         }
 
         public ActionResult BranchReport()

@@ -15,7 +15,7 @@ namespace AsiaLabv1.Services
             var Query = (from pay in _PaymentRepository.Table
                          where pay.PatientId == PatientId
                          select pay).FirstOrDefault();
-            return Query; 
+            return Query;
         }
     }
 }

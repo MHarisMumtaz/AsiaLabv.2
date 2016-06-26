@@ -50,8 +50,7 @@ namespace AsiaLabv1.Controllers
                     {
                         Id = item.Id,
                         PatientName = item.PatientName,
-                        PatientNumber = item.Id.ToString(),
-
+                        PatientNumber = item.Id.ToString()
                     });
                 }
             }

@@ -67,7 +67,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
                 </div>
 
                 <div class="form-group">
-                    
+
                     <div id="">
                         <label style="margin-left:40%; color:red" id="ErrorResult">Please Enter Result(s)</label>
                     </div>
@@ -80,32 +80,32 @@ width:60%; height:10%; margin:auto; padding:10px'>
                         <label style="margin-left:10%" id="comment"></label>
                     </div>
                 </div>
-               
-                
-                  
-                
 
-                    <br />
-                    <div class="col-sm-8" style="margin-left:40%">
-                        <input type="button" id="btninsert" class="btn btn-danger" value="Submit Test" />
-                    </div>
 
-                    <div class="clearfix"> </div>
 
+
+
+                <br />
+                <div class="col-sm-8" style="margin-left:40%">
+                    <input type="button" id="btninsert" class="btn btn-danger" value="Submit Test" />
                 </div>
+
+                <div class="clearfix"> </div>
+
+            </div>
         </div>
     </div>
 </div>
 <br /><br /><br />
- 
+
 <script type="text/javascript">
-   
+
     $('#loadspinner').hide();
     $('#myDiv').hide();
     $('#ErrorResult').hide();
 
-    window.onload = getTests;     
-    
+    window.onload = getTests;
+
     function getTests() {
 
         $.ajax({
@@ -118,51 +118,43 @@ width:60%; height:10%; margin:auto; padding:10px'>
                 $('#patientinfo').append('<h5 id="grid-example-mixed-complete">Patient Name: ' + data[0].PatientName + '</h5>');
 
                 for (var i = 0; i < data[0].PatientTests.length; i++) {
-                  
+
 
                     $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-3" id="testname' + i + '">' + data[0].PatientTests[i].testName + '</div>');
-<<<<<<< HEAD
                     $('#tests').append('<div style="margin-top:3px; color:#000000; font-style:italic" class="col-xs-6 col-sm-2" id="previousresults' + i + '">' + data[0].PreviousTests[i] + '</div>');
                     var pr = $('#previousresults' + i).text();
                     if (pr == "undefined" || pr == "") {
                         $('#previousresults' + i).text("-");
 
-=======
-                    if (data[0].PreviousTests[i] != null) {
-                        $('#tests').append('<div style="margin-top:3px; color:#FF0000" class="col-xs-6 col-sm-3" id="previousresults' + i + '">' + data[0].PreviousTests[i] + '</div>');
->>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
                     }
                     $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testresult' + i + '"><input type="text" maxlength="5" style="height:22px" class="form-control" id="focusedinput' + i + '"/"></div>');
-                    
+
                     $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-2"  id="testlowerbound' + i + '">' + data[0].PatientTests[i].lowerBound + '</div>');
                     $('#tests').append('<div style="margin-top:3px" class="col-xs-6 col-sm-2"  id="testupperbound' + i + '">' + data[0].PatientTests[i].upperBound + '</div>');
                     $('#tests').append('<div style="margin-top:3px" class="col-md-1"  id="testunit' + i + '">' + data[0].PatientTests[i].unit + '</div>');
 
-                                 
-                   
 
-                    //for (var i = 0; i < data[0].PatientTests.length; i++) {                                              
+
+
+                    //for (var i = 0; i < data[0].PatientTests.length; i++) {
                     //    var pr = $('#previousresults' + i).text();
                     //    if (pr =="undefined"||pr=="") {
                     //        $('#previousresults' + i).text("-");
 
                     //    }
-                      
+
                     //}
-                    
-                    
-                   
-                   
-                  
+
+
+
+
+
 
 
                 }
-<<<<<<< HEAD
                 //alert(data[0].PatientTests[0].comment);
-=======
->>>>>>> 36a87ae9e03be4b4874b876d742b7336ac7d1990
                 $('#comment').append('<label id="comment">' + data[0].PatientTests[0].comment + '</label>');
-                
+
 
             },
             error: function (data) {
@@ -172,11 +164,11 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
     }
 
-    
+
 
     $('#btninsert').click(function () {
 
-       
+
         $('#loadspinner').show();
         var inputCount = document.getElementById('tests').getElementsByTagName('input').length;
         var results = [];
@@ -186,13 +178,13 @@ width:60%; height:10%; margin:auto; padding:10px'>
             testresult = $('#focusedinput' + i).val();
             results.push(testresult);
 
-            if (results[i]=="") {
-                
+            if (results[i] == "") {
+
                 $('#ErrorResult').show();
                 $('#ErrorResult').fadeOut(4000);
                 $('#loadspinner').hide();
                 return false;
-                
+
             }
 
         }
@@ -217,7 +209,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
         });
 
 
-       
+
 
         //For Results
 

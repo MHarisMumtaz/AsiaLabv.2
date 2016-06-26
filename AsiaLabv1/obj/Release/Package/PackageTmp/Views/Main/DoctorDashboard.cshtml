@@ -7,12 +7,12 @@
 {
     @*<div class="banner">
 
-        <h2>
-            <a href="index.html">Home</a>
-            <i class="fa fa-angle-right"></i>
-            <span>Approve Test</span>
-        </h2>
-    </div>*@
+            <h2>
+                <a href="index.html">Home</a>
+                <i class="fa fa-angle-right"></i>
+                <span>Approve Test</span>
+            </h2>
+        </div>*@
 }
 
 @*---------Start Side Navigation Menu-----------*@
@@ -20,8 +20,8 @@
 @section NavMenu
 {
     <li>
-    <a href="@Url.Action("DoctorDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
-</li>
+        <a href="@Url.Action("DoctorDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
 
 
 
@@ -31,73 +31,57 @@
 
 
 @*------------- Start Main Content Code-------------*@
+<div class="col-md-2" id="labbox">
 
+    <br />
+    <div id="labdiv" style="border: solid;  color: #d95459; border-width:1px" class="content-top-1">
+        <h4 id="labh" style="text-align:center; color:black">Lab</h4>
+
+        <div class="clearfix"> </div>
+    </div>
+
+</div>
+
+<div class="col-md-2" id="xraybox">
+
+    <br />
+    <div id="xraydiv" style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+        <h4 id="xrayh" style="text-align:center; color:black">X-RAY</h4>
+
+        <div class="clearfix"> </div>
+    </div>
+
+</div>
+
+<div class="col-md-2" id="ultrabox">
+
+    <br />
+    <div id="ultradivv" style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+        <h4 id="ultrahh" style="text-align:center; color:black">Ultrasound</h4>
+
+        <div class="clearfix"> </div>
+    </div>
+
+</div>
+<div class="col-md-4 ">
+    <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
+        <div class="top-content">
+            <h4 id="showack" style="text-align:center; color:black">Tests Pending to Perform</h4><br />
+            <div style="text-align:center" class="top-content">
+                <label id="testscount"></label>
+                <i style="color:black" id="waiting" class="fa fa-spinner fa-spin fa fa-fw"></i>
+            </div>
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+
+</div>
 <div class="content-top">
 
 
-    <div class="col-md-4 ">
-        <h3 style="text-align:center">Lab</h3>
-        <br />
-        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
-            <div class="top-content">
-                <h4 style="text-align:center; color:black">Tests Pending for Approval</h4><br />
-                <div style="text-align:center" class="top-content">
-                    <label id="testscount"></label>
-                    <i style="color:black" id="waiting" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
-                </div>
 
-            </div>
-            @*<div class="col-md-6 top-content1">
-                <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
-            </div>*@
-            <div class="clearfix"> </div>
-        </div>
 
-    </div>
-    @*<div class="col-md-8 content-top-2">
-        <!---start-chart---->
-        <!----->
-
-    </div>*@
-    
-    <div class="col-md-4 ">
-        <h3 style="text-align:center">X-RAY</h3>
-        <br />
-        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
-            <div class="top-content">
-                <h4 style="text-align:center; color:black">Tests Pending for Approval</h4><br />
-                <div style="text-align:center" class="top-content">
-                    <label id="">-</label>
-                    
-                </div>
-
-            </div>
-            @*<div class="col-md-6 top-content1">
-                <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
-            </div>*@
-            <div class="clearfix"> </div>
-        </div>
-
-    </div>
-
-    <div class="col-md-4 ">
-        <h3 style="text-align:center">Ultrasound</h3>
-        <br />
-        <div style="border: solid; color: #d95459; border-width:1px" class="content-top-1">
-            <div class="top-content">
-                <h4 style="text-align:center; color:black">Tests Pending for Approval</h4><br />
-                <div style="text-align:center" class="top-content">
-                    <label id="">-</label>
-                </div>
-
-            </div>
-            @*<div class="col-md-6 top-content1">
-            <div id="demo-pie-1" class="pie-title-center" data-percent="25"> <span class="pie-value"></span> </div>
-        </div>*@
-            <div class="clearfix"> </div>
-        </div>
-
-    </div>
     <div class="clearfix"> </div>
 </div>
 <!---->
@@ -129,35 +113,7 @@
                                         <!---->
 
                                         <div id="grid"></div>
-                                        @*<div class="row show-grid">
-                                            <div class="col-xs-6 col-sm-3">Patient no.</div>
-                                            <div class="col-xs-6 col-sm-3">Patient Name</div>
-                                            <div class="col-xs-6 col-sm-3">Test Options</div>
-                                        </div>
-                                        <div class="row show-grid">
-                                            <div class="col-xs-6 col-sm-3">1008</div>
-                                            <div class="col-xs-6 col-sm-3">Shahzad</div>
 
-                                            <div class="col-xs-6 col-sm-3">
-                                                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location='PerformTest.html';">Approve Test</button>
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="row show-grid">
-                                            <div class="col-xs-6 col-sm-3">1009</div>
-                                            <div class="col-xs-6 col-sm-3">Akhtar</div>
-
-                                            <div class="col-xs-6 col-sm-3">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button type="button" class="btn btn-xs btn-danger" onclick="window.location = 'PerformTest.html';">Approve Test</button>
-
-                                            </div>
-
-
-                                        </div>*@
 
 
                                     </div>
@@ -225,12 +181,93 @@
 
 <script type="text/javascript">
 
-    
+    $('#waiting').hide();
+
+    $('#labbox').click(function () {
+
+        $("#testscount").hide();
+        $("#labdiv").css('background-color', '#d95459');
+        $("#labh").css('color', '#FFFFFF');
+
+        $("#xraydiv").css('background-color', '#FFFFFF');
+        $("#xrayh").css('color', '#000000');
+
+        $("#ultradivv").css('background-color', '#FFFFFF');
+        $("#ultrahh").css('color', '#000000');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Doctor/DeptName/',
+            data: { deptname: 'Lab' },
+            dataType: "json",
+
+            success: function () {
+                //alert('Successfull');
+                kendoGrid();
+            },
+
+        });
+    });
+
+    $('#xraybox').click(function () {
+        $("#testscount").hide();
+        $("#xraydiv").css('background-color', '#d95459');
+        $("#xrayh").css('color', '#FFFFFF');
+
+        $("#labdiv").css('background-color', '#FFFFFF');
+        $("#labh").css('color', '#000000');
+
+        $('#ultradivv').css('background-color', '#FFFFFF');
+        $('#ultrahh').css('color', '#000000');
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/Doctor/DeptName/',
+            data: { deptname: 'X-RAY' },
+            dataType: "json",
+
+            success: function () {
+                //alert('Successfull');
+                kendoGrid();
+            },
+
+        });
+    });
+
+    $('#ultrabox').click(function () {
+        $("#testscount").hide();
+
+        $("#ultradivv").css('background-color', '#d95459');
+        $("#ultrahh").css('color', '#FFFFFF');
+
+        $("#xraydiv").css('background-color', '#FFFFFF');
+        $("#xrayh").css('color', '#000000');
+
+        $('#labdiv').css('background-color', '#FFFFFF');
+        $('#labh').css('color', '#000000');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Doctor/DeptName/',
+            data: { deptname: 'Ultrasound' },
+            dataType: "json",
+
+            success: function () {
+                //alert('Successfull');
+                kendoGrid();
+            },
+
+        });
+    });
+
     setInterval(kendoGrid, 60000);
 
-    window.onload = kendoGrid();
+    //window.onload = kendoGrid();
 
     function kendoGrid() {
+
+        $('#waiting').show();
         var crudServiceBaseUrl = "/Doctor",
                 dataSource = new kendo.data.DataSource({
                     transport: {
@@ -300,6 +337,13 @@
         var dataSource = grid.dataSource;
 
         var totalRecords = dataSource.total();
+        //if (totalRecords == 0) {
+        //    $("#testscount").text('-');
+        //}
+        //else {
+        //    $("#testscount").text(totalRecords);
+        //}
+        $("#testscount").show();
         $("#testscount").text(totalRecords);
         $('#waiting').hide();
     }
@@ -307,6 +351,9 @@
 
 
 </script>
+
+
+
 
 
 <!----->

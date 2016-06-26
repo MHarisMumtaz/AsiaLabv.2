@@ -42,17 +42,7 @@ namespace AsiaLabv1.Services
                          join pt in _PatientTestRepository.Table on p.Id equals pt.PatientId
                          join pay in _PaymentRepository.Table on p.Id equals pay.PatientId
                          where (pt.TestSubcategory.TestCategory.TestDepartment.DepartmentName == deptname && br.Id == branchid)
-                         select p.Id).ToList();
-
-            //var query2 = (from p in _PatientRepository.Table
-            //             join br in _BranchRepository.Table on p.BranchId equals br.Id
-            //             join pt in _PatientTestRepository.Table on p.Id equals pt.PatientId
-            //             join pay in _PaymentRepository.Table on p.Id equals pay.PatientId
-            //             where (pt.TestSubcategory.TestCategory.TestDepartment.DepartmentName == deptname && br.Id == branchid)
-            //             select p.DateTime).ToList();
-
-            //           var start = new DateTime(2016, 6, 22);
-            //var end = new DateTime(2016, 6, 22);
+                         select p.Id).ToList();         
 
            
             var DT1 = DateTime.Parse(start);

@@ -98,11 +98,11 @@
             }
             @if (Session["role"].ToString() == "Technician")
             {
-                <button type="button" style="float:right" onclick="@("window.location.href='" + @Url.Action("TechnicianDashboard", "Main") + "'");" c class="btn btn-danger">Back to Dashboard</button>
+                <button type="button" style="float:right" onclick="@("window.location.href='" + @Url.Action("TechnicianDashboard", "Main") + "'");" class="btn btn-danger">Back to Dashboard</button>
 
             }
 
-            <button style="float:right; margin-right:10px" type="button" href="#" class="btn btn-danger">Edit</button>
+            @*<button style="float:right; margin-right:10px" type="button" href="#" class="btn btn-danger">Edit</button>*@
 
             <div class="clearfix"></div>
 

@@ -26,7 +26,7 @@
             {
                 <a href="@Url.Action("TechnicianDashboard", "Main")">Dashboard</a>
 
-            }            
+            }
             <i class="fa fa-angle-right"></i>
             <span>Approve Test</span>
         </h2>
@@ -120,13 +120,18 @@
                     <br /><br />
 
                     <div class="form-group">
-                        <h4 id="grid-example-mixed-complete">Doctor's Comments</h4><br />
-                        <div class="col-sm-8"><textarea name="txtarea1" id="txtarea1" cols="50" rows="4" class="form-control1"></textarea></div>
-                        <div class="col-sm-2 login-do">
-                            <label class="hvr-shutter-in-horizontal login-sub">
-                                <input type="submit" value="Import Template" />
-                            </label>
+                        <h4 id="grid-example-mixed-complete">Import Template</h4><br />
+                        <div class="col-sm-8">
+                            <select name="selector1" id="" class="drp">  </select>
+                            &nbsp;
+                            <input type="button" id="importtemp" class="btn btn-danger" value="Import" />
                         </div>
+
+                    </div>
+                    <br /><br />
+                    <div class="form-group">
+                        <h4 id="grid-example-mixed-complete">Doctor's Comments</h4><br />
+                        <div class="col-sm-8"><textarea id="txtarea1" cols="50" rows="4" class="form-control1"></textarea></div>
 
                     </div>
 
@@ -142,12 +147,29 @@ width:60%; height:10%; margin:auto; padding:10px'>
                              style='margin-bottom:2px; margin-right:5px' /> Test Approved Successfully!
 
                     </div>
-                    <div class="col-sm-2 login-do" style="float:left">
+                    <div id="testrejectedsuccess" class='alert alert-success fade in' style='text-align:center;
 
-                        <label class="hvr-shutter-in-horizontal login-sub">
+width:60%; height:10%; margin:auto; padding:10px'>
+                        <img src='~/images/rsz_success.png'
+                             style='margin-bottom:2px; margin-right:5px' /> Test Rejected Successfully!
 
-                            <input type="button" id="btnapprove" class="btn btn-danger" value="Approved" />
-                        </label>
+                    </div>
+                    <br />
+                    <div class="col-sm-2">
+                        <input style="float:left" type="button" id="btnapprove" class="btn btn-danger" value="Approved" />
+                        @*<label class="hvr-shutter-in-horizontal login-sub">
+
+
+                            </label>*@
+                    </div>
+                    <div class="col-sm-2">
+
+                        <input style="float:left" type="button" id="btnreject" class="btn btn-danger" value="Reject" />
+
+                        @*<label class="hvr-shutter-in-horizontal login-sub">
+
+
+                            </label>*@
                     </div>
                     <div class="clearfix"> </div>
                 </form>
@@ -164,6 +186,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
     $('#loadspinner').hide();
     $('#myDiv').hide();
+    $('#testrejectedsuccess').hide();
     window.onload = getTests;
 
     function getTests() {
@@ -217,7 +240,7 @@ width:60%; height:10%; margin:auto; padding:10px'>
         $('#loadspinner').show();
 
         var pid = $('#pno').text();
-        var comment = $('#txtarea1').text;
+        var comment = $('#txtarea1').val();
         //alert(pid);
 
 
@@ -241,6 +264,33 @@ width:60%; height:10%; margin:auto; padding:10px'>
 
         });
 
+
+    });
+
+
+    $('#btnreject').click(function () {
+
+        $('#loadspinner').show();
+        var pid = $('#pno').text();
+        var comment = $('#txtarea1').val();
+        //alert(comment);
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Doctor/RejectPatientTest/',
+            traditional: true,
+            data: { patientId: pid, comments: comment },
+            dataType: "json",
+            success: function (data) {
+                $('#loadspinner').hide();
+                $('#testrejectedsuccess').show();
+                $('#testrejectedsuccess').fadeOut(3000);
+                window.location.href = "/Main/DoctorDashboard"
+
+            },
+
+        });
 
     });
 

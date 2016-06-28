@@ -23,13 +23,13 @@ namespace AsiaLabv1.Models
                 this.Day = "Monday";
             else if (date.Day == 2)
                 this.Day = "Tuesday";
-            else if (date.Day == 2)
+            else if (date.Day == 3)
                 this.Day = "Wednesday";
-            else if (date.Day == 2)
+            else if (date.Day == 4)
                 this.Day = "Thursday";
-            else if (date.Day == 2)
+            else if (date.Day == 5)
                 this.Day = "Friday";
-            else if (date.Day == 2)
+            else if (date.Day == 6)
                 this.Day = "Saturday";
             else
                 this.Day = "Sunday";

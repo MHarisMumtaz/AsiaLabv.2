@@ -10,6 +10,8 @@ namespace AsiaLabv1.Models
     {
         //new model
         public DateTime date { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
         public int BranchId { get; set; }
         public List<SelectListItem> Branches { get; set; }
 

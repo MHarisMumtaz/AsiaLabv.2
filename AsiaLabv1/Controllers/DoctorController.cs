@@ -54,8 +54,8 @@ namespace AsiaLabv1.Controllers
                     });
                 }
             }
-            return Json(rp, JsonRequestBehavior.AllowGet);
 
+            return Json(rp, JsonRequestBehavior.AllowGet);
         }
 
         public void Temp(string patientId)

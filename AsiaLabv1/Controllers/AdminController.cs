@@ -68,6 +68,23 @@ namespace AsiaLabv1.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult PrintDoctorSummary(AccountingModel model)
+        {
+            if (model.BranchId > 0)
+            {
+                var list = PatientServices.GetDoctorWiseSummary(model.FromDate, model.ToDate, model.BranchId);
+                var branch = BranchServices.GetById(model.BranchId);
+                GenerateDoctorWiseReport(list, model.FromDate, model.ToDate, branch.BranchName);
+            }
+            else
+            {
+                return Json("BranchId could not be Zero", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("sucess", JsonRequestBehavior.AllowGet);
+        }
+
         [NonAction]
         public void GenerateSummaryReport(List<CashSummaryModel> model, DateTime date, string BranchName)
         {
@@ -85,6 +102,25 @@ namespace AsiaLabv1.Controllers
             // ...and start a viewer.
             Process.Start(Server.MapPath("/SummaryReports/") + filename);
         }
+
+        [NonAction]
+        public void GenerateDoctorWiseReport(List<DoctorWiseSummaryModel> model, DateTime from,DateTime to, string BranchName)
+        {
+            string filename = "DocWiseSummary-" + from.Year + "-" + from.Month + "-" + from.Day + ".pdf";
+            if (!System.IO.File.Exists(Request.MapPath("/SummaryReports/") + filename))
+            {
+                DoctorWiseSummaryReport Report = new DoctorWiseSummaryReport(model, BranchName, from, to);
+                PdfDocument pdf = Report.CreateDocument();
+
+                pdf.Save(Server.MapPath("/SummaryReports/") + filename);
+                //    System.IO.FileInfo fi=new System.IO.FileInfo(Request.MapPath("/PatientsReport/") + filename);
+                //    fi.Delete();
+            }
+            // ...and start a viewer.
+            Process.Start(Server.MapPath("/SummaryReports/") + filename);
+        }
+
+       
 
         public ActionResult BranchReport()
         {

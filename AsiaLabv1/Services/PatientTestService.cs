@@ -221,12 +221,9 @@ namespace AsiaLabv1.Services
             var query = (from dc in _DoctorCommentsRepository.Table
                          where dc.PatientId == patientid
                          select dc).ToList();
-
             if (query.Count > 0) { return query.LastOrDefault().Comments; }
-            
-            return query.LastOrDefault().Comments;
+            return "";
         }
-
 
         public List<TestSubcategory> GetSubCategoryByPatientId(int patientId)
         {

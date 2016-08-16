@@ -47,10 +47,34 @@ namespace AsiaLabv1.Services
            
             var DT1 = DateTime.Parse(start);
             var DT2 = DateTime.Parse(end);
+            
             var checkquery = (from p in _PaymentRepository.Table
 
-                              where query.Contains(p.PatientId) && (p.Patient.DateTime >= DT1 && p.Patient.DateTime < DT2)
+                              where query.Contains(p.PatientId) && (p.Patient.DateTime >= DT1 && p.Patient.DateTime <= DT2)
                               select p.NetAmount).Sum();
+
+            return checkquery;
+        }
+
+        public double GetTotalPayment(int branchid, string start, string end)
+        {
+
+            var query = (from p in _PatientRepository.Table
+                         join br in _BranchRepository.Table on p.BranchId equals br.Id
+                         join pt in _PatientTestRepository.Table on p.Id equals pt.PatientId
+                         join pay in _PaymentRepository.Table on p.Id equals pay.PatientId
+                         where (br.Id == branchid)
+                         select p.Id).ToList();
+
+
+            var DT1 = DateTime.Parse(start);
+            var DT2 = DateTime.Parse(end);
+
+            var checkquery = (from p in _PaymentRepository.Table
+
+                              where query.Contains(p.PatientId) && (p.Patient.DateTime >= DT1 && p.Patient.DateTime <= DT2)
+                              select p.NetAmount).Sum();
+
             return checkquery;
         }
     }

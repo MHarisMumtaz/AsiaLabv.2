@@ -16,7 +16,7 @@ namespace AsiaLabv1.Controllers
     {
 
         #region Services
-        
+
         UserService UserServices = new UserService();
         BranchService BranchServices = new BranchService();
         GenderService GenderServices = new GenderService();
@@ -65,25 +65,27 @@ namespace AsiaLabv1.Controllers
             var branch = BranchServices.GetById(model.BranchId);
             GenerateSummaryReport(list, model.date, branch.BranchName);
 
-            return Json("success", JsonRequestBehavior.AllowGet);
+            return Json("Cash Summary Generated", JsonRequestBehavior.AllowGet);
         }
 
         [NonAction]
         public void GenerateSummaryReport(List<CashSummaryModel> model, DateTime date, string BranchName)
         {
-            string filename = "Summary-" + date.Year + "-" + date.Month + "-" + date.Day + ".pdf";
-            if (!System.IO.File.Exists(Request.MapPath("/SummaryReports/") + filename))
+            string filename = "Summary-" + BranchName + "-" + date.Day + "-" + date.Month + "-" + date.Year + ".pdf";
+            if ((System.IO.File.Exists(Request.MapPath("/SummaryReports/") + filename)) == true)
             {
-                CashSummaryReport Report = new CashSummaryReport(model, date, BranchName);
-
-                PdfDocument pdf = Report.CreateDocument();
-
-                pdf.Save(Server.MapPath("/SummaryReports/") + filename);
-                //    System.IO.FileInfo fi=new System.IO.FileInfo(Request.MapPath("/PatientsReport/") + filename);
-                //    fi.Delete();
+                System.IO.FileInfo fi = new System.IO.FileInfo(Request.MapPath("/SummaryReports/") + filename);
+                fi.Delete();
             }
+            CashSummaryReport Report = new CashSummaryReport(model, date, BranchName);
+            PdfDocument pdf = Report.CreateDocument();
+
+
+            pdf.Save(Server.MapPath("/SummaryReports/") + filename);
             // ...and start a viewer.
             Process.Start(Server.MapPath("/SummaryReports/") + filename);
+
+            //!System.IO.File.Exists(Request.MapPath("/SummaryReports/") + filename)
         }
 
         public ActionResult BranchReport()
@@ -178,8 +180,8 @@ namespace AsiaLabv1.Controllers
                         UserName = item.Item1.Username,
                         Email = item.Item2.Email,
                         UserRole = item.Item2.UserType.TypeDescription,
-                        BranchName = item.Item1.Branch.BranchName,  
-                        
+                        BranchName = item.Item1.Branch.BranchName,
+
 
                     });
                 }
@@ -192,11 +194,11 @@ namespace AsiaLabv1.Controllers
         public ActionResult UpdateKendoGridEmp(string models)
         {
             IList<UserModel> objName = new JavaScriptSerializer().Deserialize<IList<UserModel>>(models);
-            UserEmployee uemp= new UserEmployee();
+            UserEmployee uemp = new UserEmployee();
             uemp.Id = objName[0].Id;
             uemp.Username = objName[0].UserName;
 
-            UserServices.Update(uemp,uemp.Id);           
+            UserServices.Update(uemp, uemp.Id);
             return Json(uemp);
         }
 
@@ -338,7 +340,7 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult FillDropdownKendo(string isFill, string subCategId)
         {
-           CategId = isFill == "none" ? Convert.ToInt16(subCategId) : CategId;
+            CategId = isFill == "none" ? Convert.ToInt16(subCategId) : CategId;
             if (isFill == "" || isFill == null)
             {
 
@@ -465,6 +467,6 @@ namespace AsiaLabv1.Controllers
         }
         #endregion
 
-        
+
     }
 }

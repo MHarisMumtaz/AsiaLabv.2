@@ -19,6 +19,7 @@ namespace AsiaLabv1.Models
     {
 
         double NetAmount;
+        double TotalCharges;
         PatientModel model;
         string LogedInUser;
         List<TestSubcategory> PatientTests;
@@ -96,29 +97,31 @@ namespace AsiaLabv1.Models
             {
                 WriteTextOnPdf(graph, font, pdfPage, item.TestSubcategoryName, X1, Y);
                 WriteTextOnPdf(graph, font, pdfPage, item.Rate.ToString(), X2, Y);
-                NetAmount = NetAmount + item.Rate;
+                TotalCharges = TotalCharges + item.Rate;
+                //NetAmount = NetAmount + item.Rate;
                 Y += 13;
             }
 
             Y += 13;
             WriteTextOnPdf(graph, font, pdfPage, "Total Charges", X1, Y);
-            WriteTextOnPdf(graph, font, pdfPage, NetAmount.ToString(), X2, Y);
+            WriteTextOnPdf(graph, font, pdfPage, TotalCharges.ToString(), X2, Y);
             Y += 12;
             DrawLineonPdf(graph, new PointF(ReciptSlideX - 10, Y), new PointF(ReciptSlideX + 170, Y), 1);
             Y += 13;
             WriteTextOnPdf(graph, font, pdfPage, "Payment Receivables:", X1, Y);
             font = new XFont("Arial, Helvetica, sans-serif", 9, XFontStyle.Regular);
             Y += 12;
-            WriteTextOnPdf(graph, font, pdfPage, "Net Amount:", X1, Y);
-            WriteTextOnPdf(graph, font, pdfPage, NetAmount.ToString(), X2, Y);
-            Y += 12;
             WriteTextOnPdf(graph, font, pdfPage, "Discount:", X1, Y);
             WriteTextOnPdf(graph, font, pdfPage, model.Discount.ToString(), X2, Y);
             Y += 12;
+            WriteTextOnPdf(graph, font, pdfPage, "Net Amount:", X1, Y);
+            WriteTextOnPdf(graph, font, pdfPage, (TotalCharges - model.Discount).ToString(), X2, Y);
+            Y += 12;
+            NetAmount = TotalCharges - model.Discount;
             WriteTextOnPdf(graph, font, pdfPage, "Paid Amount:", X1, Y);
             WriteTextOnPdf(graph, font, pdfPage, model.PaidAmount.ToString(), X2, Y);
             Y += 12;
-            WriteTextOnPdf(graph, font, pdfPage, "Total Balance:", X1, Y);
+            WriteTextOnPdf(graph, font, pdfPage, "Net Balance Due:", X1, Y);
             DrawLineonPdf(graph, new PointF(200, Y), new PointF(226, Y), 1);
             WriteTextOnPdf(graph, font, pdfPage, (NetAmount - model.PaidAmount).ToString(), X2, Y);
             Y += 12;

@@ -103,7 +103,7 @@
        var patientId=id;
             $.ajax({
                 type: 'GET',
-                url: "@Url.Action("Recipt","Reciptionist")",
+                url: "@Url.Action("Recipt", "Reciptionist")",
                 data: {PatientId: id},
                 contentType: "application/json",
                 dataType: 'json',
@@ -113,13 +113,12 @@
          });
     }
 
-<<<<<<< HEAD
     function report(id) {
         // var approveStatus=status;
         var patientId = id;
         $.ajax({
             type: 'GET',
-            url: "@Url.Action("GenerateReport","Reciptionist")",
+            url: "@Url.Action("Report", "Reciptionist")",
             data: { PatientId: id },
             contentType: "application/json",
             dataType: 'json',
@@ -128,22 +127,6 @@
             }
         });
     }
-=======
-        function report(id){
-           // var approveStatus=status;
-            var patientId=id;
-            $.ajax({
-                type: 'GET',
-                url: "@Url.Action("Report","Reciptionist")",
-                data: {PatientId: id},
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (data) {
-                    alert(data);
-                }
-         });
-        }
->>>>>>> c00901734c475aee700cddf2963461ed3c453bf3
 
 
     $('#loadspinner').hide();
@@ -185,11 +168,8 @@
                 //    }
                 //})
                 for (var i = 0; i < data.length; i++) {
-<<<<<<< HEAD
-                    $('#SearchedPatient').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-2' style='width:10%'>" + data[i].Id + "</div> <div class='col-xs-6 col-sm-4'>" + data[i].Name + "</div><div class='col-md-2'>" + data[i].Status + "</div><div class='col-md-1'><button type='button' class='btn btn-xs btn-danger' onclick='recipt()'>Generate</button></div><div class='col-md-1'><a class='btn btn-xs btn-danger' onclick='report(" + data[i].Id + ")'>Print Report</a></div></div>");
-=======
-                    $('#SearchedPatient').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-2' style='width:10%'>" + data[i].Id + "</div> <div class='col-xs-6 col-sm-4'>" + data[i].Name + "</div><div class='col-md-2'>"+data[i].Status+"</div><div class='col-md-1'><button type='button' class='btn btn-xs btn-danger' onclick='recipt("+data[i].Id+")'>Generate</button></div><div class='col-md-1'><a class='btn btn-xs btn-danger' onclick='report("+data[i].Id+")'>Print Report</a></div></div>");
->>>>>>> c00901734c475aee700cddf2963461ed3c453bf3
+                    $('#SearchedPatient').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-2' style='width:10%'>" + data[i].Id + "</div> <div class='col-xs-6 col-sm-4'>" + data[i].Name + "</div><div class='col-md-2'>" + data[i].Status + "</div><div class='col-md-1'><button type='button' class='btn btn-xs btn-danger' onclick='recipt(" + data[i].Id + ")'>Generate</button></div><div class='col-md-1'><a class='btn btn-xs btn-danger' onclick='report(" + data[i].Id + ")'>Print Report</a></div></div>");
+
                 }
                 //$('#spin').hide();
             }

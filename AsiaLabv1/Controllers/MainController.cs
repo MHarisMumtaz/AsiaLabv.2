@@ -85,7 +85,7 @@ namespace AsiaLabv1.Controllers
 
         public ActionResult AdminDashboard()
         {
-            
+
 
 
             if (Session["loginusername"] == null)
@@ -131,8 +131,8 @@ namespace AsiaLabv1.Controllers
                 username:  TestReceiptionist
                 password:  TestReceiptionist2016
              */
-          
-           
+
+
 
             #region commented bekar code baad m delete krdengy ye
             //UsersService.AddUserType("Admin");
@@ -177,10 +177,10 @@ namespace AsiaLabv1.Controllers
                 }
 
                 Session["branch"] = model.BranchName;
-                
+
                 return View(model.UserRole + "Dashboard", model);
             }
-            
+
 
             return RedirectToAction("LoginPage");
         }
@@ -203,7 +203,7 @@ namespace AsiaLabv1.Controllers
             //var PayLiaquatabadUltra = PatientsPaymentService.GetTotalNetAmountByBranchId("Ultrasound", 1);
             //TempData["PayLiaquatabadUltra"] = PayLiaquatabadUltra;
 
-            var PaySurjaniLab = PatientsPaymentService.GetTotalNetAmountByBranchId("Lab", 2,startDate,endDate);
+            var PaySurjaniLab = PatientsPaymentService.GetTotalNetAmountByBranchId("Lab", 2, startDate, endDate);
             TempData["PaySurjaniLab"] = PaySurjaniLab;
 
             var PaySurjaniXRAY = PatientsPaymentService.GetTotalNetAmountByBranchId("X-RAY", 2, startDate, endDate);
@@ -239,9 +239,26 @@ namespace AsiaLabv1.Controllers
             //var PayJoharUltra = PatientsPaymentService.GetTotalNetAmountByBranchId("Ultrasound", 6);
             //TempData["PayJoharUltra"] = PayJoharUltra;
 
+            //=========================================////////////////////////////////////////////////////////////////==================================================================
+
+            var TotalPayJoh = PatientsPaymentService.GetTotalPayment(6, startDate, endDate);
+            TempData["TotalPayJohar"] = TotalPayJoh;
+
+            var TotalPayLia = PatientsPaymentService.GetTotalPayment(1, startDate, endDate);
+            TempData["TotalPayLiaquatabad"] = TotalPayLia;
+
+            var TotalPayNo = PatientsPaymentService.GetTotalPayment(4, startDate, endDate);
+            TempData["TotalPayNorth"] = TotalPayNo;
+
+            var TotalPaySur = PatientsPaymentService.GetTotalPayment(2, startDate, endDate);
+            TempData["TotalPaySurjani"] = TotalPaySur;
+
+            var TotalPayGar = PatientsPaymentService.GetTotalPayment(3, startDate, endDate);
+            TempData["TotalPayGarden"] = TotalPayGar;
+
 
             #endregion
-            return RedirectToAction("AdminDashboard","Main");
+            return RedirectToAction("AdminDashboard", "Main");
         }
 
 

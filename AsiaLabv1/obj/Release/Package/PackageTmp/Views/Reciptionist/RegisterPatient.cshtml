@@ -23,10 +23,8 @@
         <a href="@Url.Action("ReceptionistDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
     </li>
 
+  <li><a href="@Url.Action("RegisterPatient", "Reciptionist" )" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i>Register Patient</a></li>
 
-
-  <li><a href="@Url.Action("RegisterPatient", "Reciptionist" )" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i>Accept Test</a></li>
-<li><a href="@Url.Action("PrintReport", "Reciptionist")" class=" hvr-bounce-to-right"><i class="fa fa-file-text-o nav_icon"></i>Print Report</a></li>
 
 
 
@@ -61,10 +59,7 @@
                         @Html.LabelFor(model => model.Name, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-8">
                             @Html.TextBoxFor(model => model.Name, new { @class = "form-control1", @placeholder = "Enter Patient Name", required = "required" })
-                        </div>
-                        <!--<div class="col-sm-2">
-                            <p class="help-block">Your help text!</p>
-                        </div>-->
+                        </div>                      
                     </div>
 
                     <div class="form-group">

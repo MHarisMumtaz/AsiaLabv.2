@@ -9,7 +9,7 @@ namespace AsiaLabv1.Models
     public class AccountingModel
     {
         //new model
-        public DateTime date { get; set; }
+        public DateTime date { get; set; }        
         public int BranchId { get; set; }
         public List<SelectListItem> Branches { get; set; }
 

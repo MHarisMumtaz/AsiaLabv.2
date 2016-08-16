@@ -139,7 +139,7 @@ namespace AsiaLabv1.Services
                     PatientName = item.PatientName,
                     Doctor = item.Doctor,
                     ChargeDetails = item.ChargeDetails,
-                    Bill = item.Net+item.Dis,
+                    Bill = item.Net + item.Dis,
                     Dis = item.Dis,
                     Net = item.Net,
                     Rec = item.Rec,
@@ -149,5 +149,54 @@ namespace AsiaLabv1.Services
             return List;
 
         }
+
     }
 }
+
+////////////////////////////
+ //public List<CashSummaryModel> GetPatientsSummary(DateTime date, int BranchId)
+ //       {
+ //           var Query = (from Patients in _PatientRepository.Table
+ //                        join PT in _PatientTestRepository.Table on Patients.Id equals PT.PatientId
+ //                        join TestSub in _TestSubCategoryRepository.Table on PT.TestSubcategoryId equals TestSub.Id
+ //                        join TestCat in _TestCategoryRepository.Table on TestSub.TestCategoryId equals TestCat.Id
+ //                        join Dept in _TestDeptRepository.Table on TestCat.TestDepartmentId equals Dept.Id
+ //                        join Pay in _PaymentRepository.Table on Patients.Id equals Pay.PatientId
+ //                        join refer in _PatientReferRepository.Table on Patients.Id equals refer.PatientId
+ //                        join doctor in _ReferRepository.Table on refer.ReferId equals doctor.Id
+ //                        where (Patients.BranchId == BranchId && (Patients.DateTime.Year == date.Year && Patients.DateTime.Day == date.Day && Patients.DateTime.Month == date.Month))
+ //                        group new { Patients, Dept, Pay, doctor, TestSub } by new { Patients.Id } into items
+ //                        select new
+ //                        {
+ //                            SlipNo = items.Key.Id,
+ //                            brancid = items.Select(i => i.Patients.BranchId).FirstOrDefault(),
+ //                            Time = items.Select(i => i.Patients.DateTime).FirstOrDefault(),
+ //                            PatientName = items.Select(i => i.Patients.PatientName).FirstOrDefault(),
+ //                            Doctor = items.Select(i => i.doctor.ReferredDoctorName).FirstOrDefault(),
+ //                            ChargeDetails = items.Select(i => i.Dept.DepartmentName).FirstOrDefault(),
+ //                            Dis = items.Select(i => i.Pay.Discount).FirstOrDefault(),
+ //                            Net = items.Select(i => i.Pay.NetAmount).FirstOrDefault(),
+ //                            Rec = items.Select(i => i.Pay.PaidAmount).FirstOrDefault(),
+ //                            Due = items.Select(i => i.Pay.NetAmount).FirstOrDefault() - items.Select(i => i.Pay.PaidAmount).FirstOrDefault()
+ //                        }).ToList();
+ //           var List = new List<CashSummaryModel>();
+ //           //var temp = Query.Where(i => i.Time == date).ToList();
+ //           foreach (var item in Query)
+ //           {
+ //               List.Add(new CashSummaryModel
+ //               {
+ //                   SlipNo = item.SlipNo,
+ //                   Time = item.Time,
+ //                   PatientName = item.PatientName,
+ //                   Doctor = item.Doctor,
+ //                   ChargeDetails = item.ChargeDetails,
+ //                   Bill = item.Net+item.Dis,
+ //                   Dis = item.Dis,
+ //                   Net = item.Net,
+ //                   Rec = item.Rec,
+ //                   Due = item.Due
+ //               });
+ //           }
+ //           return List;
+
+ //       }

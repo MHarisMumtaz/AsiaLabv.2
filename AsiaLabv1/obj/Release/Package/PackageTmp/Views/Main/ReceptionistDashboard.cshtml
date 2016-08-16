@@ -7,26 +7,26 @@
 {
     @*<div class="banner">
 
-        <h2>
-            <a href="index.html">Home</a>
-            <i class="fa fa-angle-right"></i>
-            <span>Dashboard</span>
-        </h2>
-    </div>*@
+            <h2>
+                <a href="index.html">Home</a>
+                <i class="fa fa-angle-right"></i>
+                <span>Dashboard</span>
+            </h2>
+        </div>*@
 }
 
 @*---------Start Side Navigation Menu-----------*@
 
 @section NavMenu
 {
-  <li>
-    <a href="@Url.Action("ReceptionistDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
-</li>
+    <li>
+        <a href="@Url.Action("ReceptionistDashboard","Main")" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
+    </li>
 
 
 
-<li><a href="@Url.Action("RegisterPatient", "Reciptionist" )" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i>Accept Test</a></li>
-<li><a href="@Url.Action("PrintReport", "Reciptionist")" class=" hvr-bounce-to-right"><i class="fa fa-file-text-o nav_icon"></i>Print Report</a></li>
+    <li><a href="@Url.Action("RegisterPatient", "Reciptionist" )" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i>Register Patient</a></li>
+    
 
 
 
@@ -37,13 +37,157 @@
 
 @*------------- Start Main Content Code-------------*@
 
-<div class="blank">
+<div class="grid-form">
+
+    <!----->
+    <!---->
+    <div class="grid-form1">
+        <h3>Search Patient</h3>
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="horizontal-form">
 
 
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                            @*<h4>Patient Information</h4>*@
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Patient No.</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="patientNo" class="form-control1 dropdown-toggle" placeholder="Enter Patient ID" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Patient Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="patientName" class="form-control1 dropdown-toggle" placeholder="Enter Patient Name" />
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                            <label class="col-sm-2 control-label">Show Generated Report Patients </label>
+                            <div class="col-sm-2">
+                                <input type="checkbox" id="showGeneratedReportPatient" value="false" />
+                            </div>
+
+                        </div>*@
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Select Date</label>
+                        <div class="col-sm-8">
+                            <input type="date" id="patientDate" class="form-control1 dropdown-toggle" />
+                        </div>
+                    </div>
+                    
+                    <i id="loadspinner" style="margin-left:50%" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                    <br />
+                    <div class="form-group">
+                       
+
+                        <div class="col-sm-8" style="margin-left:24%">
+                            
+                            <input type="button" value="Search" class="btn btn-danger" onclick="search()" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="horz-grid">
+                        <div class="grid-hor">
+                            <h4 id="grid-example-mixed-complete">Patients</h4>
+
+                        </div>
+                        <div style="width:1400px" class="row show-grid">
+                            <div class="col-lg-1" style="text-align:center; width:10%">Patient No.</div>
+                            <div class="col-xs-6 col-sm-4" style="text-align:center">Name</div>
+                            <div class="col-md-2" style="text-align:center">Status</div>
+                            <div class="col-md-1" style="text-align:center">Receipt</div>
+                            <div class="col-md-1" style="text-align:center">Report</div>
+
+                        </div>
+                        <div style="border: 2px; border-style: solid; width:92%;  color: #d95459; ">
+                        </div>
+                        <div id="SearchedPatient" style="width:1400px">
+
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-@*------------- End Main Content Code-------------*@
+<script>
 
 
 
+        function report(id){
+           // var approveStatus=status;
+            var patientId=id;
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("GenerateReport","Reciptionist")",
+                data: {PatientId: id},
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (data) {
+                    alert(data);
+                }
+         });
+        }
 
+
+    $('#loadspinner').hide();
+    function search() {
+        $('#loadspinner').show();
+       // var approveStatus = $('#showGeneratedReportPatient').is(":checked");
+        var mydate=$('#patientDate').val();
+        if (mydate=="") {
+            mydate=null;
+        }
+        var model = {
+            PatientId: $('#patientNo').val(),
+            Name: $('#patientName').val(),
+            date: mydate
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("GetPatientList","Reciptionist")",
+            data: JSON.stringify(model),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (data) {
+                $('#SearchedPatient').empty();
+                $('#loadspinner').hide();
+                //alert(data);
+                //$('#SearchedPatient').pagination({
+                //    dataSource: data,
+                //    pageSize: 5,
+                //    formatResult: function(data) {
+                //        for (var i = 0, len = data.length; i < len; i++) {
+                //            data[i].a = data[i].a + ' - bad guys';
+                //        }
+                //    },
+                //    callback: function(data, pagination) {
+                //       //  template method of yourself
+                //        var html = template(data);
+                //        dataContainer.html(html);
+                //    }
+                //})
+                for (var i = 0; i < data.length; i++) {
+                    $('#SearchedPatient').append("<div style='width:1400px' class='row show-grid'> <div class='col-md-2' style='width:10%'>" + data[i].Id + "</div> <div class='col-xs-6 col-sm-4'>" + data[i].Name + "</div><div class='col-md-2'>"+data[i].Status+"</div><div class='col-md-1'><button type='button' class='btn btn-xs btn-danger' onclick='recipt()'>Generate</button></div><div class='col-md-1'><a class='btn btn-xs btn-danger' onclick='report("+data[i].Id+")'>Print Report</a></div></div>");
+                }
+                //$('#spin').hide();
+            }
+        });
+    }
+        search();
+
+</script>

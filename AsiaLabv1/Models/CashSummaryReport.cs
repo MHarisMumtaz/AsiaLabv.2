@@ -10,12 +10,14 @@ namespace AsiaLabv1.Models
 {
     public class CashSummaryReport
     {
-        //new model
+        //new model  
+        double Totalnet = 0;
+        double Totalrec = 0;
         List<CashSummaryModel> List;
         DateTime Date;
         string Branch;
         string Day;
-        public CashSummaryReport(List<CashSummaryModel> list,DateTime date,string branch)
+        public CashSummaryReport(List<CashSummaryModel> list, DateTime date, string branch)
         {
             this.List = list;
             this.Date = date;
@@ -23,17 +25,16 @@ namespace AsiaLabv1.Models
                 this.Day = "Monday";
             else if (date.Day == 2)
                 this.Day = "Tuesday";
-            else if (date.Day == 2)
+            else if (date.Day == 3)
                 this.Day = "Wednesday";
-            else if (date.Day == 2)
+            else if (date.Day == 4)
                 this.Day = "Thursday";
-            else if (date.Day == 2)
+            else if (date.Day == 5)
                 this.Day = "Friday";
-            else if (date.Day == 2)
+            else if (date.Day == 6)
                 this.Day = "Saturday";
             else
                 this.Day = "Sunday";
-
             this.Branch = branch;
         }
 
@@ -51,7 +52,7 @@ namespace AsiaLabv1.Models
             WriteTextOnPdf(graph, font, pdfPage, "ASIA LAB DIAGNOSTIC CENTRE", 200, 5);
 
             font = new XFont("Arial", 12, XFontStyle.Regular);
-            WriteTextOnPdf(graph, font, pdfPage, Branch , 245, 25);
+            WriteTextOnPdf(graph, font, pdfPage, Branch, 245, 25);
 
             font = new XFont("Arial", 13, XFontStyle.Bold);
             WriteTextOnPdf(graph, font, pdfPage, "Cash Summary Counter With Expense", 200, 40);
@@ -91,6 +92,8 @@ namespace AsiaLabv1.Models
             WriteTextOnPdf(graph, font, pdfPage, "BILL", 397, Y1);
             WriteTextOnPdf(graph, font, pdfPage, "DIS", 437, Y1);
             WriteTextOnPdf(graph, font, pdfPage, "NET", 477, Y1);
+            WriteTextOnPdf(graph, font, pdfPage, "Total Net: ", 430, 747);
+            //WriteTextOnPdf(graph, font, pdfPage, "Total Rec: ", 430, 750);
             WriteTextOnPdf(graph, font, pdfPage, "REC", 517, Y1);
             WriteTextOnPdf(graph, font, pdfPage, "DUE", 557, Y1);
 
@@ -101,6 +104,7 @@ namespace AsiaLabv1.Models
             {
                 if (i % 40 == 0)
                 {
+
                     pdfPage = pdf.AddPage();
                     graph = XGraphics.FromPdfPage(pdfPage);
                     Y1 = 40;
@@ -115,16 +119,21 @@ namespace AsiaLabv1.Models
                 WriteTextOnPdf(graph, font, pdfPage, item.ChargeDetails, 306, Y1);
                 WriteTextOnPdf(graph, font, pdfPage, item.Bill + "", 396, Y1);
                 WriteTextOnPdf(graph, font, pdfPage, item.Dis + "", 436, Y1);
-                WriteTextOnPdf(graph, font, pdfPage, item.Net + "", 476, Y1);
+                WriteTextOnPdf(graph, font, pdfPage, item.Net + "", 476, Y1);                
+               
                 WriteTextOnPdf(graph, font, pdfPage, item.Rec + "", 516, Y1);
                 WriteTextOnPdf(graph, font, pdfPage, item.Due + "", 556, Y1);
                 Y1 += 15;
+                Totalnet = Totalnet + item.Net;
+                //Totalrec = Totalrec + item.Rec;
             }
             i++;
+            WriteTextOnPdf(graph, font, pdfPage, Totalnet + "", 490, 747);
+            //WriteTextOnPdf(graph, font, pdfPage, Totalrec + "", 460, 750);
             return pdf;
         }
 
-        public void DrawVerticalLines(XGraphics graph,int Y1,int Y2, int stroke)
+        public void DrawVerticalLines(XGraphics graph, int Y1, int Y2, int stroke)
         {
             DrawLineonPdf(graph, new PointF(5, Y1), new PointF(5, Y2), stroke);
             DrawLineonPdf(graph, new PointF(515, Y1), new PointF(515, Y2), stroke);

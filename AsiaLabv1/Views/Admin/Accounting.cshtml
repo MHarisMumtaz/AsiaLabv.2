@@ -94,7 +94,49 @@
                     <br /><br /><br /><br /><br /><br /><br /><br /><br />
 
                     <br />
+                     <div class="form-group">
+                        <label for="selector1" class="col-sm-2 control-label">Select Branch Name</label>
+                        <div class="col-sm-8">
+                               @Html.DropDownListFor(model => model.BranchId, Model.Branches, "--Select--", new { @class = "drp", required = "required" ,id="branchId2" })
+                          <!--  <select name="selector1" id="selector1" class="form-control1">
+                                <option>Garden Branch</option>
+                                <option>North Karachi Branch</option>
+                                <option>Liaquatabad Branch</option>
+                                <option>Johar Branch</option>
+                                <option>Surjani Branch</option>
+                            </select>-->
+                        </div>
+                    </div>
 
+
+                    <div class="form-group">
+                        <label for="pname" class="col-sm-2 control-label">From</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control1" id="fromDate">
+                        </div>
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pname" class="col-sm-2 control-label">To</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control1" id="toDate">
+                        </div>
+
+                    </div>
+                   <!-- <div class="form-group">
+                        <label for="pname" class="col-sm-2 control-label">To Date</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control1" id="focusedinput">
+                        </div>
+
+                    </div>-->
+
+                    <div class="col-sm-2 login-do" style="margin-left:40%">
+                        <label class="hvr-shutter-in-horizontal login-sub">
+                            <input type="button" value="Print Summary" onclick="printDoctSummary()" />
+                        </label>
+                    </div>
 
                     <div class="clearfix"> </div>
                 </form>
@@ -105,6 +147,27 @@
 <br /><br /><br />
 
 <script>
+    function printDoctSummary(){
+        var From = $('#fromDate').val();
+        var To =$('#toDate').val();
+        var BranchId=$('#branchId2').val();
+        var model={
+            FromDate : From,
+            ToDate : To,
+            BranchId : BranchId
+        };
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("PrintDoctorSummary","Admin")",
+            data: JSON.stringify(model),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (data) {
+                alert(data);
+            }
+        });
+    }
+
     function printSummary() {
         var summarydate = $('#summaryDate').val();       
         var branchId = $('#BranchId').val();

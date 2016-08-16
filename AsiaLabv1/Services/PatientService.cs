@@ -147,7 +147,43 @@ namespace AsiaLabv1.Services
                 });
             }
             return List;
+        }
 
+        public List<DoctorWiseSummaryModel> GetDoctorWiseSummary(DateTime From, DateTime To, int BranchId)
+        {
+
+            var Query = (from refer in _ReferRepository.Table
+                         join referpateint in _PatientReferRepository.Table on refer.Id equals referpateint.ReferId
+                         join patient in _PatientRepository.Table on referpateint.PatientId equals patient.Id
+                         join pay in _PaymentRepository.Table on patient.Id equals pay.PatientId
+                         where patient.BranchId == BranchId &&
+                         (patient.DateTime.Year >= From.Year && patient.DateTime.Year <=To.Year) &&
+                         (patient.DateTime.Day >= From.Day && patient.DateTime.Day <= To.Day) &&
+                         (patient.DateTime.Month >= From.Month && patient.DateTime.Month <= To.Month)
+                         group new { refer, referpateint, pay } by new { refer.Id } into items
+                         select new
+                         {
+                             DoctorName = items.Select(i => i.refer.ReferredDoctorName).FirstOrDefault(),
+                             Patients = items.Count(i => i.referpateint.PatientId == i.pay.PatientId),
+                             CommBill = items.Sum(i => i.pay.NetAmount),
+                             DocComm = items.Select(i => i.refer.commission).FirstOrDefault()
+                         }).ToList();
+            var list = new List<DoctorWiseSummaryModel>();
+            foreach (var item in Query)
+            {
+                var model = new DoctorWiseSummaryModel
+                {
+                    DoctorName = item.DoctorName,
+                    PatNo = item.Patients,
+                    CommBill = item.CommBill
+                };
+                if (item.DocComm!=null)
+                {
+                    model.DocCommision = ((Convert.ToDouble(item.DocComm) / 100) * item.CommBill);
+                }
+                list.Add(model);
+            }
+            return list;
         }
 
     }
